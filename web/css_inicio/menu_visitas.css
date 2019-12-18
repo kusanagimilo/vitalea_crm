@@ -1,0 +1,165 @@
+@charset "utf-8";
+/* CSS Document */
+.asterisco
+{
+	color:#F00;	
+}
+body
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.div_menu 
+{
+	margin:0px auto;
+	width:750.5px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	background-color:#911108;
+	margin: auto auto;
+	padding:5px;
+}
+div a 
+{
+	font-weight:bold;
+    text-decoration: none;
+    color: white;
+    font-size: 100%;
+    padding: 5px;
+    display:inline-block;
+	/*border-right:2px solid #FFF;*/
+	border-radius-right:10px;
+	border-radius-lefth:10px;
+}
+ul 
+{
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+ul li 
+{
+	display: inline-block;
+}
+ul li:hover 
+{	
+/*	background-color:#db1a00; /*rojo*/
+
+background-color:#999;
+	background: #b4e391; 
+	background: -moz-linear-gradient(top, #c45742 0%, #911108 50%, #c45742 100%); 
+	background: -webkit-linear-gradient(top, #c45742 0%,#911108 50%,#c45742 100%); 
+	background: linear-gradient(to bottom, #c45742 0%,#911108 50%,#c45742 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c45742', endColorstr='#c45742',GradientType=0 ); 
+	cursor:pointer;
+
+}
+.menu_bar a:hover
+{	
+/*	background-color:#db1a00; /*rojo*/
+
+background-color:#999;
+	background: #b4e391; 
+	background: -moz-linear-gradient(top, #c45742 0%, #911108 50%, #c45742 100%); 
+	background: -webkit-linear-gradient(top, #c45742 0%,#911108 50%,#c45742 100%); 
+	background: linear-gradient(to bottom, #c45742 0%,#911108 50%,#c45742 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c45742', endColorstr='#c45742',GradientType=0 );
+	cursor:pointer;
+
+}
+.menu_bar
+{
+	display:none;
+}
+@media screen and (max-width:1000px)
+{
+	.menu_bar
+	{
+		border-bottom:2px solid #FFF;
+		display:block;
+		background-color:#911108;
+		width:99%;
+		padding:2px;
+		padding-bottom:8px;
+		padding-top:8px;
+	}
+	.menu_bar .bt-menu
+	{
+		display:block;
+		background:#911108;
+		color:#fff;
+		text-decoration:none;
+		font-weight:bold;
+		font-size:150%;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+	}
+	.div_menu 
+	{
+		margin:0px 0px;
+		width:98%;
+		padding:5px;
+	}
+	ul li 
+	{
+		display:block;
+		padding-left:10px;
+		padding-bottom:2px;
+		padding-top:2px;
+		border-bottom:2px solid #FFF;
+	}
+	.div_menu nav ul li a
+	{
+		display:block;
+		float:none;
+	}
+	div a
+	{
+		border-right:none;
+	}
+}
+@media screen and (max-width:765px)
+{
+	input[type=text]
+	{
+		width:90%;
+	}
+}
+@media screen and (max-width:725px)
+{
+	input[type=text]
+	{
+		
+		width:88%;
+	}
+}
+@media screen and (max-width:608PX)
+{
+	input[type=text]
+	{
+		width:85%;
+	}
+}
+@media screen and (max-width:500PX)
+{
+	input[type=text]
+	{
+		width:80%;
+	}
+}
+
+@media screen and (max-width:370PX)
+{
+	input[type=text]
+	{
+		/*background-color:#0F0;*/
+		width:75%;
+	}
+}
+@media screen and (max-width:150px)
+{
+	input[type=text]
+	{
+		/*background-color:#F00;*/
+		width:33%;
+	}
+}

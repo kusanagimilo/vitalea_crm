@@ -1,0 +1,92 @@
+@charset "utf-8";
+/* CSS Document */
+body
+{
+ height:100%;
+	width:100%;
+}
+
+
+fieldset
+{
+	border-left:none;
+	border-right:none;
+	border-bottom:none;
+}
+.class_peque
+{
+	display:none;
+}
+input[type=text]:focus 
+{ 
+	outline: 0; 
+	border-radius:5px;
+}
+input[type=password]:focus 
+{ 
+	outline: 0;
+	border-radius:5px;
+}
+.grande
+{
+	display:block;
+	/*border:1px solid #000;*/
+	border-radius:10px;
+	width:100%;
+}
+.class_peque
+{
+	display:none;
+}
+.btn_ingreso
+{
+	
+ /*background-image:url(../diseno/btn_inicio_sesion.png);
+
+  background-repeat:no-repeat;
+  height:100px;
+  width:100px;
+  background-position:center;
+	border:1px solid #ccc;
+	
+*/
+	padding:6px;
+	margin:auto auto;
+	width:98.5%;
+	height:98px;
+	border-radius:8px;
+	color:#FFF;
+	font-weight:bold
+}
+input
+{
+	height:6%;
+	line-height:2%;
+	width:95.5%;
+	font-size:120%;
+	font-weight:bold;
+}
+@media screen and (max-width:1000px)
+{
+	.class_peque
+	{
+		width:100%;
+		
+		display:inline-block;
+		border-radius:5px;
+		padding:0px;
+	}
+	.grande
+	{
+		display:none;
+	}
+	input
+	{
+		height:6%;
+		line-height:2%;
+		width:92%;
+		font-size:120%;
+		font-weight:bold;
+	}
+}
+

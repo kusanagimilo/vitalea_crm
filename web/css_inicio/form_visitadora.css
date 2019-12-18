@@ -1,0 +1,323 @@
+*
+{
+	margin:0;
+	padding:0;
+}
+body
+{
+	background:#fffffa;
+}
+header
+{
+	width:100%;
+}
+header nav
+{
+	width:90%;
+	max-width:1000px;
+	margin:20px auto;
+	background:#024959;
+	height:1500px;
+}
+.DIV1
+{
+	width:0%;
+	display:none;
+}
+.menu_bar
+{
+	display:none;
+	background:#AD0F1C;
+}
+header nav ul
+{
+	overflow:hidden;
+	list-style:none;
+}
+header nav ul li
+{
+	float:left;
+}
+header nav ul li a
+{
+	color:#FFFFFF;
+	padding:20px;
+	display:block;
+	text-decoration:none;
+}
+header nav ul li span
+{
+	margin-right:10px;
+}
+header nav ul li a:hover
+{
+	background:#037e8c;
+}
+section
+{
+	padding:20px;
+}
+.list-menu ul
+{
+ margin:0;
+ padding:0;
+ list-style:none;
+ height:0;
+ overflow: scroll;
+ transition:1s;
+ -moz-transition:1s;
+ -webkit-transition:1s;
+}
+
+@media screen and (max-width:1000px)
+{
+.img{
+	width:200%;
+	height:auto;
+}	
+	
+	.DIV1
+	{
+		width:40%;
+		padding:3%;
+		display:inline-block;
+		height:auto;
+		/*border:1px solid #000;*/
+		padding-bottom:1%;
+		margin-left:2%;
+	}
+	header nav
+	{
+		width:100%;
+		height:1000px;
+		margin:0;
+		position:relative;
+	}
+	header nav ul li
+	{
+		display:block;
+		float:none;
+		border-bottom:1px solid rgba(255,255,255, .3);
+		
+	}
+	.menu_bar
+	{
+		display:block;
+		width:100%;
+		background:#999;
+	}
+	.menu_bar .bt_menu
+	{
+		display:block;
+		padding:15px;
+		background:#000;
+		color:#FFF;
+		text-decoration:none;
+		font-weight:bold;
+		font-size:20px;
+		-webkit-box-sizing:border-box;
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+	}
+	.menu_bar span
+	{
+		float:right;
+		font-size:40px;
+	}
+
+.list-menu ul
+{
+ margin:0;
+ padding:0;
+ list-style:none;
+ height:0;
+ overflow: scroll;
+ transition:1s;
+ -moz-transition:1s;
+ -webkit-transition:1s;
+}
+.list-menu
+{
+ list-style:none;
+}
+
+ 
+.list-menu li:hover ul
+{
+ height:auto;
+ overflow-y:auto;
+ overflow-x:hidden;
+ background:rgba(108,151,176,0.5);
+}
+
+}
+
+/*estilo formulario*/
+input[type=text]:focus 
+{ 
+	outline: 2px solid #AD0F1C; 
+	border-radius:5px;
+}
+input[type=number]:focus 
+{ 
+	outline: 2px solid #AD0F1C; 
+	border-radius:5px;
+}
+input[type=password]:focus 
+{ 
+	outline: 2px solid #AD0F1C; 
+	border-radius:5px;
+}
+input[type=date]:focus 
+{ 
+	outline: 2px solid #AD0F1C; 
+	border-radius:5px;
+}
+input[type=date]
+{
+	width:97%;
+	height:8%;
+	text-transform:uppercase;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+input[type=number]
+{
+	width:97%;
+	height:8%;
+	text-transform:uppercase;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+input[type=text]
+{
+	width:97%;
+	height:8%;
+	text-transform:uppercase;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+input[type=email]
+{
+	width:97%;
+	height:8%;
+	text-transform:uppercase;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+select:focus 
+{ 
+	outline: 2px solid #AD0F1C; 
+	border-radius:5px;
+}
+select
+{
+	width:97%;
+	height:8%;
+	text-transform:uppercase;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.botones 
+{
+background-position:center;
+background-image:url(../img/orange_folder_cd.png);
+background-color:inherit;
+background-repeat:no-repeat;
+width:120px;
+height:35px;
+border-radius:5px;
+color:transparent;
+text-decoration:none;
+
+}
+
+.botones:hover 
+{
+background-position:center;
+background-image:url(../img/orange_folder_cd.png);
+color:transparent;
+background-color:inherit;
+box-shadow: 0px 0px 25px rgba(0,0,0,0.3),
+inset 0px 0px 20px #412410;
+background-repeat:no-repeat;
+width:125px;
+height:45px;
+border-radius:5px;
+color:transparent;
+}
+
+.botones:active 
+{
+color:transparent;
+background-color:inherit;
+box-shadow: 0px 0px 25px rgba(0,0,0,0.3),
+inset 0px 0px 20px #412410;
+}
+.labeltitu
+{
+	font-size:70%; 
+	color:#2982A3; 
+	float:left;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+td 
+{
+	padding:1%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:100%;
+}
+th 
+{
+	padding:1%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	text-transform:uppercase;
+}
+.icon-coca
+{
+	background-image:url(img/check_02.png) no-repeat;
+}
+
+
+
+#link1:active
+{
+	background-color:#09F;
+	outline: 2px solid rgba(255,255,255, .3); 
+}
+#link1:hover
+{
+	outline: 2px solid rgba(255,255,255, .3);
+	cursor:pointer;
+}
+#link2:hover
+{
+	outline: 2px solid rgba(255,255,255, .3);
+	cursor:pointer;
+}
+#link3:hover
+{
+	outline: 2px solid rgba(255,255,255, .3);
+	cursor:pointer;
+}
+.link:hover
+{
+	outline: 2px solid rgba(255,255,255, .3);
+	cursor:pointer;
+}
+input[type=button]
+{
+	background-color:#024959;
+	border:none;
+	text-decoration:underline;
+	font-size:120%;
+	color:#FFF;
+	padding:15px;
+}
+.link
+{
+	width:100%;
+	border-bottom:1px solid rgba(255,255,255, .3);
+}
+.div_span
+{
+	padding:15px;
+	color:#FFF;
+}

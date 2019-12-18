@@ -1,0 +1,29 @@
+table.tabla_1 {
+  border: 3px solid #0483B2;
+  background-color: #FFF8EB;
+  width: 80%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.tabla_1 td, table.tabla_1 th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.tabla_1 td {
+  font-size: 25px;
+}
+table.tabla_1 tr:nth-child(even) {
+  background: #DCF4FF;
+}
+table.tabla_1 th {
+  background: #0483B2;
+  background: -moz-linear-gradient(top, #43a2c5 0%, #1d8fb9 66%, #0483B2 100%);
+  background: -webkit-linear-gradient(top, #43a2c5 0%, #1d8fb9 66%, #0483B2 100%);
+  background: linear-gradient(to bottom, #43a2c5 0%, #1d8fb9 66%, #0483B2 100%);
+  font-size: 30px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  border-left: 1px solid #0483B2;
+  border-left: none;
+}
