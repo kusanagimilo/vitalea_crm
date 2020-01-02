@@ -47,7 +47,7 @@ WHERE ven.id =:id");
 
 
         $par = array();
-        $client = new SoapClient("http://192.168.50.134/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
+        $client = new SoapClient("http://190.60.101.55/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
         $headers = new SoapHeader("http://tempuri.org/", 'ServiceAuthHeader', new WS("AtheneaWS", "4th3n3a*"));
         $client->__setSoapHeaders($headers);
     
@@ -148,11 +148,12 @@ WHERE ven.id =:id");
 
         $query = $conexion->prepare("SELECT cli.id_cliente,cli.tipo_documento,cli.documento,cli.fecha_nacimiento,cli.nombre,cli.apellido,
 cli.sexo,cli.direccion,CONCAT(ci.nombre,' - ',dpto.nombre) AS ubicacion,cli.estrato,
-cli.email,cli.estado_civil_id,cli.id_cliente_athenea,cli.telefono_1,ven.id,ven.medio_pago
+cli.email,cli.estado_civil_id,cli.id_cliente_athenea,cli.telefono_1,ven.id,ven.medio_pago,ven.bono,bon.cantidad_descuento
 FROM cliente cli
 INNER JOIN ciudad ci ON ci.id = cli.ciudad_id
 INNER JOIN departamento dpto ON dpto.id = ci.departamento_id
 INNER JOIN venta ven ON ven.cliente_id = cli.id_cliente
+LEFT JOIN bono bon ON bon.id = ven.bono 
 WHERE ven.id =:id");
 
 
@@ -170,7 +171,7 @@ WHERE ven.id =:id");
 
 
         $par = array();
-        $client = new SoapClient("http://192.168.50.134/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
+        $client = new SoapClient("http://190.60.101.55/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
         $headers = new SoapHeader("http://tempuri.org/", 'ServiceAuthHeader', new WS("AtheneaWS", "4th3n3a*"));
         $client->__setSoapHeaders($headers);
 
