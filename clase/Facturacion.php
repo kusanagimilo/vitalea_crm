@@ -67,7 +67,7 @@ GROUP BY ven.id");
             $arreglo_retorno[$i]["observacion"] = $value["observacion"];
             $arreglo_retorno[$i]["medio_pago"] = $value["medio_pago"];
             $arreglo_retorno[$i]["cliente"] = $value["cliente"];
-            $arreglo_retorno[$i]["total_venta"] = $value["total_venta"];
+            $arreglo_retorno[$i]["total_venta"] = number_format($value["total_venta"]);
             $arreglo_retorno[$i]["fecha_creacion"] = $value["fecha_creacion"];
             $arreglo_retorno[$i]["fecha_pago"] = $value["fecha_pago"];
             $arreglo_retorno[$i]["estado"] = $value["estado"];
