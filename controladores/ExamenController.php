@@ -41,5 +41,11 @@ if ($tipo == 1) {
 }if ($tipo == 10) {
     $retorno = $Obj_Examen->AlmacenarExamen($_POST);
     echo $retorno;
+}if ($tipo == 11) {
+    $retorno = $Obj_Examen->InformacionPerfil($_POST);
+    echo $retorno;
+}if ($tipo == 12) {
+    $retorno = $Obj_Examen->ModificarPerfil($_POST);
+    echo $retorno;
 }
 

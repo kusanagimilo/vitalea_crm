@@ -32,7 +32,8 @@ function VerExamenesNoPerfiles() {
             $.each(retu, function (i, nperfil) {
 
 
-                var botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerExamenesPorPerfil(' + nperfil.id + ')" value="Ver y adicionar examenes" class="btn btn-sm btn-primary">';
+                var botones = '<input type="button" data-toggle="modal" data-target="#myModalPerfilesMod" onclick="CargaDataExamenPerfil(' + nperfil.id + ')" value="Modificar perfil" class="btn btn-sm btn-default"><br>' +
+                        '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerExamenesPorPerfil(' + nperfil.id + ')" value="Ver y adicionar examenes" class="btn btn-sm btn-primary">';
 
 
 
@@ -361,8 +362,11 @@ function ListaGrupos() {
 
     $("#grupo_perfil").empty();
     $("#grupo_perfil").append("<option value=''>--seleccione--</option>");
+    $("#grupo_perfil_mod").empty();
+    $("#grupo_perfil_mod").append("<option value=''>--seleccione--</option>");
     $.each(datos, function (i, examen) {
         $("#grupo_perfil").append("<option value='" + examen.id + "'>" + examen.nombre + "</option>");
+        $("#grupo_perfil_mod").append("<option value='" + examen.id + "'>" + examen.nombre + "</option>");
     });
 }
 
@@ -481,4 +485,86 @@ function LimpiarExamen() {
     $("#codigo_examen").val();
     $("#nombre_examen").val();
     $("#precio_examen").val();
+}
+
+
+function CargaDataExamenPerfil(id_perfil) {
+
+    var datos;
+    $.ajax({
+        type: "POST",
+        url: "../controladores/ExamenController.php",
+        async: false,
+        dataType: 'json',
+        data: {
+            tipo: 11,
+            id_perfil: id_perfil
+
+        },
+        success: function (retu) {
+            datos = retu;
+        }
+    });
+    var datos_perfil = datos[0];
+    console.log(datos_perfil);
+    $("#grupo_perfil_mod").val(datos_perfil.grupo_id);
+    $("#nombre_perfil_mod").val(datos_perfil.nombre);
+    $("#codigo_perfil_mod").val(datos_perfil.codigo_crm);
+    $("#precio_perfil_mod").val(datos_perfil.precio);
+    $("#recomendaciones_perfil_mod").html(datos_perfil.recomendaciones);
+    $("#preparacion_perfil_mod").html(datos_perfil.preparacion);
+    $("#modi_perf").attr("onclick", "ModificarPerfil(" + id_perfil + ")");
+
+
+}
+
+function ModificarPerfil(id_perfil) {
+
+    var grupo_id = $.trim($("#grupo_perfil_mod").val());
+    var nombre = $.trim($("#nombre_perfil_mod").val());
+    var codigo = $.trim($("#codigo_perfil_mod").val());
+    var precio = $.trim($("#precio_perfil_mod").val());
+    var recomendaciones = $.trim($("#recomendaciones_perfil_mod").val());
+    var preparacion = $.trim($("#preparacion_perfil_mod").val());
+
+    if (grupo_id == "" || precio == "" || recomendaciones == "" || preparacion == "" || codigo == "" || nombre == "") {
+        alertify.alert("Revise el formulario y complete los datos obligatorios");
+    } else {
+
+        var confirma = confirm("Esta seguro de  modificar el perfil");
+        if (confirma) {
+
+            var datos;
+            $.ajax({
+                type: "POST",
+                url: "../controladores/ExamenController.php",
+                async: false,
+                dataType: 'json',
+                data: {
+                    tipo: 12,
+                    grupo_id: grupo_id,
+                    nombre: nombre,
+                    codigo: codigo,
+                    precio: precio,
+                    recomendaciones: recomendaciones,
+                    preparacion: preparacion,
+                    id_perfil: id_perfil
+                },
+                success: function (retu) {
+                    datos = retu;
+                }
+            });
+
+            if (datos == 1) {
+                alertify.alert("Se modifico correctamente el perfil", function () {
+                    VerExamenesNoPerfiles();
+                    $('#myModalPerfilesMod').modal('toggle');
+                });
+            } else if (datos == 2) {
+                alertify.alert("Ocurrio un error al tratar de modificar el perfil");
+            }
+
+        }
+
+    }
 }

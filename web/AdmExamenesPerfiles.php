@@ -170,6 +170,59 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
 
+    <div class="modal" id="myModalPerfilesMod"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white" >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt=""/>Modificar perfil</h4>
+                </div>
+                <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
+
+                    <!-- formulario -->
+
+                    <div class="form-group">
+                        <label for="inputselect">* Seleccione el grupo para el perfil</label>
+                        <select class="form-control" id="grupo_perfil_mod">
+                            <option value="seleccione">--seleccione--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese el nombre para el perfil</label>
+                        <input type="text" class="form-control" id="nombre_perfil_mod" placeholder="Nombre perfil">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese el codigo (athenea) para el perfil</label>
+                        <input type="text" class="form-control" id="codigo_perfil_mod" placeholder="Codigo perfil">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese el precio para el perfil</label>
+                        <input type="number" class="form-control" id="precio_perfil_mod" placeholder="Precio perfil">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Ingrese las recomendaciones para el perfil</label>
+                        <textarea class="form-control" id="recomendaciones_perfil_mod" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Ingrese la preparacion para el perfil</label>
+                        <textarea class="form-control" id="preparacion_perfil_mod" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button onclick="" id="modi_perf" type="button" class="btn btn-primary btn-lg btn-block">Modificar perfil</button>
+                    </div>
+
+
+                </div>          
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>                            
+        </div>
+    </div>
+
+
+
 
 
 

@@ -185,4 +185,52 @@ WHERE exa.id = :id");
         }
     }
 
+    function InformacionPerfil($data) {
+        $query = $this->conexion->prepare("SELECT * FROM examen WHERE id = :id");
+        $query->execute(array(':id' => $data['id_perfil']));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($rows);
+    }
+
+    function ModificarPerfil($data) {
+        session_start();
+        $id_usuario = $_SESSION["ID_USUARIO"];
+
+        $precio_5 = intval($data['precio']) - 5000;
+        $precio_10 = intval($data['precio']) - 10000;
+        $precio_15 = intval($data['precio']) - 15000;
+
+        $query_mod = $this->conexion->prepare("UPDATE examen SET 
+                                               grupo_id =:grupo_id,
+                                               nombre =:nombre,
+                                               codigo_crm=:codigo,
+                                               preparacion=:preparacion,
+                                               recomendaciones=:recomendaciones,
+                                               precio=:precio,
+                                               precio_menos_cinco=:precio_menos_cinco,
+                                               precio_menos_diez=:precio_menos_diez,
+                                               precio_menos_quince=:precio_menos_quince,
+                                               id_usuario_modifico=:id_usuario_modifico
+                                               WHERE id=:id_perfil");
+
+
+        $query_mod->execute(array(':grupo_id' => $data['grupo_id'],
+            ':nombre' => $data['nombre'],
+            ':codigo' => $data['codigo'],
+            ':preparacion' => $data['preparacion'],
+            ':recomendaciones' => $data['recomendaciones'],
+            ':precio' => $data['precio'],
+            ':precio_menos_cinco' => $precio_5,
+            ':precio_menos_diez' => $precio_10,
+            ':precio_menos_quince' => $precio_15,
+            ':id_usuario_modifico' => $id_usuario,
+            ':id_perfil' => $data['id_perfil']));
+
+        if ($query_mod) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
 }
