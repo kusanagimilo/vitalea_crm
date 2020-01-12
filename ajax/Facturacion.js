@@ -465,7 +465,7 @@ function ListaArqueo() {
                 newRow += "<td>" + ventas.documento_atendio + "</td>";
                 newRow += "<td>" + ventas.paciente + "</td>";
                 newRow += "<td>" + ventas.documento_paciente + "</td>";
-                newRow += "<td>" + ventas.valor_total + "</td>";
+                newRow += "<td>" + formatNumber(parseInt(ventas.valor_total)) + "</td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_arqueo_cot_body");
