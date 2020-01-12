@@ -751,7 +751,16 @@ require_once '../include/header_administrador.php';
                                                                         <option value="No">No</option>
                                                                     </select></td>
                                                             </tr>
-
+                                                            <tr>
+                                                                <label for="" class="labelCrearCliente">¿Como conociste Vitalea?</label>
+                                                                <select name="" id="">
+                                                                    <option value="">Instagram</option>
+                                                                    <option value="">Facebook</option>
+                                                                    <option value="">Pagina Web</option>
+                                                                    <option value="">Un Amigo</option>
+                                                                    <option value="">Vi el local</option>
+                                                                </select>
+                                                            </tr>
 
                                                             <tr id="resultado_clasificacion">
                                                                 <th><p style="color:#00c292;">Perfil del paciente</p></th>
