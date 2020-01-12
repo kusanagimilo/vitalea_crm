@@ -42,7 +42,7 @@
             ?>
             <a class="navbar-brand" style="background: transparent;" href="<?php echo $inicio; ?>">
 
-                <img src="../images/vitalea_logo3.png"  />
+                <img style="border-radius: 15px; position: absolute; bottom: 8px;" src="../images/vitalea_logo3.png"  />
 
             </a>
         </div>
