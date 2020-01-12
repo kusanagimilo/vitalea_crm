@@ -10,6 +10,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <link rel="icon" href="../images/cions.png" type="image/png">
+    <link rel="stylesheet" href="../web/css_inicio/estilosForzados.css">
     <!-- menu nuevo -->
 <nav class="navbar navbar-default"  style=" background-color: #214761; ">
     <div class="container-fluid">
@@ -42,7 +43,7 @@
             ?>
             <a class="navbar-brand" style="background: transparent;" href="<?php echo $inicio; ?>">
 
-                <img style="border-radius: 15px; position: absolute; bottom: 8px;" src="../images/vitalea_logo3.png"  />
+                <img class="logotipoAllPages" title="Ir a la pagina de Inicio." src="../images/vitalea_logo3.png">
 
             </a>
         </div>

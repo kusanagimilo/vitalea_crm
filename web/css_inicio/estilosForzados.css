@@ -1,0 +1,13 @@
+/*.logotipoAllPages esta clase es utilizada para la modificacion del logo principal ubicada en el documento 'header_administardor.php'*/
+.logotipoAllPages {
+    border-radius: 20px !important; 
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 28px;
+    transition: all ease 300ms;
+}
+
+/*.logotipoAllPages:hover es utilizada para la modificacion del logo principal en su pseudoclase 'hover' ubicada en el documento 'header_administardor.php'*/
+a:hover .logotipoAllPages {
+    transform: scale(1.25);
+}
