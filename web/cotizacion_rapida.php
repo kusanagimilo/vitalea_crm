@@ -103,6 +103,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                     <div class="panel panel-primary">
                                                         <div class="panel-heading">Adicionar examenes</div>
                                                         <div class="panel-body">
+                                                        <!-- se utiliza funcion adicional en facturacion.js -->
                                                             <!-- inicio examenes -->
 
                                                             <div class="panel-group" id="accordion">
