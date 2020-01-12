@@ -563,12 +563,13 @@ function CotAddItem(tipo_item) {
             alert("ya adiciono este item");
         } else {
 
+            var numero = formatNumber(parseInt(datos.precio));
             var td_on = '"' + td_id + '"';
             var html = "<tr id='" + td_id + "'>" +
                     "<td>" + codigo + "<input type='hidden' value='" + datos.id + "' name='item_id[]' id='item_id[]' />" +
                     "<input type='hidden' value='" + tipo_item + "' name='tipo_item[]' id='tipo_item[]' ></td>" +
                     "<td>" + datos.nombre + "</td>" +
-                    "<td>" + datos.precio + "</td>" +
+                    "<td>" + numero + "</td>" +
                     "<td><input type='button' onclick='ElimItem(" + td_on + "," + datos.precio + ")' class='btn btn-danger' value='Eliminar item'></td>" +
                     "</tr>";
 
@@ -582,7 +583,8 @@ function CotAddItem(tipo_item) {
             }
 
             var valor_total = valor_actual + precio;
-            $("#total_m").html(valor_total);
+            
+            $("#total_m").html(formatNumber(valor_total));
             $("#total").val(valor_total);
 
         }
@@ -711,7 +713,7 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.direccion + "</td>";
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
-                newRow += "<td>" + precot.valor + "</td>";
+                newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_precot_cot_body");
@@ -725,4 +727,21 @@ function VerPrecotizaciones() {
         responsive: true
     });
 
+}
+
+function formatNumber(num) {
+    if (!num || num == 'NaN') return '-';
+    if (num == 'Infinity') return '&#x221e;';
+    num = num.toString().replace(/\$|\,/g, '');
+    if (isNaN(num))
+        num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num * 100 + 0.50000000001);
+    cents = num % 100;
+    num = Math.floor(num / 100).toString();
+    if (cents < 10)
+        cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
+        num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
+    return (((sign) ? '' : '-') + num + ',' + cents);
 }
