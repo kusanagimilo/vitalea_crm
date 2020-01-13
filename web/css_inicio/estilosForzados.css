@@ -16,3 +16,14 @@ a:hover .logotipoAllPages {
     margin-left: 15px;
     margin-right: 53.25%;
 }
+
+.headerTabla {
+    background-color: #214761;
+    
+}
+
+.headerTabla > th {
+    color: white !important;
+    width: 0px ;
+    font-weight: bolder;
+}
