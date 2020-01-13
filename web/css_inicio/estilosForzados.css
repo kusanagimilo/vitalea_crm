@@ -17,9 +17,9 @@ a:hover .logotipoAllPages {
     margin-right: 53.25%;
 }
 
+/*la clase .headerTabla es utilizada para dar estilos a la tabla ubicada en el modulo de Valores de Referencia, en el directorio del proyecto 'web/valoresReferencia.php'*/
 .headerTabla {
-    background-color: #214761;
-    
+    background-color: #214761;   
 }
 
 .headerTabla > th {

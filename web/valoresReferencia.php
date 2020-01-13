@@ -44,37 +44,18 @@ require_once '../include/header_administrador.php';
                                     <option value="">Vi el local</option>
                                 </select>
                             </tr>
-                            <tr id="resultado_clasificacion">
-                                <th><p style="color:#00c292;">Perfil del paciente</p></th>
-                                <td>
-                                    <p id="resultado">
-                                     <!--<input type="hidden" id="clasificacion">-->
-                                        <select id="clasificacion" style="width: 100%">
-                                            <option value="">Seleccione</option>
-                                            <option value="1">General</option>
-                                            <option value="2">Fitness</option>
-                                            <option value="3">Nutrición</option>
-                                            <option value="4">Cronico</option>
-                                            <option value="5">Salud Sexual</option>
-                                            <option value="6">Genético</option>
-                                            <option value="7">Wellness y Autoconocimiento</option>
-                                            <option value="8">Salud Reproductiva</option>    
-                                            <option value="9">Viajero</option>
-                                        </select>
-                                    </p>
-                                </td>
-                            </tr>
                         </table>    
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="table-responsive col-lg-10 col-md-offset-1" >
+        <div class="table-responsive col-lg-10 col-md-offset-1" style="overflow: auto; height: 260px;" >
             <div class="dataTables_wrapper">
                 <table class="table table-bordered dataTable no-footer" role="grid">
                     <thead>
                         <tr class="headerTabla">
+                            <th>Id</th>
                             <th>Id Examen</th>
                             <th>Tipo de Medida</th>
                             <th>Unidad</th>
@@ -90,7 +71,6 @@ require_once '../include/header_administrador.php';
                             <th>Edad Maxima</th>
                             <th>Sexo</th>
                             <th>Otros</th>
-                            <th>Edad</th>
                         </tr>
                     </thead>
                     <tbody id="filasCuerpoTabla">
