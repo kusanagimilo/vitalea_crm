@@ -30,13 +30,15 @@
                     }
             }
             
+            //Utilizamos este ciclo for para recorrer todoS los parametros de nuestro objeto JSON.
             for (let i = 0; i < jsonParseado.length; i++) {
                 var crearReg = new FilasTabla (jsonParseado[i].id_valor_referencia, jsonParseado[i].id_examen, jsonParseado[i].medida, jsonParseado[i].unidad, 
                     jsonParseado[i].valor_critico_inferior, jsonParseado[i].valor_critico_superior, jsonParseado[i].anormal_disminuido_minimo, 
                     jsonParseado[i].anormal_disminuido_minimo, jsonParseado[i].anormal_disminuido_maximo, jsonParseado[i].rango_normal_minimo,
                     jsonParseado[i].rango_normal_maximo, jsonParseado[i].anormal_incrementado_minimo, jsonParseado[i].anormal_incrementado_maximo, jsonParseado[i].edad_minima,
                     jsonParseado[i].edad_maxima, jsonParseado[i].sexo, jsonParseado[i].otros, jsonParseado[i].unidad_edad);
-                    
+                
+                //Realizamos el fecthObject del objeto JSON utilizando el objeto 'crearReg', para poner cada uno de los valores en la tabla
                 filasCuerpo.innerHTML += "<tr>"+"<td>"+crearReg.id+"</td>"+"<td>"+crearReg.idExamen+"</td>"+"<td class='celdas1'>"+crearReg.tipoMedida+"</td>"+
                 "<td>"+crearReg.unidad+"</td>"+"<td>"+crearReg.valorCriticoInferior+"</td>"+"<td>"+crearReg.valorCriticoSuperior+"</td>"+
                 "<td>"+crearReg.anormalDisminuidoMinimo+"</td>"+"<td>"+crearReg.anormalDisminuidoMaximo+"</td>"+"<td>"+crearReg.rangoNormalMinimo+"</td>"+
