@@ -187,9 +187,9 @@ require_once '../include/header_administrador.php';
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-sm-6 animate-box">
-                            <a class="fh5co-card" href="sub_menu_resultados.php" style="padding-top: 10px;">
+                            <a class="fh5co-card" href="./valoresReferencia.php" style="padding-top: 10px;">
                                 <center>
-                                    <img class="rounded-circle img-fluid d-block mx-auto" src="images/ResulPr.png" height="100" width="100" alt="">
+                                    <img class="rounded-circle img-fluid d-block mx-auto" src="images/valoresRef.png" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
                                         <h3>Valores de Referencia</h3>
                                     </div>
