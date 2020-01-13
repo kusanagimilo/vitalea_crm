@@ -14,7 +14,7 @@ class Conexion extends PDO {
         $servidor = "localhost";
         $usuario = "root";
         $password = "";
-        $base = "crm_preatencion";
+        $base = "crm_preatencion_prod";
 
         try {
             parent::__construct('mysql:host=' . $servidor . ';dbname=' . $base, $usuario, $password, array(
