@@ -421,7 +421,7 @@ function SolicitarTurnoFacturacion(tipo_turno, id_cliente, id_venta) {
 function ListaArqueo() {
     $("#lista_arqueo_cot_body").html("");
 
-    var tabla = '<center><input type="button" onclick="DescargarArqueo()" value="Descargar pdf arqueo" class="btn btn-danger"></center><table id="lista_arqueo_cot" class="table table-bordered">' +
+    var tabla = '<center><input type="button" onclick="DescargarArqueo()" value="Descargar pdf arqueo" class="btn btn-danger"> <input type="button" onclick="descargarExcelArqueo()" value="Descargar Excel" class="btn btn-success"></center><table id="lista_arqueo_cot" class="table table-bordered">' +
             '<thead>' +
             '<tr style="background-color: #214761;">' +
             '<th style="color:white">Fecha venta</th>' +
@@ -480,6 +480,18 @@ function ListaArqueo() {
     });
 }
 
+function descargarExcelArqueo() {
+    window.open("../web/pruebas.php");
+}
+
+function DescargarArqueo() {
+
+    var asesor = $("#asesor").val();
+    var fecha_inicial = $("#datetimepicker6").val();
+    var fecha_final = $("#datetimepicker7").val();
+    window.open("../controlador/arqueo.php?asesor=" + asesor + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "", "ARQUEO", "width=500, height=500")
+}
+
 function AsesoresConVentas() {
     $.ajax({
         type: "POST",
@@ -497,13 +509,6 @@ function AsesoresConVentas() {
     });
 }
 
-function DescargarArqueo() {
-
-    var asesor = $("#asesor").val();
-    var fecha_inicial = $("#datetimepicker6").val();
-    var fecha_final = $("#datetimepicker7").val();
-    window.open("http://vitalea.com.co/controlador/arqueo.php?asesor=" + asesor + "&fecha_inicial=" + fecha_inicial + "&fecha_final=" + fecha_final + "", "ARQUEO", "width=500, height=500")
-}
 
 function CotAddItem(tipo_item) {
 
