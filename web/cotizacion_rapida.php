@@ -72,7 +72,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                             <div class="panel-body">
 
 
-                                                <div class="form-horizontal">
+                                                <div class="form-horizontal" style="margin-left: 15px;">
                                                     <div class="form-group">
                                                         <label class="control-label col-sm-2" for="txt">*Nombre cliente:</label>
                                                         <div class="col-sm-10">
@@ -97,6 +97,21 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion del cliente (Campo Obligatorio)">
                                                         </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-2" for="txt">Observaciones Adicionales</label>
+                                                        <div class="col-sm-10">
+                                                            <textarea class="form-control" id="direccion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-sm-2" for="txt">Deseas ser contactado por Vitalea?</label>
+                                                        <div class="col-sm-10">
+                                                            <label>Si</label>
+                                                            <input type="radio" value="true" name="contacto">
+                                                            <label>No</label>
+                                                            <input type="radio" value="false" name="contacto">
+                                                        </div>                                                        
                                                     </div>
 
 
