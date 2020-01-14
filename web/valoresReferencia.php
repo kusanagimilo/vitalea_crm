@@ -25,24 +25,11 @@ require_once '../include/header_administrador.php';
                                 <b  style="float: left">  <img src="images/agregar-usuario.png" alt=""/> 
                                 Valores de Referencia</b> </h3> 
                         </div>
-                        <table class="table table-bordered"> 
-                            <tr id="p2">
-                                <th>¿Realizas visitas periódicas al médico?</th>
-                                <td><select id="pregunta_2" style="width: 100%">
-                                        <option value="">Seleccione</option>
-                                        <option value="Si">Si</option>
-                                        <option value="No">No</option>
-                                    </select></td>
-                            </tr>
+                        <table class="table table-bordered">                            
                             <tr>
-                                <label for="" class="labelCrearCliente">¿Como conociste Vitalea?</label>
-                                <select name="" id="">
-                                    <option value="">Instagram</option>
-                                    <option value="">Facebook</option>
-                                    <option value="">Pagina Web</option>
-                                    <option value="">Un Amigo</option>
-                                    <option value="">Vi el local</option>
-                                </select>
+                                <label class="labelCrearCliente">Dispones de las siguientes opciones</label>
+                                <button class="btn btn-success" style="margin-right: 30px;">Creacion de Registro</button>
+                                <button class="btn btn-info">Actualizacion de Registro</button>
                             </tr>
                         </table>    
                     </div>
@@ -76,6 +63,19 @@ require_once '../include/header_administrador.php';
                     <tbody id="filasCuerpoTabla">
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">Next</a>
+                    </li>
+                  </ul>
+                </nav>
             </div>
             
         </div>

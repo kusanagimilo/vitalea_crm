@@ -14,7 +14,8 @@ a:hover .logotipoAllPages {
 /*.labelCrearCliente es utilizada para la modificacion de las margenes del label ubicada en el documento 'crear_cliente.php'*/
 .labelCrearCliente {
     margin-left: 15px;
-    margin-right: 53.25%;
+    margin-right: 30%;
+    padding: 15px 10px;
 }
 
 /*la clase .headerTabla es utilizada para dar estilos a la tabla ubicada en el modulo de Valores de Referencia, en el directorio del proyecto 'web/valoresReferencia.php'*/
