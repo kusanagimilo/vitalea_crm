@@ -233,4 +233,38 @@ WHERE exa.id = :id");
         }
     }
 
+    public function AdicionarSubExamenW($data) {
+
+        $query = $this->conexion->prepare("SELECT * FROM sub_examen WHERE codigo_sub_examen = :codigo_sub_examen");
+        $query->execute(array(':codigo_sub_examen' => $data['codigo_sub_examen']));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($rows)) {
+            try {
+                $query2 = $this->conexion->prepare("SELECT * FROM examenes_no_perfiles WHERE codigo = :codigo");
+                $query2->execute(array(':codigo' => $data['codigo_examen']));
+                $rows2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+
+                if (empty($rows2)) {
+                    return 4;
+                } else {
+
+                    $id_examen = $rows2[0]['id'];
+                    
+                    $sql_insert = "INSERT INTO sub_examen(id_examen,codigo_sub_examen,nombre_sub_examen)VALUES(:id_examen,:codigo_sub_examen,:nombre_sub_examen)";
+                    $query_insert = $this->conexion->prepare($sql_insert);
+                    $query_insert->execute(array(':id_examen' => $id_examen,
+                        ':codigo_sub_examen' => $data['codigo_sub_examen'],
+                        ':nombre_sub_examen' => $data['nombre_sub_examen']));
+
+                    return 1;
+                }
+            } catch (Exception $exc) {
+                return 2;
+            }
+        } else {
+            return 3;
+        }
+    }
+
 }
