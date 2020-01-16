@@ -32,8 +32,6 @@ td    { vertical-align: top; }
 	border-bottom: solid 1px #bdc3c7;
 }
 table.page_footer {width: 100%; border: none; background-color: white; padding: 2mm;border-collapse:collapse; border: none;}
-}
-
 </style>
 
 
