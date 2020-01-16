@@ -478,7 +478,9 @@ function CrearPacienteHolding(cliente) {
                     "civil_status_id": cliente.civil_status_id,
                     "gender_id": cliente.gender_id,
                     "department_id": cliente.department_id,
-                    "city_id": cliente.city_id
+                    "city_id": cliente.city_id,
+                    "password": "Vitalea123",
+                    "password_confirmation": "Vitalea123"
                 }
             ]
         }),
@@ -494,5 +496,21 @@ function CrearPacienteHolding(cliente) {
     return retorno;
 }
 
+function EnviarCorreoNuevoUsuario(cliente) {
 
+    var retorno;
+    $.ajax({
+        type: 'POST',
+        url: "../controlador/email_nuevo_user.php",
+        async: false,
+        data: {
+            nombre: cliente.name,
+            correo: cliente.email
+        },
+        success: function (retu) {
+            retorno = retu;
+        }
+    });
+    return retorno;
+}
 

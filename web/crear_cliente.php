@@ -3,6 +3,29 @@
 require_once '../include/script.php';
 require_once '../include/header_administrador.php';
 ?>
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 250px;
+        height: 250px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+<script src="../ajax/Crear_usuario.js" ></script>
 <script>
     $(document).ready(function ()
     {
@@ -182,7 +205,6 @@ require_once '../include/header_administrador.php';
             var usuario = $("#usuario").val();
             var coincide_email = $("#coincide_email").val();
             var edad = $("#edad").val();
-
             if (typeof tipo_cliente === 'undefined') {
                 alertify.alert("Seleccione <b>Tipo de Cliente</b>");
                 return false;
@@ -190,7 +212,6 @@ require_once '../include/header_administrador.php';
 
             if (tipo_cliente == "Tercero") {
                 var cantidad_tercero = $("#cantidad_tercero").val();
-
                 if (cantidad_tercero == 0 || typeof cantidad_tercero === 'undefined') {
                     alertify.alert("Ingrese al menos un registro de Tercero");
                     return false;
@@ -247,9 +268,6 @@ require_once '../include/header_administrador.php';
 
 
             var pregunta_2 = $("#pregunta_2").val();
-
-
-
             if (pregunta_2 == "") {
                 alertify.alert("Responda la pregunta 2");
                 return false;
@@ -257,11 +275,11 @@ require_once '../include/header_administrador.php';
 
 
             var clasificacion = $("#clasificacion").val();
-
-
-
             $.ajax({
                 url: '../controladores/Gestion.php',
+                beforeSend: function () {
+                    $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
+                },
                 data:
                         {
                             tipo: 2,
@@ -294,7 +312,6 @@ require_once '../include/header_administrador.php';
 
                     if (data == 0) {
                         alertify.alert("El numero de documento ya existe.\n Verifique e intente nuevamente");
-
                     } else {
 
                         var gender_id;
@@ -320,10 +337,27 @@ require_once '../include/header_administrador.php';
                             department_id: $("#departamento").val(),
                             city_id: ciudad
                         };
-
                         var retorno_holding = CrearPacienteHolding(cliente);
-                        console.log(retorno_holding);
-                        window.location.href = "../web/gestion.php?id=" + data;
+                        /*console.log(retorno_holding);
+                         console.log(retorno_holding.data);
+                         console.log(retorno_holding.status);*/
+
+                        if (retorno_holding.status == "ok") {
+                            var retorno_correo = EnviarCorreoNuevoUsuario(cliente);
+                            if (retorno_correo == 1 || retorno_correo == "1") {
+                                $('#ModalCargando').modal('toggle');
+                                alert("Usuario creado correctamente y mensaje de notificación enviado");
+                                window.location.href = "../web/gestion.php?id=" + data;
+                            } else {
+                                $('#ModalCargando').modal('toggle');
+                                alert("No se logró enviar el correo de confirmación, pero el usuario fue creado exitosamente ");
+                                window.location.href = "../web/gestion.php?id=" + data;
+                            }
+                        } else {
+                            alert("Error al ingresar el paciente comuniquese con soporte");
+                        }
+
+                        //window.location.href = "../web/gestion.php?id=" + data;
                     }
                 }
             });
@@ -332,7 +366,6 @@ require_once '../include/header_administrador.php';
 
 
 </script>
-<script src="../ajax/Crear_usuario.js" ></script>
 <script src="../ajax/clasificar_paciente.js" ></script>
 <script src="../include/constante.js" ></script>
 <body style="background-color: #F6F8FA;">
@@ -919,6 +952,27 @@ require_once '../include/header_administrador.php';
             </div>                            
         </div>
     </div>
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalCargando" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="div_informacion_cliente">
+                            <center>
+                                <div class="loader"></div>
+                                <h2>REALIZANDO OPERACION POR FAVOR ESPERE</h2>
+                            </center>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div> 
 
     <!--fin modal --->
 
