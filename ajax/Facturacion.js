@@ -628,8 +628,10 @@ function AlmacenarPreCotizacion() {
         var correo = $("#correo").val();
         var telefono = $("#telefono").val();
         var direccion = $("#direccion").val();
+        var radio = $('input:radio[name=contacto]:checked').val();
+        
 
-        if (nombre == "" || correo == "" || telefono == "" || $("#cuerpo_cotizacion").length == 0) {
+        if (nombre == "" || correo == "" || telefono == "" || $("#cuerpo_cotizacion").length == 0 || radio == null) {
             alertify.alert("Todos los campos son obligatorios");
         } else {
             //nombre_cliente,:correo,:telefono,:valor,:descuento,:id_usr_creo
@@ -650,7 +652,8 @@ function AlmacenarPreCotizacion() {
                     valor: valor,
                     items: items,
                     tipo_items: tipo_items,
-                    direccion: direccion
+                    direccion: direccion,
+                    contacto: radio
                 },
                 success: function (retu) {
 

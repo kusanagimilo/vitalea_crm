@@ -1,87 +1,84 @@
-<?php
+<?PHP
 require_once '../include/script.php';
 require_once '../include/header_administrador.php';
+$array_permisos = explode(",", $_SESSION['PERMISOS']);
 ?>
-<link rel="stylesheet" href="../web/css/estilosForzados.css">
-<body style="background-color: #F6F8FA;">
-     <input id="usuario" value="<?php echo $_SESSION['ID_USUARIO'] ?>" type="hidden" >
+<script src="../ajax/valoresRef.js" type="text/javascript"></script>
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 250px;
+        height: 250px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
 
-    <div class="main-menu-area mg-tb-40" style="min-height: 450px;">
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+<body>
+    <div class="main-menu-area mg-tb-40">
         <div class="container" style="height:auto;">
             <div class="row">
-            	
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ol class="breadcrumb">
-                        
-                        <li><a href="inicio_administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
-                        <li><a href="inicio_administrador.php" title="Inicio">Inicio</a></li>
-                        
-                        <li class="active">Valores de Referencia</li>
+                        <li><a href="administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
+                        <li class="active">Valores de referencia</li>
                     </ol>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading " style="height: 50px;">
-                            <h3 class="panel-title"> 
-                                <b  style="float: left">  <img src="images/agregar-usuario.png" alt=""/> 
-                                Valores de Referencia</b> </h3> 
-                        </div>
-                        <table class="table table-bordered">                            
-                            <tr>
-                                <label class="labelCrearCliente">Dispones de las siguientes opciones</label>
-                                <button class="btn btn-success" style="margin-right: 30px;">Creacion de Registro</button>
-                                <button class="btn btn-info">Actualizacion de Registro</button>
-                            </tr>
-                        </table>    
+                    <div class="row pad-top" style="background-color: white;">
+
+                        <div id="clientes" style="padding: 20px;">
+                            <div class="row">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"> 
+                                            <img src="images/lista.png" alt=""/> 
+                                            <b> Lista de valores de referencia</b></h3>
+                                    </div>
+                                    <div class="panel-body">
+
+                                        <p style="font-size: 11pt;">
+                                            <img src="images/info.png" alt="">
+                                            En esta opcion podras consultar y crear los valores de referencia.
+                                        </p>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <br>
+                                                <button data-toggle="modal" data-target="#myModalPerfiles" class="btn btn-primary" id="btn_filtro" style="width: 100%">  <img src="images/lupa.png" style="width: 20px;">Crear valor de referencia</button>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div id="tabla_valor_referencia" class="table-responsive">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+
+
                     </div>
+
                 </div>
             </div>
         </div>
-
-        <div class="table-responsive col-lg-10 col-md-offset-1" style="overflow: auto; height: 260px;" >
-            <div class="dataTables_wrapper">
-                <table class="table table-bordered dataTable no-footer" role="grid">
-                    <thead>
-                        <tr class="headerTabla">
-                            <th>Id</th>
-                            <th>Id Examen</th>
-                            <th>Tipo de Medida</th>
-                            <th>Unidad</th>
-                            <th>Valor Critico Inferior</th>
-                            <th>Valor Critico Superior</th>
-                            <th>Anormal disminuido Minimo</th>
-                            <th>Anormal disminuido Maximo</th>
-                            <th>Rango normal Minimo</th>
-                            <th>Rango normal Maximo</th>
-                            <th>Anormal incrementado Minimo</th>
-                            <th>Anormal incrementado Maximo</th>
-                            <th>Edad Minima</th>
-                            <th>Edad Maxima</th>
-                            <th>Sexo</th>
-                            <th>Otros</th>
-                        </tr>
-                    </thead>
-                    <tbody id="filasCuerpoTabla">
-                    </tbody>
-                </table>
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
-                    </li>
-                  </ul>
-                </nav>
-            </div>
-            
-        </div>
-
-        
-    </div>    
+    </div>
+    <script>
+        verValoresReferencia();
+    </script>
     <?php require_once '../include/footer.php'; ?>
-    <script src="../ajax/valoresRef.js"></script>
 </body>

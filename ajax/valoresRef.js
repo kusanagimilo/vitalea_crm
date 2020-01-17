@@ -1,55 +1,91 @@
-/*Todo el codigo quedara en una funcion autoinvocada de tipo flecha en la cual tendremos contenido todo el codigo a ejecutar en el archivo*/
-(()=>{
-    //Creamos nuestra solicitud AJAX, con conexion al controlador 'valoresRef.php'
-    const filasCuerpo = document.querySelector("#filasCuerpoTabla");
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const jsonParseado = JSON.parse(this.responseText); //Este es nuestro objeto JSON traido desde nuestro controlador de php.
+function verValoresReferencia() {
+    $("#lista_valor_referencia_cot_body").html("");
 
-            //Creamos nuestra clase constructora para implementar un objeto para la creacion de filas.
-            class FilasTabla {
-                constructor (id, idExamen, tipoMedida, unidad, valorCriticoInferior, valorCriticoSuperior, anormalDisminuidoMinimo, anormalDisminuidoMaximo,
-                    rangoNormalMinimo, rangoNormalMaximo, anormalIncrementadoMinimo, anormalIncrementadoMaximo, edadMinima, edadMaxima, sexo, otros) {
-                        this.id = id,
-                        this.idExamen = idExamen,
-                        this.tipoMedida =tipoMedida,
-                        this.unidad = unidad,
-                        this.valorCriticoInferior = valorCriticoInferior,
-                        this.valorCriticoSuperior = valorCriticoSuperior,
-                        this.anormalDisminuidoMinimo = anormalDisminuidoMinimo,
-                        this.anormalDisminuidoMaximo = anormalDisminuidoMaximo,
-                        this.rangoNormalMinimo = rangoNormalMinimo,
-                        this.rangoNormalMaximo = rangoNormalMaximo,
-                        this.anormalIncrementadoMinimo = anormalIncrementadoMinimo,
-                        this.anormalIncrementadoMaximo = anormalIncrementadoMaximo,
-                        this.edadMinima = edadMinima,
-                        this.edadMaxima = edadMaxima,
-                        this.sexo = sexo,
-                        this.otros = otros                      
-                    }
-            }
-            
-            //Utilizamos este ciclo for para recorrer todoS los parametros de nuestro objeto JSON.
-            for (let i = 0; i < jsonParseado.length; i++) {
-                var crearReg = new FilasTabla (jsonParseado[i].id_valor_referencia, jsonParseado[i].id_examen, jsonParseado[i].medida, jsonParseado[i].unidad, 
-                    jsonParseado[i].valor_critico_inferior, jsonParseado[i].valor_critico_superior, jsonParseado[i].anormal_disminuido_minimo, 
-                    jsonParseado[i].anormal_disminuido_minimo, jsonParseado[i].anormal_disminuido_maximo, jsonParseado[i].rango_normal_minimo,
-                    jsonParseado[i].rango_normal_maximo, jsonParseado[i].anormal_incrementado_minimo, jsonParseado[i].anormal_incrementado_maximo, jsonParseado[i].edad_minima,
-                    jsonParseado[i].edad_maxima, jsonParseado[i].sexo, jsonParseado[i].otros, jsonParseado[i].unidad_edad);
-                
-                //Realizamos el fecthObject del objeto JSON utilizando el objeto 'crearReg', para poner cada uno de los valores en la tabla
-                filasCuerpo.innerHTML += "<tr>"+"<td>"+crearReg.id+"</td>"+"<td>"+crearReg.idExamen+"</td>"+"<td class='celdas1'>"+crearReg.tipoMedida+"</td>"+
-                "<td>"+crearReg.unidad+"</td>"+"<td>"+crearReg.valorCriticoInferior+"</td>"+"<td>"+crearReg.valorCriticoSuperior+"</td>"+
-                "<td>"+crearReg.anormalDisminuidoMinimo+"</td>"+"<td>"+crearReg.anormalDisminuidoMaximo+"</td>"+"<td>"+crearReg.rangoNormalMinimo+"</td>"+
-                "<td>"+crearReg.rangoNormalMaximo+"</td>"+"<td>"+crearReg.anormalIncrementadoMinimo+"</td>"+"<td>"+crearReg.anormalIncrementadoMaximo+"</td>"+
-                "<td>"+crearReg.edadMinima+"</td>"+"<td>"+crearReg.edadMaxima+"</td>"+"<td>"+crearReg.sexo+"</td>"+"<td>"+crearReg.otros+"</td>"+"</tr>";            
-            }
-        
+    var tabla = '<table id="lista_valor_referencia_cot" class="table table-bordered">' +
+            '<thead>' +
+            '<tr style="background-color: #214761;">' +
+            '<th style="color:white">Codigo Examen</th>' +
+            '<th style="color:white">Nombre Examen</th>' +
+            '<th style="color:white">medida</th>' +
+            '<th style="color:white">unidad</th>' +
+            '<th style="color:white">valor_critico_inferior</th>' +
+            '<th style="color:white">valor_critico_superior</th>' +
+            '<th style="color:white">anormal_disminuido_minimo</th>' +
+            '<th style="color:white">anormal_disminuido_maximo</th>' +
+            '<th style="color:white">rango_normal_minimo</th>' +
+            '<th style="color:white">rango_normal_maximo</th>' +
+            '<th style="color:white">anormal_incrementado_minimo</th>' +
+            '<th style="color:white">anormal_incrementado_maximo</th>' +
+            '<th style="color:white">edad_minima</th>' +
+            '<th style="color:white">edad_maxima</th>' +
+            '<th style="color:white">sexo</th>' +
+            '<th style="color:white">otros</th>' +
+            '<th style="color:white">unidad_edad</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody id="lista_valor_referencia_cot_body">' +
+            '</tbody>' +
+            '</table>';
+
+    $("#tabla_valor_referencia").html(tabla);
+
+    var data;
+    
+//    $.ajax({
+//        type: "POST",
+//        url: "../pddofo.php",
+//        async: false,
+//        dataType: 'json',
+//        data:{
+//            hola: 2,
+//            example: 4
+//        },
+//        success: function (data, textStatus, jqXHR) {
+//            
+//        }
+//    })
+//    
+    $.ajax({
+        type: "POST",
+        url: "../controladores/valoresRefController.php",
+        async: false,
+        dataType: 'json',
+        data: {
+            tipo: 1
+        },
+        success: function (retu) {
+            $.each(retu, function (i, nValorRef) {
+
+
+                var newRow = "<tr>";
+                newRow += "<td>" + nValorRef.codigo + "</td>";
+                newRow += "<td>" + nValorRef.nombre + "</td>";
+                newRow += "<td>" + nValorRef.medida + "</td>";
+                newRow += "<td>" + nValorRef.unidad + "</td>";
+                newRow += "<td>" + nValorRef.valor_critico_inferior + "</td>";
+                newRow += "<td>" + nValorRef.valor_critico_superior + "</td>";
+                newRow += "<td>" + nValorRef.anormal_disminuido_minimo + "</td>";
+                newRow += "<td>" + nValorRef.anormal_disminuido_maximo + "</td>";
+                newRow += "<td>" + nValorRef.rango_normal_minimo + "</td>";
+                newRow += "<td>" + nValorRef.rango_normal_maximo + "</td>";
+                newRow += "<td>" + nValorRef.anormal_incrementado_minimo + "</td>";
+                newRow += "<td>" + nValorRef.anormal_incrementado_maximo + "</td>";
+                newRow += "<td>" + nValorRef.edad_minima + "</td>";
+                newRow += "<td>" + nValorRef.edad_maxima + "</td>";
+                newRow += "<td>" + nValorRef.sexo + "</td>";
+                newRow += "<td>" + nValorRef.otros + "</td>";
+                newRow += "<td>" + nValorRef.unidad_edad + "</td>";
+                newRow += "</tr>";
+
+                $(newRow).appendTo("#lista_valor_referencia_cot_body");
+            });
         }
-    };
-    xmlhttp.open("POST", "../controlador/valoresRef.php", true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send();   
-})()
+    });
 
+
+
+    var tabla = $('#lista_valor_referencia_cot').DataTable({
+        responsive: true
+    });
+
+}
