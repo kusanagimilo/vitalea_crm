@@ -54,9 +54,10 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                         </p>
 
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <br>
-                                                <button data-toggle="modal" data-target="#myModalPerfiles" class="btn btn-primary" id="btn_filtro" style="width: 100%">  <img src="images/lupa.png" style="width: 20px;">Crear valor de referencia</button>
+                                                <button data-toggle="modal" data-target="#myModalPerfiles" class="btn btn-primary" id="btnCrearValorRef" style="width: 40%; margin-right: 40px; ">  <img src="images/lupa.png" style="width: 20px;">Crear valor de referencia</button>
+                                                <button data-toggle="modal" data-target="#myModalPerfiles" class="btn btn-danger" id="btnModificarValorRef">Modificar valor de referencia </button>
                                             </div>
                                         </div>
 

@@ -792,6 +792,7 @@ require_once '../include/header_administrador.php';
                                                                     <option value="">Pagina Web</option>
                                                                     <option value="">Un Amigo</option>
                                                                     <option value="">Vi el local</option>
+                                                                    <option value="">Otro</option>
                                                                 </select>
                                                             </tr>
 

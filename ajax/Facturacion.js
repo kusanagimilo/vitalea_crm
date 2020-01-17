@@ -693,6 +693,7 @@ function VerPrecotizaciones() {
             '<th style="color:white">Direccion</th>' +
             '<th style="color:white">Asesor(a)</th>' +
             '<th style="color:white">Fecha cotizacion</th>' +
+            '<th style="color:white">Ver detalle</th>' +
             '<th style="color:white">Valor</th>' +
             '</tr>' +
             '</thead>' +
@@ -723,6 +724,7 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.direccion + "</td>";
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
+                newRow += "<td><button class='btn btn-success'onclick=''>" + 'Ver detalle' + "</button></td>";
                 newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
                 newRow += "</tr>";
 
@@ -753,5 +755,5 @@ function formatNumber(num) {
         cents = "0" + cents;
     for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
         num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
-    return (((sign) ? '' : '-') + num + ',' + cents);
+    return (((sign) ? '' : '-') + num);
 }
