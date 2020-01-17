@@ -74,32 +74,32 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                                                 <div class="form-horizontal" style="margin-left: 15px;">
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-2" for="txt">*Nombre cliente:</label>
+                                                        <label class="control-label col-sm-2" for="txt">*Nombre:</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese el nombre del cliente (Campo Obligatorio)">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-2" for="txt">*Correo cliente:</label>
+                                                        <label class="control-label col-sm-2" for="txt">*Correo:</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" id="correo" placeholder="Ingrese el correo del cliente (Campo Obligatorio)">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-2" for="txt">*Telefono cliente:</label>
+                                                        <label class="control-label col-sm-2" for="txt">*Telefono:</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" id="telefono" placeholder="Ingrese el telefono del cliente (Campo Obligatorio)">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-2" for="txt">*Direccion cliente:</label>
+                                                        <label class="control-label col-sm-2" for="txt">*Direccion:</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" id="direccion" placeholder="Ingrese la direccion del cliente (Campo Obligatorio)">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-2" for="txt">Observaciones Adicionales</label>
+                                                        <label class="control-label col-sm-2" for="txt">Observaciones</label>
                                                         <div class="col-sm-10">
                                                             <textarea class="form-control" id="direccion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
                                                         </div>

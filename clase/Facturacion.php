@@ -454,8 +454,8 @@ group by ven.usuario_id");
     public function AlmacenarPreCotizacion($data) {
         @session_start();
         $id_usuario = $_SESSION['ID_USUARIO'];
-        $query = $this->conexion->prepare("INSERT INTO precotizacion(nombre_cliente,correo,telefono,valor,descuento,id_usr_creo,direccion)VALUES
-                  (:nombre_cliente,:correo,:telefono,:valor,:descuento,:id_usr_creo,:direccion)");
+        $query = $this->conexion->prepare("INSERT INTO precotizacion(nombre_cliente,correo,telefono,valor,descuento,id_usr_creo,direccion,Observaciones,solicitudContacto)VALUES
+                  (:nombre_cliente,:correo,:telefono,:valor,:descuento,:id_usr_creo,:direccion,:Observaciones,:contacto)");
         $query->execute(array(
             ':nombre_cliente' => $data['nombre_cliente'],
             ':correo' => $data['correo'],
@@ -463,7 +463,9 @@ group by ven.usuario_id");
             ':valor' => $data['valor'],
             ':descuento' => 'NO',
             ':id_usr_creo' => $id_usuario,
-            ':direccion' => $data['direccion']
+            ':direccion' => $data['direccion'],
+            ':Observaciones' => $data['observaciones'],
+            ':contacto' => $data['contacto']
         ));
 
         if ($query) {
