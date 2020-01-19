@@ -42,7 +42,7 @@ function VerExamenesNoPerfiles() {
                 var newRow = "<tr>";
                 newRow += "<td id='np_co" + nperfil.id + "'>" + nperfil.codigo_crm + "</td>";
                 newRow += "<td id='np_nom" + nperfil.id + "'>" + nperfil.nombre + "</td>";
-                newRow += "<td id='np_pre" + nperfil.id + "'>" + nperfil.precio + "</td>";
+                newRow += "<td id='np_pre" + nperfil.id + "'>" + formatNumber(parseInt(nperfil.precio)) + "</td>";
                 newRow += "<td id='np_boto" + nperfil.id + "'>" + botones + "</td>";
                 newRow += "</tr>";
 
@@ -237,7 +237,7 @@ function ListaExamenes() {
                 var newRow = "<tr>";
                 newRow += "<td id='ex_cod" + examen.id + "'>" + examen.codigo + "</td>";
                 newRow += "<td id='ex_nom" + examen.id + "'>" + examen.nombre + "</td>";
-                newRow += "<td id='ex_pre" + examen.id + "'>" + examen.precio + "</td>";
+                newRow += "<td id='ex_pre" + examen.id + "'>" + formatNumber(parseInt(examen.precio)) + "</td>";
                 newRow += "<td id='ex_btn" + examen.id + "'>" + botones + "</td>";
                 newRow += "</tr>";
 
@@ -567,4 +567,21 @@ function ModificarPerfil(id_perfil) {
         }
 
     }
+}
+
+function formatNumber(num) {
+    if (!num || num == 'NaN') return '-';
+    if (num == 'Infinity') return '&#x221e;';
+    num = num.toString().replace(/\$|\,/g, '');
+    if (isNaN(num))
+        num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num * 100 + 0.50000000001);
+    cents = num % 100;
+    num = Math.floor(num / 100).toString();
+    if (cents < 10)
+        cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
+        num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
+    return (((sign) ? '' : '-') + num);
 }

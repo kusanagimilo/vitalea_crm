@@ -677,45 +677,7 @@ require_once '../include/header_administrador.php';
                                                         </div>
                                                     </div>
 
-                                                    <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Seccion 2:</label>
-                                                            <div class="nk-int-st">
-                                                                <select id="seccion_dos" style="width: 100%;" class="form-control seccion" onchange="armar_direccion()">
-                                                                    <option value=''> -- </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="form-group">
-                                                            <labeL>N&uacute;mero:</label>
-                                                            <div class="nk-int-st">
-                                                                <input name="numero_dos" id="numero_dos" class="form-control" type="text" onchange="armar_direccion()" >
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Seccion 3:</label>
-                                                            <div class="nk-int-st">
-                                                                <select id="seccion_tres" style="width: 100%;"  class="form-control seccion" onchange="armar_direccion()">
-                                                                    <option value=''> -- </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>Adicional:</label>
-                                                            <div class="nk-int-st">
-                                                                <input name="adicional" id="adicional" class="form-control" type="text" onchange="armar_direccion()">
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
+                                                    
 
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-8">
                                                         <div class="form-group">
@@ -762,63 +724,23 @@ require_once '../include/header_administrador.php';
                                                         <table class="table table-bordered">
                                                             <!--General -->
 
- <!--<tr id="p1">
-     <th>¿Qué edad tiene?</th>
-     <td>
-         
-      <select id="pregunta_1" style="width: 100%">
-             <option value=""> - </option>
-             <option value="Menos 40">Menos 40</option>
-             <option value="Mas 40">Más 40</option>
-             <option value="0 a 5 años">0 a 5 años</option>
-             <option value="5 a 18 años">5 a 18 años</option>
-         </select></td>
- </tr>-->
-                                                            <!--Fin general -->
-                                                            <!--Cronico -->
-                                                            <tr id="p2">
-                                                                <th>¿Realizas visitas periódicas al médico?</th>
-                                                                <td><select id="pregunta_2" style="width: 100%">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="Si">Si</option>
-                                                                        <option value="No">No</option>
-                                                                    </select></td>
-                                                            </tr>
+                                                            <!--Fin general -->                                                            
                                                             <tr>
                                                                 <label for="" class="labelCrearCliente">¿Como conociste Vitalea?</label>
-                                                                <select name="" id="">
-                                                                    <option value="">Instagram</option>
-                                                                    <option value="">Facebook</option>
-                                                                    <option value="">Pagina Web</option>
-                                                                    <option value="">Un Amigo</option>
-                                                                    <option value="">Vi el local</option>
-                                                                    <option value="">Otro</option>
+                                                                <select name="" id="selectDeContacto">
+                                                                    <option value="Instagram">Instagram</option>
+                                                                    <option value="Facebook">Facebook</option>
+                                                                    <option value="Pagina Web">Pagina Web</option>
+                                                                    <option value="Un Amigo">Un Amigo</option>
+                                                                    <option value="Vi el local">Vi el local</option>
+                                                                    <option value="Otro">Otro</option>
                                                                 </select>
                                                             </tr>
-
-                                                            <tr id="resultado_clasificacion">
-                                                                <th><p style="color:#00c292;">Perfil del paciente</p></th>
-                                                                <td>
-                                                                    <p id="resultado">
-                                                                     <!--<input type="hidden" id="clasificacion">-->
-                                                                        <select id="clasificacion" style="width: 100%">
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="1">General</option>
-                                                                            <option value="2">Fitness</option>
-                                                                            <option value="3">Nutrición</option>
-                                                                            <option value="4">Cronico</option>
-                                                                            <option value="5">Salud Sexual</option>
-                                                                            <option value="6">Genético</option>
-                                                                            <option value="7">Wellness y Autoconocimiento</option>
-                                                                            <option value="8">Salud Reproductiva</option>    
-                                                                            <option value="9">Viajero</option>    
-
-                                                                        </select> 
-
-                                                                    </p>
-                                                                </td>
-
-                                                            </tr>
+                                                            <tr>
+                                                                <label for="" class="labelCrearCliente">¿Esta es una venta virtual?</label>
+                                                                <input type="checkbox" id="checkVenta" required>
+                                                                
+                                                            </tr>                                            
                                                         </table>
 
                                                     </div>
