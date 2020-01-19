@@ -496,6 +496,9 @@ group by ven.usuario_id");
         $query = $this->conexion->prepare("SELECT pre.*,us.nombre_completo
                                            FROM precotizacion pre
                                            INNER JOIN usuario us ON us.id = pre.id_usr_creo");
+        $query2 = $this->conexion->prepare("SELECT pre.*,us.nombre_completo
+                                           FROM precotizacion pre
+                                           INNER JOIN usuario us ON us.id = pre.id_usr_creo");
         $query->execute();
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         $json_retorno = json_encode($rows);
