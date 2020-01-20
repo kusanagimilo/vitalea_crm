@@ -206,7 +206,7 @@ require_once '../include/header_administrador.php';
             var coincide_email = $("#coincide_email").val();
             var edad = $("#edad").val();
             var procedencia = $("#selectDeContacto").val();
-            var procedencia = $("#checkVenta").val();
+            var checkboxVenta = $("#checkVenta").val();
 
             if (typeof tipo_cliente === 'undefined') {
                 alertify.alert("Seleccione <b>Tipo de Cliente</b>");
@@ -304,7 +304,9 @@ require_once '../include/header_administrador.php';
                             usuario: usuario,
                             edad: edad,
                             pregunta_2: pregunta_2,
-                            clasificacion: clasificacion
+                            clasificacion: clasificacion,
+                            procedencia: procedencia,
+                            checkboxVenta: checkboxVenta
                         },
                 type: 'post',
                 success: function (data)
