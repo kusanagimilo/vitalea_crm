@@ -31,20 +31,6 @@ function verValoresReferencia() {
 
     var data;
     
-//    $.ajax({
-//        type: "POST",
-//        url: "../pddofo.php",
-//        async: false,
-//        dataType: 'json',
-//        data:{
-//            hola: 2,
-//            example: 4
-//        },
-//        success: function (data, textStatus, jqXHR) {
-//            
-//        }
-//    })
-//    
     $.ajax({
         type: "POST",
         url: "../controladores/valoresRefController.php",
