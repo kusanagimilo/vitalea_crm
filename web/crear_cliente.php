@@ -205,6 +205,9 @@ require_once '../include/header_administrador.php';
             var usuario = $("#usuario").val();
             var coincide_email = $("#coincide_email").val();
             var edad = $("#edad").val();
+            var procedencia = $("#selectDeContacto").val();
+            var procedencia = $("#checkVenta").val();
+
             if (typeof tipo_cliente === 'undefined') {
                 alertify.alert("Seleccione <b>Tipo de Cliente</b>");
                 return false;
@@ -727,7 +730,7 @@ require_once '../include/header_administrador.php';
                                                             <!--Fin general -->                                                            
                                                             <tr>
                                                                 <label for="" class="labelCrearCliente">¿Como conociste Vitalea?</label>
-                                                                <select name="" id="selectDeContacto">
+                                                                <select name="" id="selectDeContacto" onchange="condicionalValorOtros()">
                                                                     <option value="Instagram">Instagram</option>
                                                                     <option value="Facebook">Facebook</option>
                                                                     <option value="Pagina Web">Pagina Web</option>
@@ -736,10 +739,10 @@ require_once '../include/header_administrador.php';
                                                                     <option value="Otro">Otro</option>
                                                                 </select>
                                                             </tr>
-                                                            <tr>
+                                                            <div id="filaInner"></div>
+                                                            <tr>                                                                
                                                                 <label for="" class="labelCrearCliente">¿Esta es una venta virtual?</label>
-                                                                <input type="checkbox" id="checkVenta" required>
-                                                                
+                                                                <input type="checkbox" id="checkVenta" required>                                                  
                                                             </tr>                                            
                                                         </table>
 
@@ -899,7 +902,24 @@ require_once '../include/header_administrador.php';
 
     <!--fin modal --->
 
+<script>
+/*Esta Funcion se crea con el objetivo de leer el valor del select - De como conociste a Vitalea, 
+y cuando se selecciones el campo otros reaparecera un input para que incluya un string, donde se pueda ingresar ese valor*/
+function condicionalValorOtros() {
+    const lecturaInput = document.querySelector("#selectDeContacto").value;
+    const checBoxVenta = document.querySelector("#checkVenta").checked;
+    const agregarFila = document.querySelector("#filaInner");
+    if (lecturaInput=="Otro") {
+        agregarFila.innerHTML = `<label class="labelCrearCliente">Selecionaste Otros</label>
+        <input maxlength="35" style="margin-left: 40px; min-width: 280px;" type="text" placeholder="Escriba su respuesta.">` 
+    }
+    return lecturaInput;
+}
 
+
+
+console.log(condicionalValorOtros());
+</script>
 
 </body>
 <?php require_once '../include/footer.php'; ?>

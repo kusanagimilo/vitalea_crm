@@ -24,7 +24,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 			margin: auto;
 			padding: 20px;
 			border: 1px solid lightgray;
-			border-top: 10px solid #58abb7;
+			border-top: 10px solid #214761;
 			width: 70%;
 		}
 
@@ -117,7 +117,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 	<div id="tvesModal" class="modalContainer">
 		<div class="modal-content">
 			<span class="close">×</span>
-			<h2 class="tituloTabla">Ingresa un nuevo valor de referencia</h2>
+			<h2 class="tituloTabla card-title">Ingresa un nuevo valor de referencia</h2>
 			<table class="tablaModal">
                 <tr>
                     <td>
