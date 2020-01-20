@@ -36,7 +36,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ol class="breadcrumb">
                         <li><a href="administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
-                        <li class="active">sedesVitalea</li>
+                        <li class="active">Sedes Vitalea</li>
                     </ol>
 
                     <div class="row pad-top" style="background-color: white;">
@@ -61,7 +61,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                 Ingresa Nombre Sede <input id="nombreInput" type="text" class="form-control">
                                                 Ingresa Ciudad <input id="ciudadInput" type="text" class="form-control">
                                                 Ingresa Direccion <input id="direccionInput" type="text" class="form-control">
-                                                Ingresa Barrio <input id="documentoInput" type="text" class="form-control">
+                                                Ingresa Barrio <input id="barrioInput" type="text" class="form-control">
                                                 Ingresa Telefono <input id="telefonoInput" type="text" class="form-control">
                                             </div>                              
                                             <div class="col-md-6">

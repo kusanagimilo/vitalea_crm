@@ -53,32 +53,34 @@ function verSedesVitalea() {
 }
 
 function ingresarSedesVitalea() {
-    const botonEnvio = document.querySelector("#btnEnvioDatos");
+    const botonEnvio = document.querySelector("#btnEnvioDatos");    
     botonEnvio.addEventListener("click", ()=>{
-    let botonEnvioArray = new Array;
-    botonEnvioArray[0] = $("#nombreInput").val();
-    botonEnvioArray[1] = $("#ciudadInput").val();
-    botonEnvioArray[2] = $("#direccionInput").val();
-    botonEnvioArray[3] = $("#documentoInput").val();
-    botonEnvioArray[4] = $("#telefonoInput").val();
+    nombre = $("#nombreInput").val();
+    ciudad = $("#ciudadInput").val();
+    direccion = $("#direccionInput").val();
+    barrio = $("#barrioInput").val();
+    telefono = $("#telefonoInput").val();
+    let confirmacion = confirm("Por favor asegurese de que todos los campos estan correctamente diligenciados, si es asi oprima en Aceptar.")
     
-    console.log(botonEnvioArray);
-    $.ajax({
-        type: "POST",
-        url: "../controladores/sedesVitaleaController.php",
-        async: false,
-        dataType: 'json',
-        data: {
-            tipo: 2,
-            botonEnvioArray: botonEnvioArray    
-        },
-        success: function (retu) {
-            $.each(retu, function (i, nValorRef) {    
-                console.log("Ingresado con exito");                
-            });
-        }
-    });
+    if (confirmacion) {
+        $.ajax({
+            type: "POST",
+            url: "../controladores/sedesVitaleaController.php",
+            async: false,
+            dataType: 'json',
+            data: {
+                tipo: 2,
+                nombre: nombre,
+                ciudad: ciudad,
+                direccion: direccion,
+                barrio: barrio,
+                telefono: telefono
+            },
+            success: function () {
+            }
+        });
+                
+        location.reload();
+    }       
     })
-    
-
 }
