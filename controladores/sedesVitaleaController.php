@@ -9,4 +9,8 @@ if ($tipo == 1) {
     $retorno = $vitaleaSedes->sedesVitaleaFuncion($_POST);
     echo $retorno;
 }
+$botonEnvioArray = $_POST["botonEnvioArray"];
+if ($tipo == 2) {
+    $retorno = $vitaleaSedes->ingresarNuevaSede($_POST);
+}
 ?>

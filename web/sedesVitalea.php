@@ -58,15 +58,15 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                Ingresa Nombre Sede <input id="nombreInput" name="n_documento" type="text" class="form-control">
-                                                Ingresa Ciudad <input id="ciudadInput" name="n_documento" type="text" class="form-control">
-                                                Ingresa Direccion <input id="direccionInput" name="n_documento" type="text" class="form-control">
-                                                Ingresa Barrio <input id="documentoInput" name="n_documento" type="text" class="form-control">
-                                                Ingresa Telefono <input id="telefono Input" name="n_documento" type="text" class="form-control">
+                                                Ingresa Nombre Sede <input id="nombreInput" type="text" class="form-control">
+                                                Ingresa Ciudad <input id="ciudadInput" type="text" class="form-control">
+                                                Ingresa Direccion <input id="direccionInput" type="text" class="form-control">
+                                                Ingresa Barrio <input id="documentoInput" type="text" class="form-control">
+                                                Ingresa Telefono <input id="telefonoInput" type="text" class="form-control">
                                             </div>                              
                                             <div class="col-md-6">
                                                 <br>
-                                                <button onclick="VerListaFacturacion()" class="btn btn-primary" id="btnEnvioDatos" style="width: 100%">Ingresar Valores</button>
+                                                <button class="btn btn-primary" id="btnEnvioDatos" style="width: 100%">Ingresar Valores</button>
                                             </div>
                                         </div>
 
@@ -92,6 +92,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     <?php require_once '../include/footer.php'; ?>
     <script>
         verSedesVitalea();
+        ingresarSedesVitalea();
     </script>
 </body>
 
