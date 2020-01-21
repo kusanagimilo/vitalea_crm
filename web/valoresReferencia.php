@@ -26,12 +26,16 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 			border: 1px solid lightgray;
 			border-top: 10px solid #214761;
 			width: 70%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            overflow: auto;
 		}
 
 		.modalContainer .close {
-			color: #aaaaaa;
+			color: #000000;
 			float: right;
-			font-size: 28px;
+			font-size: 35px;
 			font-weight: bold;
 		}
 
@@ -46,6 +50,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             display: flex;
             justify-content: center;
             font-size: 15px;
+            padding: 20px;
+            transform: scale(0.8);
         }
 
         .tituloTabla{
@@ -53,11 +59,69 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             justify-content: center;
             margin: 50px;
         }
-
-        .tablaModal tr td {
+              
+        .tablaModal > tr > td {
             font-weight: 50;
             font-size: 14px;
-            padding-left: 30px;
+            /* position: relative !important; */
+        }
+
+        input[type="text"] {
+            margin: 7px;
+        }
+
+        .botonEspecial {
+            margin-top: 10px;
+            position: absolute;    
+            bottom: 2%;
+            left: 45%;
+        }
+
+        @media screen and (max-width: 800px){
+            .modalContainer .modal-content {
+                width: 95% !important;                              
+            }  
+
+            .tablaModal {
+                transform: scale(0.7);
+                width: 100%;                                
+            }
+        }
+
+        @media screen and (max-width: 460px){
+            .modalContainer {
+                padding: 70px 0px;
+            }
+
+            .modalContainer .modal-content {
+                width: 100% !important;                              
+            }
+            
+            .modal-content {                 
+                margin: 0;
+            }
+
+            .tituloTabla{                
+                margin: 0;
+            }
+
+            .tablaModal {
+                margin-left: 14%;
+                margin-right: 0;
+                padding: 0;
+                transform: scale(0.7);
+                width: 100%;
+                border: #010101;                
+            }
+
+            input[type="text"] {
+                max-width: 60%;
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 20px;
+                padding: 0;
+                border: 1px doted #004040;
+            }
         }
 </style>
 <body>
@@ -121,90 +185,125 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 			<table class="tablaModal">
                 <tr>
                     <td>
-                        <label for="">Codigo de Examen</label>
+                        <label for="">Codigo de Examen</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
-                        <label for="">Nombre del examen</label>
+                        <label for="">Nombre del examen</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="">Medida</label>
+                        <label for="">Medida</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
-                        <label for="">Unidad</label>
+                        <label for="">Unidad</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <label for="">Valor Critico Inferior</label>
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
                         <label for="">Valor Critico Superior</label>
+                    </td> 
+                    <td>    
                         <input type="text">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="">Anormal Disminuido Minimo</label>
+                        <label for="">Anormal Disminuido Minimo</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
-                        <label for="">Anormal Disminuido Maximo</label>
+                        <label for="">Anormal Disminuido Maximo</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>                
                 </tr>
                 <tr>
                     <td>
-                        <label for="">Rango Normal Minimo</label>
+                        <label for="">Rango Normal Minimo</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
-                        <label for="">Rango Normal Maximo</label>
+                        <label for="">Rango Normal Maximo</label>                        
+                    </td>  
+                    <td>
+                        <input type="text">
+                    </td>              
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Anormal Incrementado Minimo</label>                        
+                    </td>
+                    <td>
+                        <input type="text">
+                    </td>
+                    <td>
+                        <label for="">Anormal Incrementado Maximo</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>                
                 </tr>
                 <tr>
                     <td>
-                        <label for="">Anormal Incrementado Minimo</label>
+                        <label for="">Edad Minima</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
-                        <label for="">Anormal Incrementado Maximo</label>
+                        <label for="">Edad Maxima</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>                
                 </tr>
                 <tr>
                     <td>
-                        <label for="">Edad Minima</label>
+                        <label for="">Sexo</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>
                     <td>
-                        <label for="">Edad Maxima</label>
+                        <label for="">Otros</label>                        
+                    </td>
+                    <td>
                         <input type="text">
                     </td>                
                 </tr>
                 <tr>
                     <td>
-                        <label for="">Sexo</label>
-                        <input type="text">
+                        <label for="">Unidad Edad</label>                        
                     </td>
                     <td>
-                        <label for="">Otros</label>
-                        <input type="text">
-                    </td>                
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Unidad Edad</label>
                         <input type="text">
                     </td>               
                 </tr>
+                <button class="btn btn-success botonEspecial">Enviar Datos</button>
             </table>
 		</div>
 	</div>
