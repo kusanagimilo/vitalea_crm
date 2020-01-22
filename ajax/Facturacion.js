@@ -588,7 +588,7 @@ function CotAddItem(tipo_item) {
             }
 
             var valor_total = valor_actual + precio;
-            
+
             $("#total_m").html(formatNumber(valor_total));
             $("#total").val(valor_total);
 
@@ -630,7 +630,7 @@ function AlmacenarPreCotizacion() {
         var direccion = $("#direccion").val();
         var observaciones = $("#observacion").val();
         var radio = $('input:radio[name=contacto]:checked').val();
-        
+
 
         if (nombre == "" || correo == "" || telefono == "" || $("#cuerpo_cotizacion").length == 0 || radio == null) {
             alertify.alert("Todos los campos son obligatorios");
@@ -693,8 +693,8 @@ function VerPrecotizaciones() {
             '<th style="color:white">Direccion</th>' +
             '<th style="color:white">Asesor(a)</th>' +
             '<th style="color:white">Fecha cotizacion</th>' +
-            '<th style="color:white">Ver detalle</th>' +
             '<th style="color:white">Valor</th>' +
+            '<th style="color:white">Ver detalle</th>' +
             '</tr>' +
             '</thead>' +
             '<tbody id="lista_precot_cot_body">' +
@@ -724,8 +724,8 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.direccion + "</td>";
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
-                newRow += "<td><button class='btn btn-success'onclick=''>" + 'Ver detalle' + "</button></td>";
                 newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
+                newRow += "<td><button class='btn btn-success'onclick=''>" + 'Ver detalle' + "</button></td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_precot_cot_body");
@@ -742,8 +742,10 @@ function VerPrecotizaciones() {
 }
 
 function formatNumber(num) {
-    if (!num || num == 'NaN') return '-';
-    if (num == 'Infinity') return '&#x221e;';
+    if (!num || num == 'NaN')
+        return '-';
+    if (num == 'Infinity')
+        return '&#x221e;';
     num = num.toString().replace(/\$|\,/g, '');
     if (isNaN(num))
         num = "0";
@@ -753,7 +755,7 @@ function formatNumber(num) {
     num = Math.floor(num / 100).toString();
     if (cents < 10)
         cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
     return (((sign) ? '' : '-') + num);
 }
