@@ -38,14 +38,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <ol class="breadcrumb">
                             <li><a href="inicio_usuario.php" title="Volver atras"><img src="images/atras.png"></a></li>
                             <li><a href="inicio_usuario.php" title="Inicio">Inicio</a></li>
-                            <li class="active">Arqueo</li>
+                            <li class="active">Cotizacion rapida</li>
                         </ol>
 
                     <?php } else { ?>
                         <ol class="breadcrumb">
                             <li><a href="inicio_administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
                             <li><a href="inicio_administrador.php" title="Inicio">Inicio</a></li>
-                            <li class="active">Arqueo</li>
+                              <li class="active">Cotizacion rapida</li>
                         </ol>
                     <?php } ?>
 
