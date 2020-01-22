@@ -101,16 +101,16 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                     <div class="form-group">
                                                         <label class="control-label col-sm-2" for="txt">Observaciones</label>
                                                         <div class="col-sm-10">
-                                                            <textarea class="form-control" id="direccion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
+                                                            <textarea class="form-control"  name="observacion" id="observacion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label col-sm-2" for="txt">Deseas ser contactado por Vitalea?</label>
                                                         <div class="col-sm-10">
                                                             <label>Si</label>
-                                                            <input type="radio" value="true" name="contacto">
+                                                            <input type="radio" value="Si" name="contacto">
                                                             <label>No</label>
-                                                            <input type="radio" value="false" name="contacto">
+                                                            <input type="radio" value="No" name="contacto">
                                                         </div>                                                        
                                                     </div>
 
@@ -118,7 +118,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                     <div class="panel panel-primary">
                                                         <div class="panel-heading">Adicionar examenes</div>
                                                         <div class="panel-body">
-                                                        <!-- se utiliza funcion adicional en facturacion.js -->
+                                                            <!-- se utiliza funcion adicional en facturacion.js -->
                                                             <!-- inicio examenes -->
 
                                                             <div class="panel-group" id="accordion">
@@ -255,9 +255,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
         </div>
     </div>
-    
-    
-    
+
+
+
     <script>
         obtener_categoria_examen();
         $("#examen_categoria_venta").change(function () {

@@ -628,7 +628,7 @@ function AlmacenarPreCotizacion() {
         var correo = $("#correo").val();
         var telefono = $("#telefono").val();
         var direccion = $("#direccion").val();
-        var observaciones = $("#direccion").val();
+        var observaciones = $("#observacion").val();
         var radio = $('input:radio[name=contacto]:checked').val();
         
 
@@ -654,8 +654,8 @@ function AlmacenarPreCotizacion() {
                     items: items,
                     tipo_items: tipo_items,
                     direccion: direccion,
-                    observaciones: observaciones,
-                    contacto: radio
+                    observacion: observaciones,
+                    contactado: radio
                 },
                 success: function (retu) {
 
