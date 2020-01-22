@@ -17,7 +17,8 @@ if ($tipo == 1) {
 }if ($tipo == 2) {
     $retorno = $Obj_Facturacion->CambiarEstadoVenta($_POST);
     echo $retorno;
-}if ($tipo == 3) {
+}
+if ($tipo == 3) {
     $retorno = $Obj_Facturacion->InformacionVentaIndividual($_POST);
     echo $retorno;
 }if ($tipo == 4) {
@@ -45,6 +46,7 @@ if ($tipo == 1) {
     $retorno = $Obj_Facturacion->InformacionExamen($_POST);
     echo $retorno;
 }if ($tipo == 12) {
+
     $retorno = $Obj_Facturacion->AlmacenarPreCotizacion($_POST);
 
     if ($retorno != "mal") {

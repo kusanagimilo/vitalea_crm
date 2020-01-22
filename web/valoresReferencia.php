@@ -5,124 +5,26 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 ?>
 <script src="../ajax/valoresRef.js" type="text/javascript"></script>
 <style>
-    .modalContainer {
-			display: none; 
-			position: fixed; 
-			z-index: 1;
-			padding-top: 100px;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%; 
-			overflow: auto; 
-			background-color: rgb(0,0,0);
-			background-color: rgba(0,0,0,0.4);
-		}
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 250px;
+        height: 250px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
 
-		.modalContainer .modal-content {
-			background-color: #fefefe;
-			margin: auto;
-			padding: 20px;
-			border: 1px solid lightgray;
-			border-top: 10px solid #214761;
-			width: 70%;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            overflow: auto;
-		}
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
 
-		.modalContainer .close {
-			color: #000000;
-			float: right;
-			font-size: 35px;
-			font-weight: bold;
-		}
-
-		.modalContainer .close:hover,
-		.modalContainer .close:focus {
-			color: #000;
-			text-decoration: none;
-			cursor: pointer;
-		}
-
-        .tablaModal {
-            display: flex;
-            justify-content: center;
-            font-size: 15px;
-            padding: 20px;
-            transform: scale(0.8);
-        }
-
-        .tituloTabla{
-            display: flex;
-            justify-content: center;
-            margin: 50px;
-        }
-              
-        .tablaModal > tr > td {
-            font-weight: 50;
-            font-size: 14px;
-            /* position: relative !important; */
-        }
-
-        input[type="text"] {
-            margin: 7px;
-        }
-
-        .botonEspecial {
-            margin-top: 10px;
-            position: absolute;    
-            bottom: 2%;
-            left: 45%;
-        }
-
-        @media screen and (max-width: 800px){
-            .modalContainer .modal-content {
-                width: 95% !important;                              
-            }  
-
-            .tablaModal {
-                transform: scale(0.7);
-                width: 100%;                                
-            }
-        }
-
-        @media screen and (max-width: 460px){
-            .modalContainer {
-                padding: 70px 0px;
-            }
-
-            .modalContainer .modal-content {
-                width: 100% !important;                              
-            }
-            
-            .modal-content {                 
-                margin: 0;
-            }
-
-            .tituloTabla{                
-                margin: 0;
-            }
-
-            .tablaModal {
-                margin-left: 14%;
-                margin-right: 0;
-                padding: 0;
-                transform: scale(0.7);
-                width: 100%;
-                border: #010101;                
-            }
-
-            input[type="text"] {
-                max-width: 60%;
-                margin-left: 0;
-                margin-right: 0;
-                margin-bottom: 20px;
-                padding: 0;
-                border: 1px doted #004040;
-            }
-        }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 <body>
     <div class="main-menu-area mg-tb-40">
@@ -130,7 +32,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
+                        <li><a href="inicio_administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
                         <li class="active">Valores de referencia</li>
                     </ol>
 
@@ -154,8 +56,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <br>
-                                                <button class="btn btn-primary" id="btnModal" style="width: 40%; margin-right: 40px; ">Crear valor de referencia</button>
-                                                <button data-toggle="modal" data-target="#myModalPerfiles" class="btn btn-danger" id="btnModificarValorRef">Modificar valor de referencia </button>
+                                                <button data-toggle="modal" data-target="#myValoresRef" class="btn btn-primary" id="btnModal" style="width: 40%; margin-right: 40px; ">Crear valor de referencia</button>
                                             </div>
                                         </div>
 
@@ -177,176 +78,111 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         </div>
     </div>
 
-    
-	<div id="tvesModal" class="modalContainer">
-		<div class="modal-content">
-			<span class="close">×</span>
-			<h2 class="tituloTabla card-title">Ingresa un nuevo valor de referencia</h2>
-			<table class="tablaModal">
-                <tr>
-                    <td>
-                        <label for="">Codigo de Examen</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Nombre del examen</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Medida</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Unidad</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Valor Critico Inferior</label>
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Valor Critico Superior</label>
-                    </td> 
-                    <td>    
-                        <input type="text">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Anormal Disminuido Minimo</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Anormal Disminuido Maximo</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>                
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Rango Normal Minimo</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Rango Normal Maximo</label>                        
-                    </td>  
-                    <td>
-                        <input type="text">
-                    </td>              
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Anormal Incrementado Minimo</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Anormal Incrementado Maximo</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>                
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Edad Minima</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Edad Maxima</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>                
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Sexo</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>
-                    <td>
-                        <label for="">Otros</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>                
-                </tr>
-                <tr>
-                    <td>
-                        <label for="">Unidad Edad</label>                        
-                    </td>
-                    <td>
-                        <input type="text">
-                    </td>               
-                </tr>
-                <button class="btn btn-success botonEspecial">Enviar Datos</button>
-            </table>
-		</div>
-	</div>
+    <div class="modal" id="myValoresRef"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white" >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt=""/>Adicionar valor de referencia</h4>
+                </div>
+                <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
+
+                    <!-- formulario -->
+
+                    <div class="form-group">
+                        <label for="inputselect">* Seleccione el examen</label>
+                        <select class="form-control" id="ref_examen">
+                            <option value="seleccione">--seleccione--</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese la medida</label>
+                        <input type="text" class="form-control" id="ref_medida" placeholder="Medida">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese la unidad</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="Unidad">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese valor critico inferior</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="valor critico inferior">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese valor critico superior</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="valor critico superior">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese anormal disminuido minimo</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="anormal disminuido minimo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese anormal disminuido maximo</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="anormal disminuido maximo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese rango normal minimo</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="rango normal minimo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese rango normal maximo</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="rango normal maximo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese anormal incrementado minimo</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="anormal incrementado minimo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese anormal incrementado maximo</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="anormal incrementado maximo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputselect">* Seleccione la unidad de edad</label>
+                        <select class="form-control" id="ref_examen">
+                            <option value="">--seleccione--</option>
+                            <option value="ANIOS">ANIOS</option>
+                            <option value="MESES">MESES</option>
+                            <option value="DIAS">DIAS</option>
+                            <option value="DIAS">N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese edad minima</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="edad minima">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese edad maxima</label>
+                        <input type="text" class="form-control" id="ref_unidad" placeholder="edad maxima">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputselect">* Seleccione el sexo</label>
+                        <select class="form-control" id="ref_examen">
+                            <option value="">--seleccione--</option>
+                            <option value="Maculino">Maculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Ambos">Ambos</option>
+                            <option value="N/A">N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button  type="button" class="btn btn-primary btn-lg btn-block">Crear valor de referencia</button>
+                    </div>
+
+
+                </div>          
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>                            
+        </div>
+    </div>
+
+
 
     <script>
-        
-    //Llamamos la Funcion que nos trae todos los valores de referencia a mostrar.
-    verValoresReferencia();
-        
-    
-    //Creacion de Ventana Modal
-        if(document.getElementById("btnModal")){
-			var modal = document.getElementById("tvesModal");
-			var btn = document.getElementById("btnModal");
-			var span = document.getElementsByClassName("close")[0];
-			var body = document.getElementsByTagName("body")[0];
 
-			btn.onclick = function() {
-				modal.style.display = "block";
-
-				body.style.position = "static";
-				body.style.height = "100%";
-				body.style.overflow = "hidden";
-			}
-
-			span.onclick = function() {
-				modal.style.display = "none";
-
-				body.style.position = "inherit";
-				body.style.height = "auto";
-				body.style.overflow = "visible";
-			}
-
-			window.onclick = function(event) {
-				if (event.target == modal) {
-					modal.style.display = "none";
-
-					body.style.position = "inherit";
-					body.style.height = "auto";
-					body.style.overflow = "visible";
-				}
-			}
-		}
+        //Llamamos la Funcion que nos trae todos los valores de referencia a mostrar.
+        verValoresReferencia();
     </script>
     <?php require_once '../include/footer.php'; ?>
 </body>
