@@ -205,8 +205,7 @@ require_once '../include/header_administrador.php';
             var usuario = $("#usuario").val();
             var coincide_email = $("#coincide_email").val();
             var edad = $("#edad").val();
-            var procedencia = $("#selectDeContacto").val();
-            var checkboxVenta = $("#checkVenta").val();
+
 
             if (typeof tipo_cliente === 'undefined') {
                 alertify.alert("Seleccione <b>Tipo de Cliente</b>");
@@ -268,16 +267,27 @@ require_once '../include/header_administrador.php';
             //perfilamiento
 
             //perfilamiento paciente
+            var pregunta_22;
+            pregunta_22 = $("#selectDeContacto").val();
+            if (pregunta_22 == "") {
+                alertify.alert("Responda la pregunta ¿Como conociste Vitalea?");
+                return false;
+            } else {
+                if (pregunta_22 == 'Otro') {
+                    pregunta_22 = $("#otro_ven").val();
+                } else {
+                    pregunta_22 = $("#selectDeContacto").val();
+                }
+            }
 
-
-            var pregunta_2 = $("#pregunta_2").val();
-            if (pregunta_2 == "") {
-                alertify.alert("Responda la pregunta 2");
+            var pregunta_23 = $("#venta_virtual").val();
+            if (pregunta_23 == "") {
+                alertify.alert("Responda la pregunta ¿Esta es una venta virtual?");
                 return false;
             }
 
 
-            var clasificacion = $("#clasificacion").val();
+            var clasificacion = 1;
             $.ajax({
                 url: '../controladores/Gestion.php',
                 beforeSend: function () {
@@ -303,10 +313,9 @@ require_once '../include/header_administrador.php';
                             tipo_cliente: tipo_cliente,
                             usuario: usuario,
                             edad: edad,
-                            pregunta_2: pregunta_2,
-                            clasificacion: clasificacion,
-                            procedencia: procedencia,
-                            checkboxVenta: checkboxVenta
+                            pregunta_22: pregunta_22,
+                            pregunta_23: pregunta_23,
+                            clasificacion: clasificacion
                         },
                 type: 'post',
                 success: function (data)
@@ -682,7 +691,7 @@ require_once '../include/header_administrador.php';
                                                         </div>
                                                     </div>
 
-                                                    
+
 
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-8">
                                                         <div class="form-group">
@@ -726,28 +735,37 @@ require_once '../include/header_administrador.php';
                                                         </p> <br>
 
   <!--<input type="hidden" readonly="true"  class="form-control"  id="pregunta_1">-->
-                                                        <table class="table table-bordered">
-                                                            <!--General -->
 
-                                                            <!--Fin general -->                                                            
-                                                            <tr>
-                                                                <label for="" class="labelCrearCliente">¿Como conociste Vitalea?</label>
-                                                                <select name="" id="selectDeContacto" onchange="condicionalValorOtros()">
-                                                                    <option value="Instagram">Instagram</option>
-                                                                    <option value="Facebook">Facebook</option>
-                                                                    <option value="Pagina Web">Pagina Web</option>
-                                                                    <option value="Un Amigo">Un Amigo</option>
-                                                                    <option value="Vi el local">Vi el local</option>
-                                                                    <option value="Otro">Otro</option>
-                                                                </select>
-                                                            </tr>
-                                                            <div id="filaInner"></div>
-                                                            <tr>                                                                
-                                                                <label for="" class="labelCrearCliente">¿Esta es una venta virtual?</label>
-                                                                <input type="checkbox" id="checkVenta" required>                                                  
-                                                            </tr>                                            
+                                                        <table class="table table-bordered" data-select2-id="27">
+                                                            <tbody>
+                                                                <tr id="p2">
+                                                                    <th>¿Como conociste Vitalea?</th>
+                                                                    <td data-select2-id="26">
+                                                                        <select name="selectDeContacto"  class="form-control" id="selectDeContacto" onchange="condicionalValorOtros()">
+                                                                            <option value="Instagram">Instagram</option>
+                                                                            <option value="Facebook">Facebook</option>
+                                                                            <option value="Pagina Web">Pagina Web</option>
+                                                                            <option value="Un Amigo">Un Amigo</option>
+                                                                            <option value="Vi el local">Vi el local</option>
+                                                                            <option value="Otro">Otro</option>
+                                                                        </select>
+                                                                        <div id="otro_cono"></div>
+                                                                    </td>
+
+                                                                </tr>
+
+
+                                                                <tr id="resultado_clasificacion">
+                                                                    <th><p style="color:#00c292;">¿Esta es una venta virtual?</p></th>
+                                                                    <td data-select2-id="40">
+                                                                        <select name="venta_virtual" style="width: 30%" class="form-control" id="venta_virtual" >
+                                                                            <option value="Si">SI</option>
+                                                                            <option value="No">NO</option>
+                                                                        </select>     
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
-
                                                     </div>
                                                 </div>   
                                             </div>   
@@ -904,24 +922,20 @@ require_once '../include/header_administrador.php';
 
     <!--fin modal --->
 
-<script>
-/*Esta Funcion se crea con el objetivo de leer el valor del select - De como conociste a Vitalea, 
-y cuando se selecciones el campo otros reaparecera un input para que incluya un string, donde se pueda ingresar ese valor*/
-function condicionalValorOtros() {
-    const lecturaInput = document.querySelector("#selectDeContacto").value;
-    const checBoxVenta = document.querySelector("#checkVenta").checked;
-    const agregarFila = document.querySelector("#filaInner");
-    if (lecturaInput=="Otro") {
-        agregarFila.innerHTML = `<label class="labelCrearCliente">Selecionaste Otros</label>
-        <input maxlength="35" style="margin-left: 40px; min-width: 280px;" type="text" placeholder="Escriba su respuesta.">` 
-    }
-    return lecturaInput;
-}
+    <script>
+        /*Esta Funcion se crea con el objetivo de leer el valor del select - De como conociste a Vitalea, 
+         y cuando se selecciones el campo otros reaparecera un input para que incluya un string, donde se pueda ingresar ese valor*/
+        function condicionalValorOtros() {
 
-
-
-console.log(condicionalValorOtros());
-</script>
+            var cond = $("#selectDeContacto").val();
+            if (cond == "Otro") {
+                var html = '<input class="form-control" id="otro_ven" name="otro_ven" type="text" placeholder="Escriba su respuesta.">';
+                $("#otro_cono").html(html);
+            } else {
+                $("#otro_cono").html("");
+            }
+        }
+    </script>
 
 </body>
 <?php require_once '../include/footer.php'; ?>

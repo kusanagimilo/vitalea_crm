@@ -38,7 +38,7 @@ if ($tipo == 1) { //BUSQUEDA DE REGISTRO
     //perfilamiento
 
      //$pregunta_1 = $_POST["pregunta_1"];
-    $pregunta_2 = $_POST["pregunta_2"];
+    //$pregunta_2 = $_POST["pregunta_2"];
     /*$pregunta_3 = $_POST["pregunta_3"];
     $pregunta_4 = $_POST["pregunta_4"];
     $pregunta_5 = $_POST["pregunta_5"];
@@ -58,6 +58,8 @@ if ($tipo == 1) { //BUSQUEDA DE REGISTRO
     $pregunta_19 = $_POST["pregunta_19"];
     $pregunta_20 = $_POST["pregunta_20"];
     $pregunta_21 = $_POST["pregunta_21"];*/
+    $pregunta_22 = $_POST["pregunta_22"];
+    $pregunta_23 = $_POST["pregunta_23"];
     $clasificacion = $_POST["clasificacion"];
 
 
@@ -96,7 +98,7 @@ if ($tipo == 1) { //BUSQUEDA DE REGISTRO
 
 
         //$gestion->gurdar_repuesta_clasificacion(1, $pregunta_1, $registro_titular);
-        $gestion->gurdar_repuesta_clasificacion(2, $pregunta_2, $registro_titular);
+        //$gestion->gurdar_repuesta_clasificacion(2, $pregunta_2, $registro_titular);
         /*$gestion->gurdar_repuesta_clasificacion(3, $pregunta_3, $registro_titular);
         $gestion->gurdar_repuesta_clasificacion(4, $pregunta_4, $registro_titular);
         $gestion->gurdar_repuesta_clasificacion(5, $pregunta_5, $registro_titular);
@@ -116,6 +118,9 @@ if ($tipo == 1) { //BUSQUEDA DE REGISTRO
         $gestion->gurdar_repuesta_clasificacion(19, $pregunta_19, $registro_titular);
         $gestion->gurdar_repuesta_clasificacion(20, $pregunta_20, $registro_titular);
         $gestion->gurdar_repuesta_clasificacion(21, $pregunta_21, $registro_titular);*/
+        
+        $gestion->gurdar_repuesta_clasificacion(22, $pregunta_22, $registro_titular);
+        $gestion->gurdar_repuesta_clasificacion(23, $pregunta_23, $registro_titular);
 
 
         $id = base64_encode($gestion_id);
