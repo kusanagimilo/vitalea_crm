@@ -432,7 +432,7 @@ require_once '../include/header_administrador.php';
 
                                                                 <div class="nk-int-st">
                                                                     <input name="tipo_cliente" type="radio" value="Titular" class="i-checks"> Titular
-                                                                    <input name="tipo_cliente" type="radio" value="Tercero" class="i-checks"> Tercero
+                                                                    <input name="tipo_cliente" type="radio" value="Tercero" class="i-checks"> Acudiente
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -582,7 +582,7 @@ require_once '../include/header_administrador.php';
                                             <a href="#collapse4" id="colapsible_terceros" style=" text-decoration: none; color: black;">
                                                 <h4 style="color:#00c292;">
                                                     <img src="images/terceros.png" alt=""/>
-                                                    Informacion de Terceros
+                                                    Informacion del Acudiente
                                                     <span style="float:right"><img src="images/sort_desc.png" alt=""/></span></h4> 
 
                                             </a>
@@ -593,7 +593,7 @@ require_once '../include/header_administrador.php';
                                             <div class="panel-body">
                                                 <div class="cta-desc">
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: right;">
-                                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalResultados"> <img src="images/anadir_dos.png"> Agregar Tercero</button>
+                                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalResultados"> <img src="images/anadir_dos.png"> Agregar Acudiente</button>
                                                     </div>
                                                     <div id="div_informacion_terceros"></div>
                                                 </div>
@@ -807,7 +807,7 @@ require_once '../include/header_administrador.php';
                     <div id="tercero_datos"  >
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <h4 style="color:#00c292;">
-                                <img src="images/cliente_1.png" alt="" style="width: 20px;"/>  Tercero 
+                                <img src="images/cliente_1.png" alt="" style="width: 20px;"/>  Acudiente o responsable 
                             </h4> 
                             <p style=" font-size: 11pt;">
                                 <img src="images/info.png" alt=""/>
@@ -892,7 +892,7 @@ require_once '../include/header_administrador.php';
                     </div>
                 </div>          
                 <div class="modal-footer">
-                    <button type="button" id="btn_agregar_tercero" class="btn btn-primary" style="font-size: 11pt;">  <img src="images/anadir_dos.png"> Agregar Tercero</button>
+                    <button type="button" id="btn_agregar_tercero" class="btn btn-primary" style="font-size: 11pt;">  <img src="images/anadir_dos.png"> Agregar Acudiente</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
             </div>                            
