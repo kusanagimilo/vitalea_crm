@@ -59,4 +59,7 @@ if ($tipo == 3) {
 }if ($tipo == 13) {
     $retorno = $Obj_Facturacion->ListaPrecotizaciones($_POST);
     echo $retorno;
+}if ($tipo == 14) {
+    $retorno = $Obj_Facturacion->listaDetallecotizaciones($_POST);
+    echo $retorno;
 }

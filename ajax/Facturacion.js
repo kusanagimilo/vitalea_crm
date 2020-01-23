@@ -678,8 +678,7 @@ function AlmacenarPreCotizacion() {
 }
 
 
-function VerPrecotizaciones() {
-
+function VerPrecotizaciones() {    
 
     $("#lista_precot_cot_body").html("");
 
@@ -713,11 +712,13 @@ function VerPrecotizaciones() {
             tipo: 13
 
         },
-        success: function (retu) {
+        success: function (retu) {       
+            
             $.each(retu, function (i, precot) {
+                
 
                 var newRow = "<tr>";
-                newRow += "<td>" + precot.id_precotizacion + "</td>";
+                newRow += "<td name='idPrecotizaciones'>" + precot.id_precotizacion + "</td>";
                 newRow += "<td>" + precot.nombre_cliente + "</td>";
                 newRow += "<td>" + precot.correo + "</td>";
                 newRow += "<td>" + precot.telefono + "</td>";
@@ -725,20 +726,81 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
                 newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
-                newRow += "<td><button class='btn btn-success'onclick=''>" + 'Ver detalle' + "</button></td>";
+                newRow += "<td><button class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'>" + 'Ver detalle' + "</button></td>";
                 newRow += "</tr>";
 
-                $(newRow).appendTo("#lista_precot_cot_body");
+                $(newRow).appendTo("#lista_precot_cot_body");   
             });
+            
         }
     });
-
-
 
     var tabla = $('#lista_precot_cot').DataTable({
         responsive: true
     });
 
+}
+
+function verDetalleCotizacion() {    
+    
+    const boton = document.querySelectorAll('.botonVerDetalle');
+    const idPrecotizacion = document.getElementsByName('idPrecotizaciones');
+    for (const i of boton) {
+        i.addEventListener("click", (e)=>{
+            $("#listaResultadosVerDetalle").html("");
+
+            var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
+                    '<thead>' +
+                    '<tr style="background-color: #214761;">' +
+                    '<th style="color:white">#Cotizacion</th>' +
+                    '<th style="color:white">valor</th>' +
+                    '<th style="color:white">Codigo Examen</th>' +
+                    '<th style="color:white">Item</th>' +            
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="listaResultadosVerDetalle">' +
+                    '</tbody>' +
+                    '</table>';
+        
+            $("#contenedorTablaDetalles").html(tabla);
+            
+            var data;
+            $.ajax({
+                type: "POST",
+                url: "../controladores/FacturacionController.php",
+                async: false,
+                dataType: 'json',
+                data: {
+                    tipo: 14
+
+                },
+                success: function (retu) {       
+                    console.log(retu);
+                    $.each(retu, function (i, precot) {
+
+
+                        var newRow = "<tr>";
+                        newRow += "<td>" + precot.id_precotizacion + "</td>";
+                        newRow += "<td>" + precot.valor + "</td>";
+                        newRow += "<td>" + precot.codigo + "</td>";
+                        newRow += "<td>" + precot.nombre + "</td>";                       
+                        newRow += "</tr>";
+
+                        $(newRow).appendTo("#listaResultadosVerDetalle");   
+                    });
+
+                }
+            });
+            
+        
+            var tabla = $('#listaDetallesVer').DataTable({
+                responsive: true
+            });
+        
+        })
+    }
+    
+    
 }
 
 function formatNumber(num) {
