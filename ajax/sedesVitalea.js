@@ -92,23 +92,22 @@ function eliminarSedesVitalea() {
     const lecturaValorABorrar = document.getElementsByName("btnEliminacionDatos");
 
     let eliminarRegistro = (e)=>{
-        let contenedorPadre = e.target.parentNode.parentNode.firstChild.textContent;
+        let eliminarR = e.target.parentNode.parentNode.firstChild.textContent;
         $.ajax({
             type: "POST",
             url: "../controladores/sedesVitaleaController.php",
             async: false,
             dataType: 'json',
             data: {
-                tipo: 2,
-                nombre: nombre,
-                ciudad: ciudad,
-                direccion: direccion,
-                barrio: barrio,
-                telefono: telefono
+                tipo: 3,
+                eliminar: eliminarR,
             },
-            success: function () {
+            success: function () {                
             }
         });
+        setTimeout(() => {
+            location.reload();
+        }, 150);
     }
     for (let i = 0; i < lecturaValorABorrar.length; i++) {
         lecturaValorABorrar[i].addEventListener("click", eliminarRegistro);        

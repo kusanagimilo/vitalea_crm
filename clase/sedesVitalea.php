@@ -22,7 +22,7 @@ class sedesVitalea {
 
     // INGRESAR ITEM DE COTIZACION
     public function ingresarNuevaSede($nombre_sede,$ciudad,$direccion,$barrio,$telefono){
-        $query= $this->conexion->prepare("INSERT INTO crm_preatencion.sedes_vitalea (nombre_sede,ciudad,direccion,barrio,telefono) VALUES (:nombre_sede,:ciudad,:direccion,:barrio,:telefono)");
+        $query= $this->conexion->prepare("INSERT INTO sedes_vitalea (nombre_sede,ciudad,direccion,barrio,telefono) VALUES (:nombre_sede,:ciudad,:direccion,:barrio,:telefono)");
   
          $query->execute(array(':nombre_sede'=>$nombre_sede,
                                 ':ciudad'=>$ciudad,
@@ -30,5 +30,10 @@ class sedesVitalea {
                                 ':barrio'=>$barrio,
                                 ':telefono'=>$telefono
                             ));
+      }
+
+      public function eliminacionDeSede($eliminacion){
+        $query= $this->conexion->prepare("DELETE FROM sedes_vitalea WHERE nombre_sede = :nombre_de_sede");  
+         $query->execute(array(':nombre_de_sede'=>$eliminacion));
       }
 }

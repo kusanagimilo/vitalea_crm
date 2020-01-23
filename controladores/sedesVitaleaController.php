@@ -22,4 +22,9 @@ if ($tipo == 2) {
     $envio = $vitaleaSedes->ingresarNuevaSede($nombre, $ciudad, $direccion, $barrio, $telefono);
 }
 
+if ($tipo == 3) {
+    $eliminacion = $_POST["eliminar"];
+    $orden = $vitaleaSedes->eliminacionDeSede($eliminacion);
+}
+
 ?>
