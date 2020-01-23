@@ -67,7 +67,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                             <div class="col-md-6">
                                                 <br>
                                                 <button class="btn btn-primary" id="btnEnvioDatos" style="width: 100%">Ingresar Valores</button>
-                                            </div>
+                                            </div>                                            
                                         </div>
 
                                         <br>
@@ -93,6 +93,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     <script>
         verSedesVitalea();
         ingresarSedesVitalea();
+        eliminarSedesVitalea();
     </script>
 </body>
 
