@@ -11,8 +11,8 @@ class sedesVitalea {
     }
     
     public function sedesVitaleaFuncion($data) {
-        
-        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion.sedes_vitalea");
+        /*CONSULTA DE VISUALIZACION DE DATOS*/        
+        $query = $this->conexion->prepare("SELECT * FROM sedes_vitalea");
         $query->execute();
 
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -20,8 +20,8 @@ class sedesVitalea {
         return json_encode($rows);
     }
 
-    // INGRESAR ITEM DE COTIZACION
     public function ingresarNuevaSede($nombre_sede,$ciudad,$direccion,$barrio,$telefono){
+        /*CONSULTA DE INGRESO DE DATOS*/ 
         $query= $this->conexion->prepare("INSERT INTO sedes_vitalea (nombre_sede,ciudad,direccion,barrio,telefono) VALUES (:nombre_sede,:ciudad,:direccion,:barrio,:telefono)");
   
          $query->execute(array(':nombre_sede'=>$nombre_sede,
@@ -33,6 +33,7 @@ class sedesVitalea {
       }
 
       public function eliminacionDeSede($eliminacion){
+        /*CONSULTA PARA LA ELIMINACION DE DATOS*/
         $query= $this->conexion->prepare("DELETE FROM sedes_vitalea WHERE nombre_sede = :nombre_de_sede");  
          $query->execute(array(':nombre_de_sede'=>$eliminacion));
       }

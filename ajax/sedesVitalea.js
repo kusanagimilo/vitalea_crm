@@ -1,4 +1,8 @@
 function verSedesVitalea() {
+     /*En la siguiente funcion generamos la funcionalidad de visualizacion de sedes realizando, la lectura desde el metodo ajax
+     con la cual se hacer el 'inner' de la cabecera de la tabla y porteriormente el 'inner' de los datos obtenidos del objeto
+     JSON del Ajax, en la ultima parte de nuestra funcion se llama el metodo 'Datatable', correspondiente a la libreria para creacion 
+     automatica de tablas*/
     $("#listaDevaloresTablaSedes").html("");
 
     var tabla = '<table id="listaTablaSedes" class="table table-bordered">' +
@@ -9,7 +13,7 @@ function verSedesVitalea() {
             '<th style="color:white">Direccion</th>' +
             '<th style="color:white">Barrio</th>' +
             '<th style="color:white">Telefono</th>' +
-            '<th style="color:white">Acciones</th>' +
+            '<th style="color:white; text-align: center;">Acciones</th>' +
             '</tr>' +
             '</thead>' +
             '<tbody id="listaDevaloresTablaSedes">' +
@@ -54,6 +58,9 @@ function verSedesVitalea() {
 }
 
 function ingresarSedesVitalea() {
+    /*En la siguiente funcion generamos la funcionalidad de ingreso de nuevas sedes realizando la identificacion de cada uno de los 
+    inputs en la vista, generando un ajax con el dato eliminar y por ultimo generando un intervalo para recarga de la Url que se 
+    realiza de inmediato con el evento click del boton*/
     const botonEnvio = document.querySelector("#btnEnvioDatos");    
     botonEnvio.addEventListener("click", ()=>{
     nombre = $("#nombreInput").val();
@@ -89,6 +96,8 @@ function ingresarSedesVitalea() {
 }
 
 function eliminarSedesVitalea() {
+    /*En la siguiente funcion generamos la funcionalidad de eliminacion de sedes leyendo el identificador del boton ubicado en la vista
+    generando un ajax con el dato eliminar y por ultimo generando un intervalo para recarga de la Url*/
     const lecturaValorABorrar = document.getElementsByName("btnEliminacionDatos");
 
     let eliminarRegistro = (e)=>{
