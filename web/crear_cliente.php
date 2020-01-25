@@ -769,7 +769,14 @@ require_once '../include/header_administrador.php';
                                                     </div>
                                                 </div>   
                                             </div>   
-                                        </div> 
+                                        </div>
+                                        <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
+                                            <?php include('./reportes/habeasData.php') ?>
+                                        </div>
+                                        <div style="max-height: 350px; padding: 40px; text-align: justify; box-sizing: border-box; display: flex; justify-content: center">
+                                            <input type="checkbox" id="checkHabeasData" style="margin-top: -4px;"> <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label> 
+                                        </div>   
+                                        
                                     </div>        
 
 
