@@ -27,8 +27,7 @@ require_once '../include/header_administrador.php';
 </style>
 <script src="../ajax/Crear_usuario.js" ></script>
 <script>
-    $(document).ready(function ()
-    {
+    $(document).ready(function (){
 
         alertify.set({labels: {
                 ok: "Entendido",
@@ -223,8 +222,8 @@ require_once '../include/header_administrador.php';
             if (tipo_documento.length == 0) {
                 alertify.alert("Seleccione un <b>Tipo de documento</b>");
                 return false;
-            } else if (numero_documento.length == 0) {
-                alertify.alert("Ingrese el <b>Numero de Documento</b>");
+            } else if (numero_documento.length == 0 || isNaN(numero_documento)) {
+                alertify.alert("Verifique o Ingrese <b>Numero de Documento correctamente</b>");
                 return false;
             } else if (nombre.length == 0) {
                 alertify.alert("Ingrese <b>Nombre</b>");
@@ -238,8 +237,11 @@ require_once '../include/header_administrador.php';
             } else if (estado_civil.length == 0) {
                 alertify.alert("Seleccione <b>Estado Civil</b>");
                 return false;
-            } else if (telefono_uno.length == 0) {
-                alertify.alert("Ingrese <b>Telefono Uno</b>");
+            } else if (telefono_uno.length == 0 || isNaN(telefono_uno)) {
+                alertify.alert("Verifique <b>el ingreso correcto de telefono Uno</b>");
+                return false;
+            } else if (isNaN(telefono_dos)) {
+                alertify.alert("Verifique <b>el ingreso correcto de telefono dos</b>");
                 return false;
             } else if (email.length == 0) {
                 alertify.alert("Ingrese <b>Correo Electronico</b>");
@@ -545,7 +547,7 @@ require_once '../include/header_administrador.php';
                                                                     <div class="form-group">
                                                                         <label>Telefono 2</label>
                                                                         <div class="nk-int-st">
-                                                                            <input name="telefono_dos" id="telefono_dos" class="form-control" type="text">
+                                                                            <input name="telefono_dos" id="telefono_dos" class="form-control" type="text" placeholder="Opcional">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -775,15 +777,11 @@ require_once '../include/header_administrador.php';
                                         </div>
                                         <div style="max-height: 350px; padding: 40px; text-align: justify; box-sizing: border-box; display: flex; justify-content: center">
                                             <input type="checkbox" id="checkHabeasData" style="margin-top: -4px;"> <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label> 
-                                        </div>   
-                                        
-                                    </div>        
-
-
+                                        </div>                                       
+                                    </div>
                                     <button id="nuevo_registro" class="btn btn-info notika-btn-success waves-effect" style="width: 30%;float: right;">
-                                        <img src="images/guardar.png" alt="" style="width: 20px"/>
-                                        Guardar</button>
-
+                                        <img src="images/guardar.png" alt="" style="width: 20px"/> Guardar
+                                    </button>
                                 </div>
                             </div>
 
