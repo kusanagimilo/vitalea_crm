@@ -454,8 +454,8 @@ group by ven.usuario_id");
     public function AlmacenarPreCotizacion($data) {
         @session_start();
         $id_usuario = $_SESSION['ID_USUARIO'];
-        $query = $this->conexion->prepare("INSERT INTO precotizacion(nombre_cliente,correo,telefono,valor,descuento,id_usr_creo,direccion,observacion,contactado)VALUES
-                  (:nombre_cliente,:correo,:telefono,:valor,:descuento,:id_usr_creo,:direccion,:observacion,:contactado)");
+        $query = $this->conexion->prepare("INSERT INTO precotizacion(nombre_cliente,correo,telefono,valor,descuento,id_usr_creo,direccion,observacion,contactado,firma)VALUES
+                  (:nombre_cliente,:correo,:telefono,:valor,:descuento,:id_usr_creo,:direccion,:observacion,:contactado,:firma)");
         $query->execute(array(
             ':nombre_cliente' => $data['nombre_cliente'],
             ':correo' => $data['correo'],
@@ -465,7 +465,8 @@ group by ven.usuario_id");
             ':id_usr_creo' => $id_usuario,
             ':direccion' => $data['direccion'],
             ':observacion' => $data['observacion'],
-            ':contactado' => $data['contactado']
+            ':contactado' => $data['contactado'],
+            ':firma' => $data['imagenBase64']
         ));
 
         if ($query) {
@@ -505,14 +506,14 @@ group by ven.usuario_id");
         return $json_retorno;
     }
 
-    public function listaDetallecotizaciones($data) {
-        $query = $this->conexion->prepare("SELECT pre.id_precotizacion, exno.nombre, exno.codigo FROM precotizacion_items preit
-                                            INNER JOIN precotizacion pre ON preit.id_precotizacion =  pre.id_precotizacion
-                                            INNER JOIN examenes_no_perfiles exno ON preit.id_item =  exno.id;");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
-        $json_retorno = json_encode($rows);
-        return $json_retorno;
-    }
+    // public function listaDetallecotizaciones($data) {
+    //     $query = $this->conexion->prepare("SELECT pre.id_precotizacion, exno.nombre, exno.codigo FROM precotizacion_items preit
+    //                                         INNER JOIN precotizacion pre ON preit.id_precotizacion =  pre.id_precotizacion
+    //                                         INNER JOIN examenes_no_perfiles exno ON preit.id_item =  exno.id;");
+    //     $query->execute();
+    //     $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+    //     $json_retorno = json_encode($rows);
+    //     return $json_retorno;
+    // }
 
 }

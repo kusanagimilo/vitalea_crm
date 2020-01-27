@@ -1,4 +1,4 @@
-<?php
+<?PHP
 require_once '../include/script.php';
 require_once '../include/header_administrador.php';
 $array_permisos = explode(",", $_SESSION['PERMISOS']);

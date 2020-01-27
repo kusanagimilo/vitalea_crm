@@ -65,7 +65,7 @@ class Gestion {
         return json_encode($opciones);
     }
     
-    public function crear_cliente($tipo_documento,$documento,$nombre,$apellido,$telefono_1,$telefono_2,$email,$fecha_nacimiento,$ciudad_id,$barrio,$direccion,$estado_civil_id,$sexo,$estrato,$tipo_cliente,$edad, $pregunta_22, $clasificacion, $pregunta_23, $imagenCodificada){
+    public function crear_cliente($tipo_documento,$documento,$nombre,$apellido,$telefono_1,$telefono_2,$email,$fecha_nacimiento,$ciudad_id,$barrio,$direccion,$estado_civil_id,$sexo,$estrato,$tipo_cliente,$edad, $pregunta_22, $clasificacion, $pregunta_23){
         $query = $this->conexion->prepare("INSERT INTO cliente 
                                                 (tipo_documento,
                                                 documento,nombre,
@@ -84,8 +84,7 @@ class Gestion {
                                                 edad,
                                                 origen_contacto,
                                                 observacion_origen,
-                                                venta_virtual,
-                                                firma_base64)
+                                                venta_virtual)
                                             VALUES 
                                                 (:tipo_documento,
                                                 :documento,
@@ -105,8 +104,7 @@ class Gestion {
                                                 :edad,
                                                 :origen_contacto,
                                                 :observacion_origen,
-                                                :venta_virtual,
-                                                :firma)");
+                                                :venta_virtual)");
         
         $query->execute(array(':tipo_documento'=>$tipo_documento,
                               ':documento'=>$documento,
@@ -126,8 +124,7 @@ class Gestion {
                               ':edad'=>$edad,
                               ':origen_contacto'=>$pregunta_22, 
                               ':observacion_origen'=>$clasificacion,
-                              ':venta_virtual'=>$pregunta_23,
-                              ':firma'=>$imagenCodificada
+                              ':venta_virtual'=>$pregunta_23
                              ));
         
       

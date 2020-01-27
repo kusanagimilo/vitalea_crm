@@ -237,7 +237,7 @@ function ListaExamenes() {
                 var newRow = "<tr>";
                 newRow += "<td id='ex_cod" + examen.id + "'>" + examen.codigo + "</td>";
                 newRow += "<td id='ex_nom" + examen.id + "'>" + examen.nombre + "</td>";
-                newRow += "<td id='ex_pre" + examen.id + "'>" + formatNumber(parseInt(examen.precio)) + "</td>";
+                newRow += "<td id='ex_pre" + examen.id + "'>" +formatNumber(parseInt(examen.precio)) + "</td>";
                 newRow += "<td id='ex_btn" + examen.id + "'>" + botones + "</td>";
                 newRow += "</tr>";
 

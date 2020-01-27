@@ -59,7 +59,7 @@ class Usuario {
     }
 
     function usuarios_activos($fecha, $tipo_gestion, $permiso) {
-        $query = $this->conexion->prepare("SELECT  COUNT(DISTINCT t.usuario_id) as cantidad FROM tiempo_gestion AS t
+        $query = $this->conexion->prepare(" SELECT  COUNT(DISTINCT t.usuario_id) as cantidad FROM tiempo_gestion AS t
         INNER JOIN permisos_usuarios AS p on p.usuario_id= t.usuario_id
         WHERE date(fecha_inicio) =:fecha AND gestion_id = :tipo_gestion AND p.permisos_id=:permiso");
         $query->execute(array(':fecha' => $fecha,

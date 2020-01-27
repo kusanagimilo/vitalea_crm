@@ -61,14 +61,12 @@ if ($tipo == 1) { //BUSQUEDA DE REGISTRO
     $pregunta_22 = $_POST["pregunta_22"];
     $pregunta_23 = $_POST["pregunta_23"];
     $clasificacion = $_POST["clasificacion"];
-    $imagenCodificada = $_POST['imagenBase64'];
-
 
     $registro = $gestion->id_cliente($numero_documento);
 
 
     if ($registro == 0) { //NO EXISTEN REGISTROS
-        $gestion->crear_cliente($tipo_documento, $numero_documento, $nombre, $apellido, $telefono_uno, $telefono_dos, $email, $fecha_nacimiento, $ciudad, $barrio, $direccion, $estado_civil, $sexo, $estrato, $tipo_cliente, $edad, $pregunta_22, $clasificacion, $pregunta_23, $imagenCodificada);
+        $gestion->crear_cliente($tipo_documento, $numero_documento, $nombre, $apellido, $telefono_uno, $telefono_dos, $email, $fecha_nacimiento, $ciudad, $barrio, $direccion, $estado_civil, $sexo, $estrato, $tipo_cliente, $edad, $pregunta_22, $clasificacion, $pregunta_23);
 
         $registro_titular = $gestion->id_cliente($numero_documento);
 

@@ -458,9 +458,9 @@ function CrearPacienteHolding(cliente) {
         type: 'POST',
         async: false,
         headers: {
-            'Authorization': 'Bearer cdb0891d7bb32241235b31420bb0847a44d07a49',
+            'Authorization': 'Bearer 20759f2e13e83281b23382d37b41888ee07126b0',
             'Content-Type': 'application/json'},
-        url: "https://vitalea-dev.herokuapp.com/api/users/create_user",
+        url: "https://vitalea.co/api/users/create_user",
         data: JSON.stringify({
             "users": [
                 {
@@ -513,3 +513,4 @@ function EnviarCorreoNuevoUsuario(cliente) {
     });
     return retorno;
 }
+

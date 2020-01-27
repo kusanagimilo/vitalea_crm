@@ -25,7 +25,6 @@ require_once '../include/header_administrador.php';
         100% { transform: rotate(360deg); }
     }
 </style>
-<script src="../ajax/firmasAlmacenar.js"></script>
 <script src="../ajax/Crear_usuario.js" ></script>
 <script>
     $(document).ready(function (){
@@ -185,10 +184,7 @@ require_once '../include/header_administrador.php';
             agregar_tercero();
         });
 
-        $("#nuevo_registro").click(function () {
-            /*En la variable imagenBase64 Realizamos la lectura de la codificacion de la firma, almacenada via SessionStorage desde el documento ../ajax/firmasAlmacenar.js*/
-            let imagenBase64 = sessionStorage.getItem('imagenCadena');
-            /*---------------------------------------------------------------------------------------------------------------------*/ 
+        $("#nuevo_registro").click(function () {    
             var tipo_cliente = $('.i-checks:checked').val();
             var tipo_documento = $("#tipo_documento").val();
             var numero_documento = $("#numero_documento").val();
@@ -324,8 +320,7 @@ require_once '../include/header_administrador.php';
                             edad: edad,
                             pregunta_22: pregunta_22,
                             pregunta_23: pregunta_23,
-                            clasificacion: clasificacion,
-                            imagenBase64: imagenBase64
+                            clasificacion: clasificacion    
                         },
                 type: 'post',
                 success: function (data)
@@ -778,20 +773,7 @@ require_once '../include/header_administrador.php';
                                                     </div>
                                                 </div>   
                                             </div>   
-                                        </div>
-                                        <h3 style="text-align: center">Politica de tratammiento de datos "HABEAS DATA" </h3>
-                                        <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
-                                            <?php include('./reportes/habeasData.php') ?>
-                                        </div>
-                                        <div style="padding: 40px; text-align: center; box-sizing: border-box; display: inline;">
-                                            <div>
-                                                <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label>
-                                            </div>
-                                            <div style="display: block">
-                                                Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;"> 
-                                                No <input name="habeasData" data-toggle="modal" data-target="#modalAnuncioHD" type="radio" id="checkHabeasData" style="margin-top: -4px;">
-                                            </div>
-                                        </div>                                       
+                                        </div>                                                                               
                                     </div>
                                     <button id="nuevo_registro" class="btn btn-info notika-btn-success waves-effect" style="width: 30%;float: right;">
                                         <img src="images/guardar.png" alt="" style="width: 20px"/> Guardar
@@ -808,86 +790,7 @@ require_once '../include/header_administrador.php';
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Modal de Anuncio de aceptacion Habeas Data -->
-    <div class="modal" id="modalAnuncioHD"  role="dialog" aria-labelledby="myModalLabel" >
-        <div class="modal-dialog" style="width: 80%;">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #214761; color: white" >
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt=""/> Aceptacion de las politicas de tratamiento de datos</h4>
-                </div>
-                <div class="modal-body col-md-12" style="height: 100px; overflow : auto;" id="cuerpo_modal">
-                    <!-- Contenedor de firma -->
-                    <div class="contenedor">
-                        <section>
-                            <h3 style="text-align: center;">Es Necesario aceptar las politicas de tratamiento de datos "Habeas Data", para poder continuar el proceso.</h3>
-                        </section>
-                    </div>
-                    
-
-
-                </div>          
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
-                </div>
-            </div>                            
-        </div>
-    </div>
-
-
-    <!-- Modal de firmas Habeas Data -->
-    <div class="modal" id="myModalFirma"  role="dialog" aria-labelledby="myModalLabel" >
-        <div class="modal-dialog" style="width: 90%;">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #214761; color: white" >
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt=""/> Aceptacion de las politicas de tratamiento de datos</h4>
-                </div>
-                <div class="modal-body col-md-12" style="height: 420px; overflow : auto; display: flex; justify-content: center;" id="cuerpo_modal">
-                    <!-- Contenedor de firma -->
-                    <div class="contenedor">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <canvas id="draw-canvas" width="620" height="360" style="box-shadow: 0px 0px 4px 2px #BBC0C4">
-                                    No tienes un buen navegador.
-                                </canvas>
-                            </div>
-                        </div><br>
-                        <div>
-                            <div style="display: inline-flex; flex-direction: column; margin-left: 25%; width: 50%">
-                                <input type="button" class="button" id="draw-submitBtn" value="Guardar Firma"></input>
-                                <input type="button" class="button" id="draw-clearBtn" value="Borrar Firma"></input>
-                                <label>Color</label>
-                                <input type="color" id="color">
-                                <br>
-                                <label>Tamaño Puntero</label>
-                                <input type="range" id="puntero" min="1" default="1" max="5" width="10%">
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-                        <div class="contenedor">
-                            <div class="col-md-12">
-                                <img id="draw-image" src="" alt="Tu Imagen aparecera Aqui!" />
-                            </div>
-                        </div>
-                    </div>
-                    
-
-
-                </div>          
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
-                </div>
-            </div>                            
-        </div>
-    </div>
-
+    </div>  
 
     <!-- modal terceros -->
     <div class="modal" id="myModalResultados" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >

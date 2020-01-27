@@ -127,6 +127,24 @@ $hoy = date("Y-m-d H:i:s");
             $query2 = $conexion->prepare($sql_valor);
             $query2->execute();
             $rows2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+        
+        	$bono = "";
+        
+        	if($value['bono'] == 'NO'){
+            
+             $bono = $value['bono'];
+            }else{
+            	  $sql_bono = "SELECT * FROM bono WHERE id = '" . $value["bono"] . "'";
+
+
+            $query3 = $conexion->prepare($sql_bono);
+            $query3->execute();
+            $rows3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+            
+            $bono = "-".$rows3[0]['cantidad_descuento'];
+            }
+        
+        
             ?>
             <tr>
                 <td style="width: 10%; border: solid 1px #000000;"><?php echo $value["fecha_pago"]; ?></td>
@@ -136,7 +154,7 @@ $hoy = date("Y-m-d H:i:s");
                 <td style="width: 10%; border: solid 1px #000000;"><?php echo $value["documento_atendio"]; ?></td>
                 <td style="width: 10%; border: solid 1px #000000;"><?php echo utf8_decode($value["paciente_nombre"] . " " . $value["apellido_paciente"]); ?></td>
                 <td style="width: 10%; border: solid 1px #000000;"><?php echo $value["documento_paciente"]; ?></td>
-                <td style="width: 10%; border: solid 1px #000000;"><?php echo $rows2[0]['venta_total']; ?></td>
+                <td style="width: 10%; border: solid 1px #000000;">Bono:<?php echo $bono;?><br><?php echo $rows2[0]['venta_total']; ?></td>
             </tr>
         <?php } ?>
 

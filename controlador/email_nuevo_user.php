@@ -14,8 +14,8 @@ $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->SMTPSecure = "tls";
 $mail->Host = "smtp.gmail.com";
-$mail->Username = "infovivelab@gmail.com";
-$mail->Password = "vivelab_info2018**++";
+$mail->Username = "hola@vitalea.com.co";
+$mail->Password = "vitaleah2019*";
 $mail->Port = 587;
 
 $correo = $_POST['correo'];
@@ -991,4 +991,3 @@ if ($exito) {
 } else {
     echo 2;
 }
-

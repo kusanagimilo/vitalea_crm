@@ -48,7 +48,7 @@
 	<link rel="stylesheet" href="../web/css_inicio/animate.css">
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="../web/css_inicio/style.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png"></link>
+       <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png"></link>
 
        <!-- Bootstrap -->
 		<script src="../web/js_inicio/bootstrap.js"></script>

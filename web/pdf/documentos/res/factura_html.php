@@ -1,4 +1,5 @@
 <style type="text/css">
+<!--
 table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; }
@@ -31,6 +32,8 @@ td    { vertical-align: top; }
 	border-bottom: solid 1px #bdc3c7;
 }
 table.page_footer {width: 100%; border: none; background-color: white; padding: 2mm;border-collapse:collapse; border: none;}
+}
+-->
 </style>
 <page backtop="15mm" backbottom="15mm" backleft="15mm" backright="15mm" style="font-size: 12pt; font-family: arial" >
         <page_footer>

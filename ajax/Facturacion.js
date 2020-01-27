@@ -630,6 +630,9 @@ function AlmacenarPreCotizacion() {
         var direccion = $("#direccion").val();
         var observaciones = $("#observacion").val();
         var radio = $('input:radio[name=contacto]:checked').val();
+        /*En la variable imagenBase64 Realizamos la lectura de la codificacion de la firma, almacenada via SessionStorage desde el documento ../ajax/firmasAlmacenar.js*/
+        let imagenBase64 = sessionStorage.getItem('imagenCadena');
+        /*---------------------------------------------------------------------------------------------------------------------*/ 
 
 
         if (nombre == "" || correo == "" || telefono == "" || $("#cuerpo_cotizacion").length == 0 || radio == null) {
@@ -655,7 +658,8 @@ function AlmacenarPreCotizacion() {
                     tipo_items: tipo_items,
                     direccion: direccion,
                     observacion: observaciones,
-                    contactado: radio
+                    contactado: radio,
+                    imagenBase64: imagenBase64
                 },
                 success: function (retu) {
 
@@ -769,7 +773,7 @@ function verDetalleCotizacion() {
                 $.ajax({
                     type: "POST",
                     url: "../controladores/FacturacionController.php",
-                    async: false,
+                    async: true,
                     dataType: 'json',
                     data: {
                         tipo: 14

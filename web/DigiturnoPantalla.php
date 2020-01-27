@@ -51,7 +51,7 @@ require_once '../include/script.php';
                        <center><img src="images/propuesta-digiturno-V2_01.jpg"></center>
 					    <h2 style="font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; ">&iexcl;Pronto te llamaremos!</h2>
 						<p style="font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; font-size:18px; ">Espera c&oacute;modamente en la sala y si tiene alguna consulta ac&eacute;rcate  a nuestros asesores</p>
-                        <div class="row pad-top" id="contenido_dg" style="background-color: white;">
+                        <div class="row pad-top" id="contenido_dg" >
 
 
 
