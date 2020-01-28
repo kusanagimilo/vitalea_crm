@@ -93,7 +93,7 @@ function ResultadosIndividual() {
             tipo: 2,
             documento: documento,
             id_solicitud: id_solicitud,
-            regi_resul:regi_resul
+            regi_resul: regi_resul
 
         },
         success: function (retu) {
@@ -111,7 +111,7 @@ function ResultadosIndividual() {
                     '<th style="color:white">Fecha recepcion resultados</th>' +
                     '<th style="color:white">Documento</th>' +
                     '<th style="color:white">Ver detalle</th>' +
-                    '<th style="color:white">%Resultados</th>' +
+                    //'<th style="color:white">%Resultados</th>' +
                     '</tr>' +
                     '</thead>' +
                     '<tbody id="lista_resultado_cot_body">' +
@@ -156,7 +156,7 @@ function ResultadosIndividual() {
                 newRow += "<td>" + fecha_recepcion + "</td>";
                 newRow += "<td>" + archivos + "</td>";
                 newRow += "<td>" + detalle + "</td>";
-                newRow += "<td>" + resultados.porcentaje + "</td>";
+                //newRow += "<td>" + resultados.porcentaje + "</td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_resultado_cot_body");
@@ -190,9 +190,14 @@ function ResultadosDetalle(venta_id, id_resultado) {
             datos = retu;
         }
     });
-
-
-    var html = "<div id='perfiles'><h4>Perfiles</h4>";
+    
+    var arreglo_por = datos.porcentaje;
+    
+    var porcentaje = '<h2>Porcentaje de resultados ingresados</h2>' +
+            '<div class="progress">' +
+            '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:'+arreglo_por.porcentaje+'%">'+arreglo_por.porcentaje+'%</div>' +
+            '</div>'
+    var html = porcentaje + "<div id='perfiles'><h4>Perfiles</h4>";
     html += '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
     $.each(datos.perfiles, function (i, perfi) {
 

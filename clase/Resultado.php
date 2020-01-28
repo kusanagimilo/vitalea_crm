@@ -695,11 +695,11 @@ $adicion_regiresul";
         $arreglo_adicionado = array();
         $i = 0;
         foreach ($rows as $key => $value) {
-            $porcentaje = "0%";
-            if ($value['estado'] == 2) {
-                $retorno_p = $this->DetalleCompletoResultado($value['idventa'], $value['idresultado']);
-                $porcentaje = $retorno_p['porcentaje'] . "%";
-            }
+            /* $porcentaje = "0%";
+              if ($value['estado'] == 2) {
+              $retorno_p = $this->DetalleCompletoResultado($value['idventa'], $value['idresultado']);
+              $porcentaje = $retorno_p['porcentaje'] . "%";
+              } */
 
             $arreglo_adicionado[$i]['idresultado'] = $value['idresultado'];
             $arreglo_adicionado[$i]['idventa'] = $value['idventa'];
@@ -713,7 +713,7 @@ $adicion_regiresul";
             $arreglo_adicionado[$i]['documento'] = $value['documento'];
             $arreglo_adicionado[$i]['nombre'] = $value['nombre'];
             $arreglo_adicionado[$i]['apellido'] = $value['apellido'];
-            $arreglo_adicionado[$i]['porcentaje'] = $porcentaje;
+            //$arreglo_adicionado[$i]['porcentaje'] = $porcentaje;
             $i++;
         }
 
@@ -874,7 +874,8 @@ $adicion_regiresul";
 
             $arreglo_retorno["no_perfiles"] = $arreglo_no_perfiles;
         }
-
+        $arreglo_porcentaje = $this->DetalleCompletoResultado($data['venta_id'], $data['id_resultado']);
+        $arreglo_retorno["porcentaje"] = $arreglo_porcentaje;
 
 
         return json_encode($arreglo_retorno);
