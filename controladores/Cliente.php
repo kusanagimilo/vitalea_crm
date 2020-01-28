@@ -55,6 +55,11 @@ else if($tipo == 8){
     echo $parentesco;
     
 }
+else if($tipo == 11){
+    $barrioLista = $cliente->barriosListados();
+    echo $barrioLista;
+    
+}
 else if($tipo == 9){ //actualizar datos Paciente y Tercero
 
     $tipo_documento             = $_POST["tipo_documento"];

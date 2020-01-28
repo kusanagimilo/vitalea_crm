@@ -30,6 +30,16 @@ class Cliente {
         return json_encode($opciones);
     }
 
+    public function barriosListados() {
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.barrios_bogota");
+        $query->execute();
+        $rows = $query->fetchAll();
+        foreach ($rows as $valor) {
+            $opciones[] = array('id' => $valor["id"], 'nombre' => $valor["nombre"]);
+        }
+        return json_encode($opciones);
+    }
+
     public function consultar_departamento() {
         $query = $this->conexion->prepare(" SELECT id,nombre FROM departamento WHERE activo=1  order by nombre desc");
         $query->execute();

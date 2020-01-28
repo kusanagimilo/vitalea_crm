@@ -795,12 +795,10 @@ function verDetalleCotizacion() {
                             $(newRow).appendTo("#listaResultadosVerDetalle");
                         });
 
+                        var tabla = $('#listaDetallesVer').DataTable({
+                            responsive: true
+                        });
                     }
-                });
-
-
-                var tabla = $('#listaDetallesVer').DataTable({
-                    responsive: true
                 });
 
             })

@@ -47,6 +47,7 @@ require_once '../include/header_administrador.php';
         listar_departamento();
         listar_seccion_direccion();
         listar_parentesco();
+        listar_barrio();
 
         $("#departamento").change(function () {
             listar_ciudad();
@@ -648,7 +649,9 @@ require_once '../include/header_administrador.php';
                                                         <div class="form-group">
                                                             <label>Barrio</label>
                                                             <div class="nk-int-st">
-                                                                <input name="barrio" id="barrio" class="form-control" type="text">
+                                                                <select id="barrio" class="form-control" type="text" style="min-width: 230px">
+                                                                    <option></option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -21,6 +21,29 @@ function listar_tipo_documento() {
     });
 }
 
+function listar_barrio() {
+
+    $.ajax({
+        url: '../controladores/Cliente.php',
+        data:
+                {
+                    tipo: 11
+                },
+        type: 'post',
+        dataType: 'json',
+        success: function (data)
+        {
+
+            $.each(data, function (i, cliente) {
+                var newRow = "<option value='" + cliente.id + "' >" + cliente.nombre + "</option>";
+                $(newRow).appendTo("#barrio");
+            });
+
+
+        }
+    });
+}
+
 
 function listar_estado_civil() {
 

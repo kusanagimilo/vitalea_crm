@@ -497,23 +497,19 @@ group by ven.usuario_id");
         $query = $this->conexion->prepare("SELECT pre.*,us.nombre_completo
                                            FROM precotizacion pre
                                            INNER JOIN usuario us ON us.id = pre.id_usr_creo");
-        $query2 = $this->conexion->prepare("SELECT pre.*,us.nombre_completo
-                                           FROM precotizacion pre
-                                           INNER JOIN usuario us ON us.id = pre.id_usr_creo");
         $query->execute();
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         $json_retorno = json_encode($rows);
         return $json_retorno;
     }
 
-    // public function listaDetallecotizaciones($data) {
-    //     $query = $this->conexion->prepare("SELECT pre.id_precotizacion, exno.nombre, exno.codigo FROM precotizacion_items preit
-    //                                         INNER JOIN precotizacion pre ON preit.id_precotizacion =  pre.id_precotizacion
-    //                                         INNER JOIN examenes_no_perfiles exno ON preit.id_item =  exno.id;");
-    //     $query->execute();
-    //     $rows = $query->fetchAll(PDO::FETCH_ASSOC);
-    //     $json_retorno = json_encode($rows);
-    //     return $json_retorno;
-    // }
+    public function listaDetallecotizaciones($data) {
+        $query = $this->conexion->prepare("SELECT preit.id_precotizacion, exno.nombre, exno.codigo FROM precotizacion pre, precotizacion_items preit, examenes_no_perfiles exno
+                                            where preit.id_precotizacion = preit.id_precotizacion");
+        $query->execute();
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json_retorno = json_encode($rows);
+        return $json_retorno;
+    }
 
 }
