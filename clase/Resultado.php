@@ -951,7 +951,7 @@ $adicion_regiresul";
 
                 $sql_perfil_examen = "SELECT prf.id_perfil,exam.id,exam.codigo
 FROM perfil_examen prf
-INNER JOIN examenes_no_perfiles_2 exam ON exam.id = prf.id_examen
+INNER JOIN examenes_no_perfiles exam ON exam.id = prf.id_examen
 WHERE prf.id_perfil = " . $value['examen_id'] . "";
 
                 $query_perfil = $this->conexion->prepare($sql_perfil_examen);
@@ -983,7 +983,7 @@ WHERE prf.id_perfil = " . $value['examen_id'] . "";
                 /* ------ inicio examen individual ------ */
             } else if ($value['tipo_examen'] == '2') {
 
-                $sql_examen = "SELECT * FROM examenes_no_perfiles_2 WHERE id = " . $value['examen_id'] . "";
+                $sql_examen = "SELECT * FROM examenes_no_perfiles WHERE id = " . $value['examen_id'] . "";
                 $query_examen = $this->conexion->prepare($sql_examen);
                 $query_examen->execute();
                 $rows_examen = $query_examen->fetchAll(PDO::FETCH_ASSOC);
