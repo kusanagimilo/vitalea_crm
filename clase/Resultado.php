@@ -637,7 +637,7 @@ AND ven.cliente_id =:cliente");
         }
     }
 
-   public function ResultadosIndividual($data) {
+    public function ResultadosIndividual($data) {
 
         /* $sql_cliente = "SELECT * FROM cliente WHERE documento = :documento";
           $query_cliente = $this->conexion->prepare($sql_cliente);
@@ -692,20 +692,45 @@ $adicion_regiresul";
         $query->execute();
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
 
+        $arreglo_adicionado = array();
+        $i = 0;
+        foreach ($rows as $key => $value) {
+            $porcentaje = "0%";
+            if ($value['estado'] == 2) {
+                $retorno_p = $this->DetalleCompletoResultado($value['idventa'], $value['idresultado']);
+                $porcentaje = $retorno_p['porcentaje'] . "%";
+            }
+
+            $arreglo_adicionado[$i]['idresultado'] = $value['idresultado'];
+            $arreglo_adicionado[$i]['idventa'] = $value['idventa'];
+            $arreglo_adicionado[$i]['id_solicitud_athenea'] = $value['id_solicitud_athenea'];
+            $arreglo_adicionado[$i]['fecha_creacion'] = $value['fecha_creacion'];
+            $arreglo_adicionado[$i]['fecha_modificacion'] = $value['fecha_modificacion'];
+            $arreglo_adicionado[$i]['nombre_archivo'] = $value['nombre_archivo'];
+            $arreglo_adicionado[$i]['nombre_archivo_sistema'] = $value['nombre_archivo_sistema'];
+            $arreglo_adicionado[$i]['estado'] = $value['estado'];
+            $arreglo_adicionado[$i]['fecha_pago'] = $value['fecha_pago'];
+            $arreglo_adicionado[$i]['documento'] = $value['documento'];
+            $arreglo_adicionado[$i]['nombre'] = $value['nombre'];
+            $arreglo_adicionado[$i]['apellido'] = $value['apellido'];
+            $arreglo_adicionado[$i]['porcentaje'] = $porcentaje;
+            $i++;
+        }
+
         /* $arreglo_retorno["id_cliente"] = $rows2[0]["id_cliente"];
           $arreglo_retorno["documento"] = $rows2[0]["documento"];
           $arreglo_retorno["nombre"] = $rows2[0]["nombre"];
           $arreglo_retorno["apellido"] = $rows2[0]["apellido"];
           $arreglo_retorno["email"] = $rows2[0]["email"]; */
 
-        $arreglo_retorno["resultados"] = $rows;
+        $arreglo_retorno["resultados"] = $arreglo_adicionado;
         return json_encode($arreglo_retorno);
         /* } else {
           return 2;
           } */
     }
 
-     public function ResultadosDetalle($data) {
+    public function ResultadosDetalle($data) {
 
         $arreglo_retorno = array();
 
@@ -907,6 +932,124 @@ $adicion_regiresul";
         }
 
         return json_encode($arreglo_retorno);
+    }
+
+    public function DetalleCompletoResultado($id_venta, $id_resultado) {
+        $sql_items = "SELECT id,examen_id,venta_id,tipo_examen FROM venta_items
+              WHERE venta_id = $id_venta";
+        $query_items = $this->conexion->prepare($sql_items);
+        $query_items->execute();
+        $rows_items = $query_items->fetchAll(PDO::FETCH_ASSOC);
+
+        $sub_examenes = array();
+        $examenes = array();
+        foreach ($rows_items as $key => $value) {
+
+            /* ------ inicio perfil ------ */
+
+            if ($value['tipo_examen'] == '1') {
+
+                $sql_perfil_examen = "SELECT prf.id_perfil,exam.id,exam.codigo
+FROM perfil_examen prf
+INNER JOIN examenes_no_perfiles_2 exam ON exam.id = prf.id_examen
+WHERE prf.id_perfil = " . $value['examen_id'] . "";
+
+                $query_perfil = $this->conexion->prepare($sql_perfil_examen);
+                $query_perfil->execute();
+                $rows_exam_perfil = $query_perfil->fetchAll(PDO::FETCH_ASSOC);
+
+                if (!empty($rows_exam_perfil)) {
+
+                    foreach ($rows_exam_perfil as $key2 => $value2) {
+                        $sql_subperfil = "SELECT * FROM sub_examen WHERE id_examen = " . $value2['id'] . "";
+                        $query_subperfil = $this->conexion->prepare($sql_subperfil);
+                        $query_subperfil->execute();
+                        $rows_subperfil = $query_subperfil->fetchAll(PDO::FETCH_ASSOC);
+
+                        if (!empty($rows_subperfil)) {
+
+                            foreach ($rows_subperfil as $key3 => $value3) {
+                                if (!in_array($value3['codigo_sub_examen'], $sub_examenes)) {
+                                    array_push($sub_examenes, $value3['codigo_sub_examen']);
+                                }
+                            }
+                        } else {
+                            if (!in_array($value2['codigo'], $examenes)) {
+                                array_push($examenes, $value2['codigo']);
+                            }
+                        }
+                    }
+                }
+                /* ------ inicio examen individual ------ */
+            } else if ($value['tipo_examen'] == '2') {
+
+                $sql_examen = "SELECT * FROM examenes_no_perfiles_2 WHERE id = " . $value['examen_id'] . "";
+                $query_examen = $this->conexion->prepare($sql_examen);
+                $query_examen->execute();
+                $rows_examen = $query_examen->fetchAll(PDO::FETCH_ASSOC);
+
+                $sql_subperfil = "SELECT * FROM sub_examen WHERE id_examen = " . $rows_examen[0]['id'] . "";
+                $query_subperfil = $this->conexion->prepare($sql_subperfil);
+                $query_subperfil->execute();
+                $rows_subperfil = $query_subperfil->fetchAll(PDO::FETCH_ASSOC);
+
+                if (!empty($rows_subperfil)) {
+
+                    foreach ($rows_subperfil as $key3 => $value3) {
+                        if (!in_array($value3['codigo_sub_examen'], $sub_examenes)) {
+                            array_push($sub_examenes, $value3['codigo_sub_examen']);
+                        }
+                    }
+                } else {
+                    if (!in_array($rows_examen[0]['codigo'], $examenes)) {
+                        array_push($examenes, $rows_examen[0]['codigo']);
+                    }
+                }
+            }
+        }
+
+
+        $conteo = 0;
+        foreach ($sub_examenes as $key4 => $value4) {
+            $sql_confirma1 = "SELECT id_valor_resultado,resultado FROM valor_resultado 
+                     WHERE codigo_examen = '" . $value4 . "' AND id_resultado = '" . $id_resultado . "' AND tipo_examen = 'sub_examen'";
+            $query_confirma1 = $this->conexion->prepare($sql_confirma1);
+            $query_confirma1->execute();
+            $rows_confirma1 = $query_confirma1->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!empty($rows_confirma1)) {
+                $conteo++;
+            }
+        }
+
+        foreach ($examenes as $key5 => $value5) {
+            $sql_confirma2 = "SELECT id_valor_resultado,resultado FROM valor_resultado 
+                     WHERE codigo_examen = '" . $value5 . "' AND id_resultado = '" . $id_resultado . "' AND tipo_examen = 'examen'";
+            $query_confirma2 = $this->conexion->prepare($sql_confirma2);
+            $query_confirma2->execute();
+            $rows_confirma2 = $query_confirma2->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!empty($rows_confirma2)) {
+                $conteo++;
+            }
+        }
+
+
+        $items_totales = count($sub_examenes) + count($examenes);
+        $porcentaje = round($conteo / $items_totales * 100);
+        $completo = "";
+        if ($items_totales == $conteo) {
+            $completo = "COMPLETO";
+        } else {
+            $completo = "INCOMPLETO";
+        }
+
+        $arreglo_retorno["porcentaje"] = $porcentaje;
+        $arreglo_retorno["completo"] = $completo;
+        $arreglo_retorno["conteo"] = $conteo;
+        $arreglo_retorno["items_totales"] = $items_totales;
+
+        return $arreglo_retorno;
     }
 
 }

@@ -111,6 +111,7 @@ function ResultadosIndividual() {
                     '<th style="color:white">Fecha recepcion resultados</th>' +
                     '<th style="color:white">Documento</th>' +
                     '<th style="color:white">Ver detalle</th>' +
+                    '<th style="color:white">%Resultados</th>' +
                     '</tr>' +
                     '</thead>' +
                     '<tbody id="lista_resultado_cot_body">' +
@@ -155,6 +156,7 @@ function ResultadosIndividual() {
                 newRow += "<td>" + fecha_recepcion + "</td>";
                 newRow += "<td>" + archivos + "</td>";
                 newRow += "<td>" + detalle + "</td>";
+                newRow += "<td>" + resultados.porcentaje + "</td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_resultado_cot_body");
