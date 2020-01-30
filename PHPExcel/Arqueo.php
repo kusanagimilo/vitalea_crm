@@ -182,9 +182,9 @@ foreach ($rows as $key => $value) {
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . $i, $value["fecha_pago"]);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . $i, $value["numero_factura"]);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C' . $i, $medio_pago);
-    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . $i, utf8_decode($value["nombre_atendio"]));
+    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D' . $i, htmlspecialchars($value["nombre_atendio"]));
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E' . $i, $value["documento_atendio"]);
-    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . $i, utf8_decode($value["paciente_nombre"] . " " . $value["apellido_paciente"]));
+    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F' . $i, htmlspecialchars($value["paciente_nombre"] . " " . $value["apellido_paciente"]));
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G' . $i, $value["documento_paciente"]);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H' . $i, $bono_str);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I' . $i, $bono_cant);
@@ -216,7 +216,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 // Redireccionar salida al navegador
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Registro_de_atencion_de_casos.xlsx"');
+header('Content-Disposition: attachment;filename="arqueo.xlsx"');
 header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
