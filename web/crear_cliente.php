@@ -25,7 +25,6 @@ require_once '../include/header_administrador.php';
         100% { transform: rotate(360deg); }
     }
 </style>
-<script src="../ajax/Crear_usuario.js" ></script>
 <script>
     $(document).ready(function (){
 
@@ -47,7 +46,7 @@ require_once '../include/header_administrador.php';
         listar_departamento();
         listar_seccion_direccion();
         listar_parentesco();
-        listar_barrio();
+        // listar_barrio();
 
         $("#departamento").change(function () {
             listar_ciudad();
@@ -649,8 +648,9 @@ require_once '../include/header_administrador.php';
                                                         <div class="form-group">
                                                             <label>Barrio</label>
                                                             <div class="nk-int-st">
-                                                                <select id="barrio" class="form-control" type="text" style="min-width: 230px">
-                                                                    <option></option>
+                                                                <select id="barrio" class="form-control" type="text" style="max-width: 200px">
+                                                                    <option value=''> - </option>
+                                                                    <?php include('./reportes/listaBarrios.php') ?>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -939,6 +939,7 @@ require_once '../include/header_administrador.php';
             }
         }
     </script>
+    <script src="../ajax/Crear_usuario.js" ></script>
 </body>
 <?php require_once '../include/footer.php'; ?>
 </html>
