@@ -64,7 +64,7 @@ $seguimiento = new Seguimiento();
                                             <b  style="float: left">  <img src="images/seguimiento_p.png" alt=""/> Asignar Seguimiento</b>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;">
-                                            <a href="envio_datos_correo.php" class="btn btn-default"> <img src="images/email_correo.png" alt=""/> Envio de Correos Masivos </a>
+                                            <a href="envio_datos_correo.php" class="btn btn-default"> <img src="images/email_correo.png" alt=""/> Envío de Correos Masivos </a>
                                         </div> </h3>
                                 </div>
                                 <div class="panel-body" >

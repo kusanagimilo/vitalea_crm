@@ -50,7 +50,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                                         <p style="font-size: 11pt;">
                                             <img src="images/info.png" alt="">
-                                            En esta opcion podras consultar y crear los valores de referencia.
+                                            En esta opción podras consultar y crear los valores de referencia.
                                         </p>
 
                                         <div class="row">

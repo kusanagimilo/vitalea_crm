@@ -17,13 +17,13 @@ function VerListaFacturacion() {
                 '<th style="color:white">No. Documento</th>' +
                 '<th style="color:white">Nombre Completo paciente</th>' +
                 '<th style="color:white">Medio de pago</th>' +
-                '<th style="color:white">Codigo</th>' +
+                '<th style="color:white">Código</th>' +
                 '<th style="color:white">Factura Athenea</th>' +
                 '<th style="color:white">Fecha creacion</th>' +
                 '<th style="color:white">Fecha pagó</th>' +
                 '<th style="color:white">Estado</th>' +
                 '<th style="color:white">Valor total servicios</th>' +
-                '<th style="color:white">Acciones</th>' +
+                '<th style="color:white">Acciónes</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody id="lista_ventas_cot_body">' +
@@ -674,7 +674,7 @@ function AlmacenarPreCotizacion() {
                         });
 
                     } else {
-                        alertify.alert("Ocurrio un eror al tratar de almacenar la cotizacion");
+                        alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
                     }
                 }
             });
@@ -692,13 +692,13 @@ function VerPrecotizaciones() {
     var tabla = '<table id="lista_precot_cot" class="table table-bordered">' +
             '<thead>' +
             '<tr style="background-color: #214761;">' +
-            '<th style="color:white">#Cotizacion</th>' +
+            '<th style="color:white">#Cotización</th>' +
             '<th style="color:white">Nombre cliente</th>' +
             '<th style="color:white">Correo</th>' +
             '<th style="color:white">Telefono</th>' +
             '<th style="color:white">Direccion</th>' +
             '<th style="color:white">Asesor(a)</th>' +
-            '<th style="color:white">Fecha cotizacion</th>' +
+            '<th style="color:white">Fecha cotización</th>' +
             '<th style="color:white">Valor</th>' +
             '<th style="color:white">Ver detalle</th>' +
             '</tr>' +
@@ -759,7 +759,7 @@ function verDetalleCotizacion() {
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
                         '<thead>' +
                         '<tr style="background-color: #214761;">' +
-                        '<th style="color:white">#Cotizacion</th>' +
+                        '<th style="color:white">#Cotización</th>' +
                         '<th style="color:white">valor</th>' +
                         '<th style="color:white">Codigo Examen</th>' +
                         '<th style="color:white">Item</th>' +

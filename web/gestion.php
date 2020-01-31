@@ -240,16 +240,17 @@ else{
             }
 
             if(tipificacion_id == ""){
-                alertify.alert("Realice la calificacion antes de guardar la gestion");
+                alertify.alert("Realice la calificacion antes de guardar la gestión");
                     return false;
             }
             if(macro_proceso == ""){
-                alertify.alert("Realice la calificacion antes de guardar la gestion");
+                alertify.alert("Realice la calificacion antes de guardar la gestión");
                     return false;
             }
 
             if(tipificacion_id == 76 ){
                 fecha_programada = $("#fecha_programada_copia").val();
+
                 hora_programada = $("#hora_programada_copia").val();
 
                 if(fecha_programada == ""){
@@ -397,7 +398,7 @@ else{
                                  <li>
                                      <a data-toggle="tab" href="#menu4" style="color:#136453;">
                                        <button class="btn btn-light">  <img src="images/historial-medico.png" alt=""/>
-                                           Historico de Gestiones</button> 
+                                           Historico de Gestiónes</button> 
                                        </a>
                                 </li>
                                 <li>
@@ -486,7 +487,7 @@ else{
                             <table class="table table-bordered" id="historico">
                                 <thead>
                                     <tr style=" background-color: #214761;" >
-                                        <th style="color:white">Fecha gestion</th>
+                                        <th style="color:white">Fecha gestión</th>
                                         <th style="color:white">Medio Comunicación</th>
                                         <th style="color:white">Calificación</th>
                                         <th style="color:white">Observacion</th>
@@ -563,7 +564,7 @@ else{
     <div class="row " style="padding: 20px; margin: 10px;border:1px solid #DEDFE6;">
         <legend style="color:#00c292; font-size: 15pt;">
             <img src="images/calificacion.png" alt=""/>
-            Tipificaci&oacute;n de la Gestion</legend>
+            Tipificaci&oacute;n de la Gestión</legend>
     
             <p style="font-size: 11pt;">
                                 <img src="images/info.png" alt=""/>

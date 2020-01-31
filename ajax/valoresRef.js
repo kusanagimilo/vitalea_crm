@@ -4,7 +4,7 @@ function verValoresReferencia() {
     var tabla = '<table id="lista_valor_referencia_cot" class="table table-bordered">' +
             '<thead>' +
             '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Codigo Examen</th>' +
+            '<th style="color:white">Código Examen</th>' +
             '<th style="color:white">Nombre Examen</th>' +
             '<th style="color:white">medida</th>' +
             '<th style="color:white">unidad</th>' +

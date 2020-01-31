@@ -613,7 +613,7 @@ require_once '../include/header_administrador.php';
                                             <a href="#collapse2" id="colapsible_ubicacion" style=" text-decoration: none; color: black;">
                                                 <h4 style="color:#00c292;">
                                                     <img src="images/ubicacion.png" alt=""/>
-                                                    Datos de ubicacion 
+                                                    Datos de ubicación 
                                                     <span style="float:right"><img src="images/sort_desc.png" alt=""/></span></h4> 
 
                                             </a>
@@ -675,12 +675,12 @@ require_once '../include/header_administrador.php';
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <p style=" font-size: 11pt;">
                                                             <img src="images/info.png" alt=""/>
-                                                            Seleccione cada seccion para armar la direccion</p> 
+                                                            Seleccione cada sección para armar la direccion</p> 
                                                     </div>
 
                                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                                         <div class="form-group">
-                                                            <label>Seccion 1:</label>
+                                                            <label>Sección 1:</label>
                                                             <div class="nk-int-st">
                                                                 <select id="seccion_uno" style="width: 100%;" class="form-control seccion" onchange="armar_direccion()">
                                                                     <option value=''> -- </option>

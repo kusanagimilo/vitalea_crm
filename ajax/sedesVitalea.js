@@ -10,7 +10,7 @@ function verSedesVitalea() {
             '<tr style="background-color: #214761;">' +
             '<th style="color:white">Nombre Sede</th>' +
             '<th style="color:white">Ciudad</th>' +
-            '<th style="color:white">Direccion</th>' +
+            '<th style="color:white">Dirección</th>' +
             '<th style="color:white">Barrio</th>' +
             '<th style="color:white">Telefono</th>' +
             '<th style="color:white; text-align: center;">Acciones</th>' +

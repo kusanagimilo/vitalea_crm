@@ -225,7 +225,7 @@ $guion = $gestion->guion($clasificacion_id);
                         <li><a class="atras" title="Volver atras"><img src="images/atras.png"></a></li>
 
                         <li><a class="atras" title="Inicio">Inicio</a></li>
-                        <li class="active">Ventas y/o Cotizaciones</li>
+                        <li class="active">Ventas y/o Cotizaciónes</li>
                     </ol>
 
                     <div class="panel panel-default">
@@ -233,7 +233,7 @@ $guion = $gestion->guion($clasificacion_id);
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
                                 <h3 class="panel-title"> 
                                     <b  style="float: left">  <img src="images/calificacion.png" alt=""/> 
-                                        Ventas y/o Cotizaciones</b> </h3>
+                                        Ventas y/o Cotizaciónes</b> </h3>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> 
 
@@ -246,7 +246,7 @@ $guion = $gestion->guion($clasificacion_id);
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">    
                                     <a  href="javascript:VentanaCentrada('ver_solicitud.php?x=<?php echo base64_encode($id_cliente) ?>&o=<?php echo base64_encode(2) ?>','Cotizaciones','','1024','768','true')" style="width: 100%"  >
                                         <button class="btn btn-primary" style="width: 100%" >
-                                            <img src="images/cotizacion.png" alt="" style="width: 20px;"/> Cotizaciones Realizadas
+                                            <img src="images/cotizacion.png" alt="" style="width: 20px;"/> Cotizaciónes Realizadas
                                         </button></a>
                                 </div>   
 
@@ -313,7 +313,7 @@ $guion = $gestion->guion($clasificacion_id);
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
                                 <h3 class="panel-title"> 
                                     <img src="images/examen_venta.png" alt=""/>
-                                    Agregue examenes para generar venta o cotizacion </h3>
+                                    Agregue examenes para generar venta o cotización </h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: right;">                 
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalResultados"> <img src="images/anadir_dos.png"> Agregar examen</button>
@@ -374,7 +374,7 @@ $guion = $gestion->guion($clasificacion_id);
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <input type="radio" value="1" name="evento" onclick="mostrarCotizacion()">
                                     <img src="images/historial-medico.png"> 
-                                    Cotizacion
+                                    Cotización
                                     <input type="radio" value="2" name="evento" onclick="mostrarVenta()">
                                     <img src="images/pago_paciente.png"> 
                                     Venta

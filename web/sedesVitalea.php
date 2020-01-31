@@ -53,14 +53,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                                         <p style="font-size: 11pt;">
                                             <img src="images/info.png" alt="">
-                                            Ingresa la informacion de la nueva sede acontinuacion.
+                                            Ingresa la información de la nueva sede acontinuación.
                                         </p>
 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 Ingresa Nombre Sede <input id="nombreInput" type="text" class="form-control">
                                                 Ingresa Ciudad <input id="ciudadInput" type="text" class="form-control">
-                                                Ingresa Direccion <input id="direccionInput" type="text" class="form-control">
+                                                Ingresa Dirección <input id="direccionInput" type="text" class="form-control">
                                                 Ingresa Barrio <input id="barrioInput" type="text" class="form-control">
                                                 Ingresa Telefono <input id="telefonoInput" type="text" class="form-control">
                                             </div>                              

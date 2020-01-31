@@ -37,7 +37,7 @@ require_once '../include/header_administrador.php';
                                 <center>
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/caja.png" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
-                                        <h3>Ventas y/o Cotizaciones</h3>
+                                        <h3>Ventas</h3>
                                     </div>
                                 </center>
                             </a>
@@ -47,7 +47,7 @@ require_once '../include/header_administrador.php';
                                 <center>
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/comprobar.png" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
-                                        <h3>Cotizacion rapida</h3>
+                                        <h3>Cotización rapida</h3>
                                     </div>
                                 </center>
                             </a>
@@ -122,7 +122,7 @@ require_once '../include/header_administrador.php';
                                 <center>
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/cronografo.png" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
-                                        <h3>Tiempos de gestion</h3>
+                                        <h3>Tiempos de gestión</h3>
                                     </div>
                                 </center>
                             </a>
@@ -169,7 +169,7 @@ require_once '../include/header_administrador.php';
                                 <center>
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/examenes_adm.png" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
-                                        <h3>Administracion de examenes</h3>
+                                        <h3>Administración de examenes</h3>
                                     </div>
                                 </center>
                             </a>

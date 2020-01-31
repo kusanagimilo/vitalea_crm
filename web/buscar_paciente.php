@@ -256,7 +256,7 @@ if ($conteo == 1) {
             </div>
             <div class="modal-footer">
 
-                <h4><b> Seleccione una opcion </b></h4>
+                <h4><b> Seleccione una opción </b></h4>
                    
             <?php if($vista == 1){?>
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="float: right;background-color: #ccc;border-color: #00c292;border:0px solid #ccc;outline:none;box-shadow:none;color:black">
@@ -265,13 +265,13 @@ if ($conteo == 1) {
                 <button class="btn btn-primary" id="btn_gestionar_registro" style="float: right;
                         background-image:linear-gradient(to bottom,#337ab7 0,#265a88 100%)">
                     <img src="images/finalizar.png" alt="" style="width: 20px"/>
-                    Calificar Gestion</button>  
+                    Calificar Gestión</button>  
             <?php } ?>
             <?php if($vista == 2){?>
                     <button class="btn btn-success" id="btn_ir_caja" style="float: right;
                      ">
                     <img src="images/pago.png" alt="" style="width: 20px"/>
-                    Generar Venta o Cotizacion</button>  
+                    Generar Venta o Cotización</button>  
             <?php } 
             if($vista == 3){//digiturno?>
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="float: right;background-color: #ccc;border-color: #00c292;border:0px solid #ccc;outline:none;box-shadow:none;color:black">

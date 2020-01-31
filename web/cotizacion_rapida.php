@@ -39,14 +39,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <ol class="breadcrumb">
                             <li><a href="inicio_usuario.php" title="Volver atras"><img src="images/atras.png"></a></li>
                             <li><a href="inicio_usuario.php" title="Inicio">Inicio</a></li>
-                            <li class="active">Cotizacion rapida</li>
+                            <li class="active">Cotización rapida</li>
                         </ol>
 
                     <?php } else { ?>
                         <ol class="breadcrumb">
                             <li><a href="inicio_administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
                             <li><a href="inicio_administrador.php" title="Inicio">Inicio</a></li>
-                              <li class="active">Cotizacion rapida</li>
+                              <li class="active">Cotización rapida</li>
                         </ol>
                     <?php } ?>
 
@@ -57,8 +57,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             <div class="row">
 
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#home">REALIZAR COTIZACION</a></li>
-                                    <li><a data-toggle="tab" href="#menu1">VER COTIZACIONES REALIZADAS</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#home">REALIZAR COTIZACIÓN</a></li>
+                                    <li><a data-toggle="tab" href="#menu1">VER COTIZACIÓNES REALIZADAS</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -68,7 +68,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                             <div class="panel-heading">
                                                 <h3 class="panel-title"> 
                                                     <img src="images/lista.png" alt=""/> 
-                                                    <b>Realizar cotizacion</b></h3>
+                                                    <b>Realizar cotización</b></h3>
                                             </div>
                                             <div class="panel-body">
 
@@ -100,7 +100,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label col-sm-2" for="txt">Observaciones</label>
+                                                        <label class="control-label col-sm-2" for="txt">Observaciónes</label>
                                                         <div class="col-sm-10">
                                                             <textarea class="form-control"  name="observacion" id="observacion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
                                                         </div>
@@ -114,7 +114,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <input type="radio" value="No" name="contacto">
                                                         </div>                                                        
                                                     </div>
-                                                    <h3 style="text-align: center">Politica de tratammiento de datos "HABEAS DATA" </h3>
+                                                    <h3 style="text-align: center">Politica de tratamiento de datos "HABEAS DATA" </h3>
                                                     <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
                                                         <?php include('./reportes/habeasData.php') ?>
                                                     </div>
@@ -193,10 +193,10 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                                 <table class="table">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Codigo</th>
+                                                                            <th>Código</th>
                                                                             <th>Item</th>
                                                                             <th>Valor</th>
-                                                                            <th>Accion</th>
+                                                                            <th>Acción</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="cuerpo_cotizacion">
@@ -214,7 +214,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <center><button type="button" onclick="AlmacenarPreCotizacion()" class="btn btn-primary">Enviar al cliente y almacenar cotizacion</button></center>
+                                                    <center><button type="button" onclick="AlmacenarPreCotizacion()" class="btn btn-primary">Enviar al cliente y almacenar cotización</button></center>
 
                                                 </div> 
 
@@ -330,14 +330,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 <div class="modal-header" style="background-color: #214761; color: white" >
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt=""/> Ver Detalle de la cotizacion actual</h4>
+                        <img src="images/examen_venta.png" alt=""/> Ver Detalle de la cotización actual</h4>
                 </div>
                 <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
 
                     <!-- Tabla contenedor -->
 
                     <div class="form-group">
-                        <label for="inputselect">Estos son los detalles para la cotizacion seleccionada</label>                        
+                        <label for="inputselect">Estos son los detalles para la cotización seleccionada</label>                        
                     </div>
                     
                     <div class="form-group" id="contenedorTablaDetalles">
