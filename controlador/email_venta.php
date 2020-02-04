@@ -81,20 +81,44 @@ function EnviarCorreoPrecotizacion($correo, $id_cotizacion) {
 
     $html_items = "";
 
+
     foreach ($rows2 as $key => $value) {
         $sql_info = "";
+        $html_complemento = "";
         if ($value['tipo_item'] == 'perfil') {
-            $sql_info = "select nombre,precio from examen where id =:id";
+            $sql_info = "select nombre,precio,codigo_crm as codigo from examen where id =:id";
+            $sql_complemento = "select exam.codigo,exam.nombre
+from perfil_examen pex
+inner join examenes_no_perfiles exam on exam.id = pex.id_examen
+where pex.id_perfil = :id_perfil";
+            $query_complemento = $conexion->prepare($sql_complemento);
+            $query_complemento->execute(array(':id_perfil' => $value['id_item']));
+            $rows_complemento = $query_complemento->fetchAll(PDO::FETCH_ASSOC);
+            $html_complemento = '</br><ul style="font-size: 11px;">';
+            foreach ($rows_complemento as $key3 => $value3) {
+                $html_complemento .= "<li>" . $value3['codigo'] . " " . $value3['nombre'] . "</li>";
+            }
+            $html_complemento .= '</ul>';
         }if ($value['tipo_item'] == 'examen') {
-            $sql_info = "select nombre,precio from examenes_no_perfiles where id =:id";
+            $sql_info = "select nombre,precio,codigo from examenes_no_perfiles where id =:id";
+            $html_complemento = "";
         }
         $query_info = $conexion->prepare($sql_info);
         $query_info->execute(array(':id' => $value['id_item']));
         $rows3 = $query_info->fetchAll(PDO::FETCH_ASSOC);
 
+        /*
+         * <ul style="font-size: 12px;">
+          <li>dsadsa</li>
+          <li>dsadsa</li>
+          </ul>
+         */
+
 
         $nombre_item = $rows3[0]['nombre'];
         $precio_item = $rows3[0]['precio'];
+        $codigo_item = $rows3[0]['codigo'];
+
         $html_items .= ' <tr>
                                     <td valign="top">
                                         <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; margin: 0px auto; min-width: 100%;" role="presentation" bgcolor="#ffffff">
@@ -105,7 +129,7 @@ function EnviarCorreoPrecotizacion($correo, $id_cotizacion) {
                                                             <td valign="top" height="1" style="height: 1px; font-size: 0px; line-height: 0;" aria-hidden="true">&nbsp;</td>
                                                         </tr>
                                                         <tr>
-                                                            <td valign="top" height="25" width="100" style="font-size: 14px; color: #888888; font-weight: normal; font-family: Open Sans, Arial, Helvetica, sans-serif; word-break: break-word; line-height: 1;" align="left"><span style="font-style: normal; text-align: left; color: #888888; line-height: 24px; font-size: 14px; font-weight: 400; font-family: Montserrat, arial, sans-serif;"><span style="font-style: normal; text-align: left; color: #888888; line-height: 24px; font-size: 14px; font-weight: 400; font-family: Montserrat, arial, sans-serif;">' . $nombre_item . '</span></span><br></td>
+                                                            <td valign="top" height="25" width="300" style="font-size: 14px; color: #888888; font-weight: normal; font-family: Open Sans, Arial, Helvetica, sans-serif; word-break: break-word; line-height: 1;" align="left"><span style="font-style: normal; text-align: left; color: #888888; line-height: 24px; font-size: 14px; font-weight: 400; font-family: Montserrat, arial, sans-serif;"><span style="font-style: normal; text-align: left; color: #888888; line-height: 24px; font-size: 14px; font-weight: 400; font-family: Montserrat, arial, sans-serif;">' . $codigo_item . ' ' . $nombre_item . ' '.$html_complemento.'</span></span><br></td>
                                                             <td valign="top">
                                                                 <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="height: 100%; margin: 0px auto; min-width: 100%;" role="presentation">
                                                                     <tr>
