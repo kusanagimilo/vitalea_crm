@@ -62,4 +62,10 @@ if ($tipo == 3) {
 }if ($tipo == 14) {
     $retorno = $Obj_Facturacion->listaDetallecotizaciones($_POST);
     echo $retorno;
+}if ($tipo == 15) {
+    $retorno = $Obj_Facturacion->btnVerMasDetallesPerfiles($_POST);
+    echo $retorno;
+}if ($tipo == 16) {
+    $retorno = $Obj_Facturacion->btnVerMasDetallesExamenNoPerfiles($_POST);
+    echo $retorno;
 }

@@ -54,7 +54,7 @@ function VerListaFacturacion() {
                     var boton_turno = "";
                     if (ventas.estado == 1) {
                         estado = "Por pagar";
-                        botones = '<input type="button" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
+                        botones = '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
                                 '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
                     } else if (ventas.estado == 2) {
 
@@ -139,7 +139,7 @@ function CambiarEstadoVenta(estado, id) {
 
                 if (retu == 1) {
                     alertify.alert("Se realizo la acción correctamente", function () {
-                        Cambiartd(id);
+                        Cambiartd(id);    
                     });
                 } else if (retu == 2) {
                     alertify.alert("no se logro realizar la acción");
@@ -689,14 +689,13 @@ function VerPrecotizaciones() {
 
     $("#lista_precot_cot_body").html("");
 
-    var tabla = '<table id="lista_precot_cot" class="table table-bordered">' +
+    var tabla = '<table id="lista_precot_cot" class="table table-bordered" style="transform: scale(0.95)">' +
             '<thead>' +
             '<tr style="background-color: #214761;">' +
             '<th style="color:white">#Cotización</th>' +
             '<th style="color:white">Nombre cliente</th>' +
             '<th style="color:white">Correo</th>' +
             '<th style="color:white">Telefono</th>' +
-            '<th style="color:white">Direccion</th>' +
             '<th style="color:white">Asesor(a)</th>' +
             '<th style="color:white">Fecha cotización</th>' +
             '<th style="color:white">Valor</th>' +
@@ -729,7 +728,6 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.nombre_cliente + "</td>";
                 newRow += "<td>" + precot.correo + "</td>";
                 newRow += "<td>" + precot.telefono + "</td>";
-                newRow += "<td>" + precot.direccion + "</td>";
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
                 newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
@@ -748,68 +746,111 @@ function VerPrecotizaciones() {
 
 }
 
-function verDetalleCotizacion() {
-    agregarDatosTabla();
-
+function verDetalleCotizacion() {    
     function agregarDatosTabla() {
         const boton = document.querySelectorAll('.botonVerDetalle');
         for (const i of boton) {
             i.addEventListener("click", (e) => {
+
+                
+
+                let eventoId = e.target.parentNode.parentNode.firstChild.textContent;
                 $("#listaResultadosVerDetalle").html("");
+                
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
-                        '<thead>' +
-                        '<tr style="background-color: #214761;">' +
-                        '<th style="color:white">#Cotización</th>' +
-                        '<th style="color:white">valor</th>' +
-                        '<th style="color:white">Codigo Examen</th>' +
-                        '<th style="color:white">Item</th>' +
-                        '</tr>' +
-                        '</thead>' +
-                        '<tbody id="listaResultadosVerDetalle">' +
-                        '</tbody>' +
-                        '</table>';
-
+                '<thead>' +
+                '<tr style="background-color: #214761;">' +
+                '<th style="color:white">Cotización</th>' +
+                '<th style="color:white">Id</th>' +
+                '<th style="color:white">Tipo Examen</th>' +
+                '<th style="color:white">Item</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody id="listaResultadosVerDetalle">' +
+                '</tbody>' +
+                '</table>';
+                
+                
                 $("#contenedorTablaDetalles").html(tabla);
-
-                var data;
+               
                 $.ajax({
                     type: "POST",
                     url: "../controladores/FacturacionController.php",
                     async: true,
                     dataType: 'json',
                     data: {
-                        tipo: 14
-
+                        tipo: 14,
+                        idCot: eventoId
                     },
                     success: function (retu) {
-                        $.each(retu, function (i, precot) {
-
-
-                            var newRow = "<tr>";
+                        $.each(retu, function (i, precot) {                            
+                            var newRow ="";
+                            newRow += "<tr>";
                             newRow += "<td name='idCotizacion'>" + precot.id_precotizacion + "</td>";
-                            newRow += "<td>" + precot.valor + "</td>";
-                            newRow += "<td>" + precot.codigo + "</td>";
-                            newRow += "<td>" + precot.nombre + "</td>";
+                            newRow += "<td>" + precot.id_item + "</td>";
+                            newRow += "<td>" + precot.tipo_item + "</td>";
+                            newRow += "<td><button id='verMasInfo' class='btn btn-info'>"+"Ver Mas"+"</button></td>";
                             newRow += "</tr>";
-
                             $(newRow).appendTo("#listaResultadosVerDetalle");
                         });
 
-                        var tabla = $('#listaDetallesVer').DataTable({
-                            responsive: true
-                        });
+                        const moreDetails = document.querySelectorAll("#verMasInfo");
+                        for (const iterator of moreDetails) {
+                            iterator.addEventListener("click", (e)=>{
+                                let idEx = e.target.parentNode.parentNode.childNodes[1].textContent;
+                                let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;
+                                if (tipEx=="perfil") {
+                                    var tipo=15;
+                                } else {
+                                    tipo=16
+                                }   
+                                $.ajax({
+                                    type: "POST",
+                                    url: "../controladores/FacturacionController.php",
+                                    async: false,
+                                    dataType: 'json',
+                                    data: {
+                                        tipo: tipo,                                        
+                                        idExamen: idEx
+                                    },
+                                    success: function (retur) {                            
+                                        $.each(retur, function (i, respuesta) {
+                                            if (tipo==16) {
+                                                var codigo = respuesta.codigo;                                                
+                                            } else {
+                                                codigo = respuesta.codigo_crm;
+                                            }
+                                            let nombre = respuesta.nombre;
+                                            let recomendaciones = respuesta.recomendaciones;
+                                            let contenedor = "<h4>"+"Tipo de Examen: "+"<span>"+tipEx+"</span><br/></h4>";
+                                            contenedor += "<span>" +"Codigo CRM: "+ codigo + "</span> <br/>";
+                                            contenedor += "<span>" +"Nombre Examen: " + nombre + "</span> <br/>";
+                                            contenedor += "<span>" +"Recomendaciones: "+ recomendaciones + "</span> <br/>";
+                                                                        
+                                            $(contenedor).appendTo("#masInfoGeneral");
+                                        });
+                            
+                                    }
+                                });
+                            })
+                        }
                     }
-                });
-
+                });                
+            });
+                        
+            const paginacion = document.getElementById("myValoresRef");
+            paginacion.addEventListener("mouseleave", ()=> {
+                setTimeout(() => {
+                    location.reload();
+                }, 250);
             })
         }
-    }
-
-    const paginacion = document.querySelector('.paginate_button').parentNode;
-    paginacion.addEventListener("mouseover", () => {
+    }    
+    const paginacion = document.querySelector('#lista_precot_cot');
+    paginacion.addEventListener("mouseenter", () => {
+        $("#contenedorTablaDetalles").html("");        
         agregarDatosTabla();
     });
-
 }
 
 function formatNumber(num) {

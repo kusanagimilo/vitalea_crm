@@ -114,7 +114,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <input type="radio" value="No" name="contacto">
                                                         </div>                                                        
                                                     </div>
-                                                    <h3 style="text-align: center">Politica de tratamiento de datos "HABEAS DATA" </h3>
+                                                    <h3 style="text-align: center">Politica de tratamiento de datos VITALEA </h3>
                                                     <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
                                                         <?php include('./reportes/habeasData.php') ?>
                                                     </div>
@@ -324,8 +324,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
 
-    <div class="modal" id="myValoresRef"  role="dialog" aria-labelledby="myModalLabel" >
-        <div class="modal-dialog" style="width: 80%;">
+    <div class="modal" id="myValoresRef"  role="dialog" aria-labelledby="myModalLabel" style="transform: scale(0.9); margin-top: -70px">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #214761; color: white" >
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -340,10 +340,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <label for="inputselect">Estos son los detalles para la cotización seleccionada</label>                        
                     </div>
                     
-                    <div class="form-group" id="contenedorTablaDetalles">
-                                               
-                    </div>
-                    
+                    <div class="form-group" id="contenedorTablaDetalles"></div>
+                    <div id="masInfoGeneral"></div>                   
                 </div>          
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>

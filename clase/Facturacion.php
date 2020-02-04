@@ -504,12 +504,33 @@ group by ven.usuario_id");
     }
 
     public function listaDetallecotizaciones($data) {
-        $query = $this->conexion->prepare("SELECT preit.id_precotizacion, exno.nombre, exno.codigo FROM precotizacion pre, precotizacion_items preit, examenes_no_perfiles exno
-                                            where preit.id_precotizacion = preit.id_precotizacion");
-        $query->execute();
+        $query = $this->conexion->prepare("SELECT DISTINCT preit.id_precotizacion, preit.id_item, preit.tipo_item FROM precotizacion_items preit inner join precotizacion pre on
+                                            preit.id_precotizacion = pre.id_precotizacion where pre.id_precotizacion = :idCot");
+        $query->execute(array(
+            ':idCot' => $data['idCot']
+        ));
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
-        $json_retorno = json_encode($rows);
-        return $json_retorno;
+        $json_retorno2 = json_encode($rows);
+        return $json_retorno2;
     }
 
+    public function btnVerMasDetallesExamenNoPerfiles($data) {
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examenes_no_perfiles WHERE id= :idExamen");
+        $query->execute(array(
+            ':idExamen' => $data['idExamen']
+        ));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json_retorno2 = json_encode($rows);
+        return $json_retorno2;
+    }
+
+    public function btnVerMasDetallesPerfiles($data) {
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examen WHERE id= :idExamen");
+        $query->execute(array(
+            ':idExamen' => $data['idExamen']
+        ));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json_retorno2 = json_encode($rows);
+        return $json_retorno2;
+    }
 }

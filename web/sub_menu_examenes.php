@@ -32,7 +32,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                 <center>
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/medpern.png" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
-                                        <h3>Examenes perfiles</h3>
+                                        <h3>Perfiles</h3>
                                     </div>
                                 </center>
                             </a>
