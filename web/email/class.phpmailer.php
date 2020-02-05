@@ -80,7 +80,7 @@ class PHPMailer {
    */
   public $From              = 'root@localhost';
 
-  /**
+  /*
    * Sets the From name of the message.
    * @var string
    */
