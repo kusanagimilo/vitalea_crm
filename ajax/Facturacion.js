@@ -846,7 +846,7 @@ function verDetalleCotizacion() {
             function borrarTemp(){
                 setTimeout(() => {
                     $("#masInfoGeneral").html("");
-                }, 700);
+                }, 2000);
             }
             paginacion2.addEventListener("mouseleave", borrarTemp);
             
