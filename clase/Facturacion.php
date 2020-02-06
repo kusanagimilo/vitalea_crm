@@ -515,7 +515,7 @@ group by ven.usuario_id");
     }
 
     public function btnVerMasDetallesExamenNoPerfiles($data) {
-        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examenes_no_perfiles WHERE id= :idExamen");
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examen WHERE id= :idExamen");
         $query->execute(array(
             ':idExamen' => $data['idExamen']
         ));
@@ -525,7 +525,7 @@ group by ven.usuario_id");
     }
 
     public function btnVerMasDetallesPerfiles($data) {
-        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examen WHERE id= :idExamen");
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examenes_no_perfiles WHERE id= :idExamen");
         $query->execute(array(
             ':idExamen' => $data['idExamen']
         ));

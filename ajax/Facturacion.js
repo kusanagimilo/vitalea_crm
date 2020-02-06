@@ -750,9 +750,7 @@ function verDetalleCotizacion() {
     function agregarDatosTabla() {
         const boton = document.querySelectorAll('.botonVerDetalle');
         for (const i of boton) {
-            i.addEventListener("click", (e) => {
-
-                
+            i.addEventListener("click", (e) => {    
 
                 let eventoId = e.target.parentNode.parentNode.firstChild.textContent;
                 $("#listaResultadosVerDetalle").html("");
@@ -783,7 +781,10 @@ function verDetalleCotizacion() {
                         idCot: eventoId
                     },
                     success: function (retu) {
-                        $.each(retu, function (i, precot) {                            
+                        $("#listaResultadosVerDetalle").html("");
+                        console.log(retu);                            
+                        $.each(retu, function (i, precot) {
+                           
                             var newRow ="";
                             newRow += "<tr>";
                             newRow += "<td name='idCotizacion'>" + precot.id_precotizacion + "</td>";
@@ -792,17 +793,21 @@ function verDetalleCotizacion() {
                             newRow += "<td><button id='verMasInfo' class='btn btn-info'>"+"Ver Mas"+"</button></td>";
                             newRow += "</tr>";
                             $(newRow).appendTo("#listaResultadosVerDetalle");
+                            // if (newRow == newRow) {
+                            //     newRow = "";                               
+                            //     $(newRow).appendTo("#listaResultadosVerDetalle");
+                            // }                            
                         });
 
                         const moreDetails = document.querySelectorAll("#verMasInfo");
                         for (const iterator of moreDetails) {
                             iterator.addEventListener("click", (e)=>{
                                 let idEx = e.target.parentNode.parentNode.childNodes[1].textContent;
-                                let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;
+                                let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;                                
                                 if (tipEx=="perfil") {
-                                    var tipo=15;
+                                    var tipo=16;
                                 } else {
-                                    tipo=16
+                                    tipo=15;
                                 }   
                                 $.ajax({
                                     type: "POST",
@@ -816,9 +821,9 @@ function verDetalleCotizacion() {
                                     success: function (retur) {                            
                                         $.each(retur, function (i, respuesta) {
                                             if (tipo==16) {
-                                                var codigo = respuesta.codigo;                                                
+                                                var codigo = respuesta.codigo_crm;                                                
                                             } else {
-                                                codigo = respuesta.codigo_crm;
+                                                codigo = respuesta.codigo;
                                             }
                                             let nombre = respuesta.nombre;
                                             let recomendaciones = respuesta.recomendaciones;
@@ -838,27 +843,23 @@ function verDetalleCotizacion() {
                 });                
             });
                         
-            const paginacion = document.getElementById("myValoresRef");
+            const paginacion2 = document.getElementById("myValoresRef");
             function borrarTemp(){
                 setTimeout(() => {
                     $("#masInfoGeneral").html("");
-                    location.reload();
                 }, 100);
             }
-            paginacion.addEventListener("mouseleave", borrarTemp);
-            paginacion.addEventListener("touchend", borrarTemp);
+            paginacion2.addEventListener("mouseleave", borrarTemp);
+            
         }
     }    
     const paginacion = document.querySelector('#lista_precot_cot');
     const search = document.querySelector("input[type='text']");
-    //console.log(search);
-    function cargarEvento() {
-        $("#contenedorTablaDetalles").html("");        
-        agregarDatosTabla();        
+    function cargarEvento() {      
+        agregarDatosTabla();
     }
     
     paginacion.addEventListener("mouseenter", cargarEvento);
-    //paginacion.addEventListener("touchstart", cargarEvento);
     search.addEventListener("mouseleave", cargarEvento);
     search.addEventListener("touchend", agregarDatosTabla);
 
