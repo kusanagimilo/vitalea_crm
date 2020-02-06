@@ -674,6 +674,7 @@ function AlmacenarPreCotizacion() {
                         });
 
                     } else {
+                        console.log(retu);
                         alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
                     }
                 }
@@ -757,9 +758,10 @@ function verDetalleCotizacion() {
                 
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
                 '<thead>' +
-                '<tr style="background-color: #214761;">' +
-                '<th style="color:white">Cotización</th>' +
-                '<th style="color:white">Id</th>' +
+                '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Lista Total de Items para esta Cotizacion</caption>' +
+                '<tr style="background-color: #214761">' +
+                '<th style="color:white; display: none">Cotización</th>' +
+                '<th style="color:white">Id Examen</th>' +
                 '<th style="color:white">Tipo Examen</th>' +
                 '<th style="color:white">Item</th>' +
                 '</tr>' +
@@ -782,16 +784,15 @@ function verDetalleCotizacion() {
                     },
                     success: function (retu) {
                         $("#listaResultadosVerDetalle").html("");
-                        console.log(retu);                            
-                        $.each(retu, function (i, precot) {
-                           
+                        $.each(retu, function (i, precot) {                            
                             var newRow ="";
                             newRow += "<tr>";
-                            newRow += "<td name='idCotizacion'>" + precot.id_precotizacion + "</td>";
-                            newRow += "<td>" + precot.id_item + "</td>";
-                            newRow += "<td>" + precot.tipo_item + "</td>";
-                            newRow += "<td><button id='verMasInfo' class='btn btn-info'>"+"Ver Mas"+"</button></td>";
+                            newRow += "<td name='idCotizacion' style='display: none;'>" + precot.id_precotizacion + "</td>";
+                            newRow += "<td style='border-left: #808080 1px solid; border-top: #808080 1px solid'>" + precot.id_item + "</td>";
+                            newRow += "<td style='border-top: #808080 1px solid'>" + precot.tipo_item + "</td>";
+                            newRow += "<td style='border-right: #808080 1px solid; border-top: #808080 1px solid'><button id='verMasInfo' class='btn btn-info'>"+"Ver Mas"+"</button></td>";
                             newRow += "</tr>";
+                            newRow += "<tr id='masInfoGeneral' style='font-size: 10.5px; border: #808080 1px solid'></tr>";
                             $(newRow).appendTo("#listaResultadosVerDetalle");
                             // if (newRow == newRow) {
                             //     newRow = "";                               
@@ -826,13 +827,11 @@ function verDetalleCotizacion() {
                                                 codigo = respuesta.codigo;
                                             }
                                             let nombre = respuesta.nombre;
-                                            let recomendaciones = respuesta.recomendaciones;
-                                            let contenedor = "<h4>"+"Tipo de Examen: "+"<span>"+tipEx+"</span><br/></h4>";
-                                            contenedor += "<span>" +"Codigo CRM: "+ codigo + "</span> <br/>";
-                                            contenedor += "<span>" +"Nombre Examen: " + nombre + "</span> <br/>";
-                                            contenedor += "<span>" +"Recomendaciones: "+ recomendaciones + "</span> <br/>";
-                                                                        
-                                            $(contenedor).appendTo("#masInfoGeneral");
+                                            let recomendaciones = respuesta.recomendaciones;                                            
+                                            let contenedor = "<div style='margin-left:17px; width:130%'>" +"Nombre examen: "+ nombre + "</div>";
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Crm codigo: " + codigo + "</div>";
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Recomendaciones: "+ recomendaciones + "</div>";                                                                        
+                                            $(contenedor).appendTo(e.target.parentNode.parentNode.nextSibling);
                                         });
                             
                                     }
@@ -847,7 +846,7 @@ function verDetalleCotizacion() {
             function borrarTemp(){
                 setTimeout(() => {
                     $("#masInfoGeneral").html("");
-                }, 100);
+                }, 700);
             }
             paginacion2.addEventListener("mouseleave", borrarTemp);
             

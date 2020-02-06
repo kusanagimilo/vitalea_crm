@@ -343,19 +343,19 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 <div class="modal-header" style="background-color: #214761; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt="" /> Ver Detalle de la cotización actual</h4>
+                        <img src="images/examen_venta.png" alt="" /> Ver Detalle Cotizaciones</h4>
                 </div>
                 <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
 
                     <!-- Tabla contenedor -->
 
                     <div class="form-group">
-                        <label for="inputselect">Estos son los detalles para la cotización seleccionada</label>
+                        <label for="inputselect">Esta es la relacion de todos los items asociados a esta cotizacion</label>
                     </div>
 
                     <div class="form-group" id="contenedorTablaDetalles"></div>
+                    <!-- <div id="masInfoGeneral"></div> -->
                     <button onclick="generarPdfCotizacion()" >Generar PDF Cotizacion</button>
-                    <div id="masInfoGeneral"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>

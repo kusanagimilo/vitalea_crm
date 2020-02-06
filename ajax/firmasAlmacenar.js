@@ -142,7 +142,7 @@ function principal() { // Comenzamos una funcion auto-ejecutable
             ctx.beginPath();
             ctx.moveTo(lastPos.x, lastPos.y);
             ctx.lineTo(mousePos.x, mousePos.y);
-            console.log(punta.value);
+            //console.log(punta.value);
             ctx.lineWidth = punta.value;
             ctx.stroke();
             ctx.closePath();
