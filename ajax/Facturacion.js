@@ -689,7 +689,7 @@ function VerPrecotizaciones() {
 
     $("#lista_precot_cot_body").html("");
 
-    var tabla = '<table id="lista_precot_cot" class="table table-bordered" style="transform: scale(0.95)">' +
+    var tabla = '<table id="lista_precot_cot" class="table table-bordered">' +
             '<thead>' +
             '<tr style="background-color: #214761;">' +
             '<th style="color:white">#Cotización</th>' +
