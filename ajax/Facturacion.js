@@ -851,7 +851,7 @@ function verDetalleCotizacion() {
     }    
     const paginacion = document.querySelector('#lista_precot_cot');
     const search = document.querySelector("input[type='text']");
-    console.log(search);
+    //console.log(search);
     function cargarEvento() {
         $("#contenedorTablaDetalles").html("");        
         agregarDatosTabla();        
@@ -859,7 +859,7 @@ function verDetalleCotizacion() {
     
     paginacion.addEventListener("mouseenter", cargarEvento);
     //paginacion.addEventListener("touchstart", cargarEvento);
-    search.addEventListener("mouseout", agregarDatosTabla);
+    search.addEventListener("mouseleave", cargarEvento);
     search.addEventListener("touchend", agregarDatosTabla);
 
 }
