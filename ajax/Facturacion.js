@@ -839,18 +839,29 @@ function verDetalleCotizacion() {
             });
                         
             const paginacion = document.getElementById("myValoresRef");
-            paginacion.addEventListener("mouseleave", ()=> {
+            function borrarTemp(){
                 setTimeout(() => {
+                    $("#masInfoGeneral").html("");
                     location.reload();
-                }, 250);
-            })
+                }, 100);
+            }
+            paginacion.addEventListener("mouseleave", borrarTemp);
+            paginacion.addEventListener("touchend", borrarTemp);
         }
     }    
     const paginacion = document.querySelector('#lista_precot_cot');
-    paginacion.addEventListener("mouseenter", () => {
+    const search = document.querySelector("input[type='text']");
+    console.log(search);
+    function cargarEvento() {
         $("#contenedorTablaDetalles").html("");        
-        agregarDatosTabla();
-    });
+        agregarDatosTabla();        
+    }
+    
+    paginacion.addEventListener("mouseenter", cargarEvento);
+    //paginacion.addEventListener("touchstart", cargarEvento);
+    search.addEventListener("mouseout", agregarDatosTabla);
+    search.addEventListener("touchend", agregarDatosTabla);
+
 }
 
 function formatNumber(num) {

@@ -10,23 +10,36 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         border-top: 16px solid #3498db;
         width: 250px;
         height: 250px;
-        -webkit-animation: spin 2s linear infinite; /* Safari */
+        -webkit-animation: spin 2s linear infinite;
+        /* Safari */
         animation: spin 2s linear infinite;
     }
 
     /* Safari */
     @-webkit-keyframes spin {
-        0% { -webkit-transform: rotate(0deg); }
-        100% { -webkit-transform: rotate(360deg); }
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
     }
 
     @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
 <script src="../ajax/firmasAlmacenar.js"></script>
-<script src="../ajax/venta.js" ></script>
+<script src="../ajax/venta.js"></script>
+<script src="../web/js/dist/jspdf.min.js"></script>
+
 <body style="background-color: #F6F8FA">
     <script src="../ajax/Facturacion.js" type="text/javascript"></script>
     <div class="main-menu-area mg-tb-40">
@@ -46,7 +59,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <ol class="breadcrumb">
                             <li><a href="inicio_administrador.php" title="Volver atras"><img src="images/atras.png"></a></li>
                             <li><a href="inicio_administrador.php" title="Inicio">Inicio</a></li>
-                              <li class="active">Cotización rapida</li>
+                            <li class="active">Cotización rapida</li>
                         </ol>
                     <?php } ?>
 
@@ -66,8 +79,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                         <br>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <h3 class="panel-title"> 
-                                                    <img src="images/lista.png" alt=""/> 
+                                                <h3 class="panel-title">
+                                                    <img src="images/lista.png" alt="" />
                                                     <b>Realizar cotización</b></h3>
                                             </div>
                                             <div class="panel-body">
@@ -102,7 +115,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                     <div class="form-group">
                                                         <label class="control-label col-sm-2" for="txt">Observaciónes</label>
                                                         <div class="col-sm-10">
-                                                            <textarea class="form-control"  name="observacion" id="observacion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
+                                                            <textarea class="form-control" name="observacion" id="observacion" placeholder="Ingrese las observaciones adicionales" row="5"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -112,7 +125,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <input type="radio" value="Si" name="contacto">
                                                             <label>No</label>
                                                             <input type="radio" value="No" name="contacto">
-                                                        </div>                                                        
+                                                        </div>
                                                     </div>
                                                     <h3 style="text-align: center">Politica de tratamiento de datos VITALEA </h3>
                                                     <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
@@ -123,7 +136,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label>
                                                         </div>
                                                         <div style="display: block">
-                                                            Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;"> 
+                                                            Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;">
                                                             No <input name="habeasData" data-toggle="modal" data-target="#modalAnuncioHD" type="radio" id="checkHabeasData" style="margin-top: -4px;">
                                                         </div>
                                                     </div>
@@ -216,7 +229,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                     </div>
                                                     <center><button type="button" onclick="AlmacenarPreCotizacion()" class="btn btn-primary">Enviar al cliente y almacenar cotización</button></center>
 
-                                                </div> 
+                                                </div>
 
 
                                             </div>
@@ -235,7 +248,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
 
                             </div>
-                        </div> 
+                        </div>
 
 
                     </div>
@@ -246,13 +259,13 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
     <!-- Modal de Anuncio de aceptacion Habeas Data -->
-    <div class="modal" id="modalAnuncioHD"  role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal" id="modalAnuncioHD" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" style="width: 80%;">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: #214761; color: white" >
+                <div class="modal-header" style="background-color: #214761; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt=""/> Aceptacion de las politicas de tratamiento de datos</h4>
+                        <img src="images/examen_venta.png" alt="" /> Aceptacion de las politicas de tratamiento de datos</h4>
                 </div>
                 <div class="modal-body col-md-12" style="height: 100px; overflow : auto;" id="cuerpo_modal">
                     <!-- Contenedor de firma -->
@@ -261,26 +274,26 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             <h3 style="text-align: center;">Es Necesario aceptar las politicas de tratamiento de datos "Habeas Data", para poder continuar el proceso.</h3>
                         </section>
                     </div>
-                    
 
 
-                </div>          
+
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
-            </div>                            
+            </div>
         </div>
     </div>
 
 
     <!-- Modal de firmas Habeas Data -->
-    <div class="modal" id="myModalFirma"  role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal" id="myModalFirma" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" style="width: 90%;">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: #214761; color: white" >
+                <div class="modal-header" style="background-color: #214761; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt=""/> Aceptacion de las politicas de tratamiento de datos</h4>
+                        <img src="images/examen_venta.png" alt="" /> Aceptacion de las politicas de tratamiento de datos</h4>
                 </div>
                 <div class="modal-body col-md-12" style="height: 420px; overflow : auto; display: flex; justify-content: center;" id="cuerpo_modal">
                     <!-- Contenedor de firma -->
@@ -312,41 +325,42 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             </div>
                         </div>
                     </div>
-                    
 
 
-                </div>          
+
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
-            </div>                            
+            </div>
         </div>
     </div>
 
 
-    <div class="modal" id="myValoresRef"  role="dialog" aria-labelledby="myModalLabel" style="transform: scale(0.9); margin-top: -70px">
+    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: #214761; color: white" >
+                <div class="modal-header" style="background-color: #214761; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt=""/> Ver Detalle de la cotización actual</h4>
+                        <img src="images/examen_venta.png" alt="" /> Ver Detalle de la cotización actual</h4>
                 </div>
                 <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
 
                     <!-- Tabla contenedor -->
 
                     <div class="form-group">
-                        <label for="inputselect">Estos son los detalles para la cotización seleccionada</label>                        
+                        <label for="inputselect">Estos son los detalles para la cotización seleccionada</label>
                     </div>
-                    
+
                     <div class="form-group" id="contenedorTablaDetalles"></div>
-                    <div id="masInfoGeneral"></div>                   
-                </div>          
+                    <button onclick="generarPdfCotizacion()" >Generar PDF Cotizacion</button>
+                    <div id="masInfoGeneral"></div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
-            </div>                            
+            </div>
         </div>
     </div>
 
@@ -374,12 +388,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         </div>
     </div>
 
-
-
     <script>
-        
         obtener_categoria_examen();
-        $("#examen_categoria_venta").change(function () {
+        $("#examen_categoria_venta").change(function() {
             obtener_examen();
         });
         //obtenerExamenNoPerfil();
@@ -389,13 +400,13 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 type: "POST",
                 dataType: 'json',
                 delay: 250,
-                data: function (params) {
+                data: function(params) {
                     return {
                         searchTerm: params.term,
                         tipo: 32
                     };
                 },
-                processResults: function (response) {
+                processResults: function(response) {
                     return {
                         results: response
                     };
@@ -403,6 +414,24 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 cache: true
             }
         });
+
+        function generarPdfCotizacion() {
+            var hola = "Texto de ensayo adicional"
+            
+            var doc = new jsPDF();
+            doc.text(20, 20, "This PDF has a title"+ hola +" subject, author, keywords and a creator.");
+            // Optional - set properties on the document
+            doc.setProperties({
+                title: 'Cotizaciones Vitalea',
+                subject: 'Documento de Cotizaciones vitalea',
+                author: 'Arcos Soluciones Tecnologicas',
+                keywords: 'generated, javascript, web 2.0, ajax',
+                creator: 'Alexander Pineda - Desarrollador'
+            });
+            // Output as Data URI
+            doc.save('detallePDFCotizacion.pdf');
+        }
+
 
         VerPrecotizaciones();
         verDetalleCotizacion();
