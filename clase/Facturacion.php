@@ -533,4 +533,14 @@ group by ven.usuario_id");
         $json_retorno2 = json_encode($rows);
         return $json_retorno2;
     }
+
+    public function consultaCotizacionPdf($data) {
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.precotizacion WHERE id_precotizacion = :idExamen");
+        $query->execute(array(
+            ':idExamen' => $data['idExamen']
+        ));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json_retorno2 = json_encode($rows);
+        return $json_retorno2;
+    }
 }

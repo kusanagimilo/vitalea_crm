@@ -68,4 +68,7 @@ if ($tipo == 3) {
 }if ($tipo == 16) {
     $retorno = $Obj_Facturacion->btnVerMasDetallesExamenNoPerfiles($_POST);
     echo $retorno;
+}if ($tipo == 17) {
+    $retorno = $Obj_Facturacion->consultaCotizacionPdf($_POST);
+    echo $retorno;
 }

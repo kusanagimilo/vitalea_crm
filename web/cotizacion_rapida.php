@@ -356,7 +356,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                     <div class="form-group" id="contenedorTablaDetalles"></div>
                     <!-- <div id="masInfoGeneral"></div> -->
-                    <button onclick="generarPdfCotizacion()" >Generar PDF Cotizacion</button>
+                    <button onclick="generarPdfCotizacion()">Generar PDF Cotizacion</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
@@ -417,12 +417,13 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         });
 
         var imgData = new Image();
-        imgData.src= "../images/vitaleaPdf.jpg";
+        imgData.src = "../images/vitaleaPdf.jpg";
         var imgData2 = new Image();
-        imgData2.src= "../images/vitaleaPdf2.png";
-        function generarPdfCotizacion() {   
+        imgData2.src = "../images/vitaleaPdf2.png";
+
+        function generarPdfCotizacion() {
             var doc = new jsPDF();
-            
+
             doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
             doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
 
@@ -433,11 +434,11 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             // doc.text(10, 35, "Conslidado de Cotización");
 
             doc.setLineWidth(3);
-            doc.setDrawColor(251,202,18);
+            doc.setDrawColor(251, 202, 18);
             doc.line(0, 60.5, 212, 60.5);
 
             doc.setDrawColor(0);
-            doc.setFillColor(133,0,144);
+            doc.setFillColor(133, 0, 144);
             doc.rect(0, 272, 132, 26, 'F'); // filled red square
 
 
@@ -452,6 +453,37 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             });
             // Output as Data URI
             doc.save('detallePDFCotizacion.pdf');
+
+            $.ajax({
+                type: "POST",
+                url: "../controladores/FacturacionController.php",
+                async: false,
+                dataType: 'json',
+                data: {
+                    tipo: 17
+                },
+                success: function(retu) {
+
+                    // $.each(retu, function(i, precot) {
+
+
+                    //     var newRow = "<tr>";
+                    //     newRow += "<td name='idPrecotizaciones'>" + precot.id_precotizacion + "</td>";
+                    //     newRow += "<td>" + precot.nombre_cliente + "</td>";
+                    //     newRow += "<td>" + precot.correo + "</td>";
+                    //     newRow += "<td>" + precot.telefono + "</td>";
+                    //     newRow += "<td>" + precot.nombre_completo + "</td>";
+                    //     newRow += "<td>" + precot.fecha_creacion + "</td>";
+                    //     newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
+                    //     newRow += "<td><button class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'>" + 'Ver detalle' + "</button></td>";
+                    //     newRow += "</tr>";
+
+                    //     $(newRow).appendTo("#lista_precot_cot_body");
+                    // });
+
+                }
+            });
+
         }
 
 
