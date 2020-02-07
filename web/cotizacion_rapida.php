@@ -416,73 +416,66 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             }
         });
 
-        var imgData = new Image();
-        imgData.src = "../images/vitaleaPdf.jpg";
-        var imgData2 = new Image();
-        imgData2.src = "../images/vitaleaPdf2.png";
-
         function generarPdfCotizacion() {
-            var doc = new jsPDF();
-
-            doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
-            doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
-
-            // doc.setFontSize(35);
-            // doc.setFont("helvetica");
-            // doc.setFontType("bold");
-            // doc.setTextColor(233,24,127);
-            // doc.text(10, 35, "Conslidado de Cotización");
-
-            doc.setLineWidth(3);
-            doc.setDrawColor(251, 202, 18);
-            doc.line(0, 60.5, 212, 60.5);
-
-            doc.setDrawColor(0);
-            doc.setFillColor(133, 0, 144);
-            doc.rect(0, 272, 132, 26, 'F'); // filled red square
-
-
-
-            // Optional - set properties on the document
-            doc.setProperties({
-                title: 'Cotizaciones Vitalea',
-                subject: 'Documento de Cotizaciones vitalea',
-                author: 'Arcos Soluciones Tecnologicas',
-                keywords: 'generated, javascript, web 2.0, ajax',
-                creator: 'Alexander Pineda - Desarrollador'
-            });
-            // Output as Data URI
-            doc.save('detallePDFCotizacion.pdf');
-
+            var imgData = new Image();
+            imgData.src = "../images/vitaleaPdf.jpg";
+            var imgData2 = new Image();
+            imgData2.src = "../images/vitaleaPdf2.png";
+            let cotizacionId = sessionStorage.getItem('idCotizacion');
             $.ajax({
                 type: "POST",
                 url: "../controladores/FacturacionController.php",
                 async: false,
                 dataType: 'json',
                 data: {
-                    tipo: 17
+                    tipo: 17,
+                    cotizId: cotizacionId
                 },
                 success: function(retu) {
+                    
+                    if (retu) {
+                        console.log(retu[0].id_precotizacion);
+                        var idCtz = retu[0].id_precotizacion;
+                        // var doc = new jsPDF();                        
+                        // doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
+                        // doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
 
-                    // $.each(retu, function(i, precot) {
+                        // doc.setFontSize(35);
+                        // doc.setFont("helvetica");
+                        // doc.setFontType("bold");
+                        // doc.setTextColor(233,24,127);
+                        // doc.text(10, 35, retu);
+
+                        // doc.setLineWidth(3);
+                        // doc.setDrawColor(251, 202, 18);
+                        // doc.line(0, 60.5, 212, 60.5);
+
+                        // doc.setDrawColor(0);
+                        // doc.setFillColor(133, 0, 144);
+                        // doc.rect(0, 272, 132, 26, 'F'); // filled red square
 
 
-                    //     var newRow = "<tr>";
-                    //     newRow += "<td name='idPrecotizaciones'>" + precot.id_precotizacion + "</td>";
-                    //     newRow += "<td>" + precot.nombre_cliente + "</td>";
-                    //     newRow += "<td>" + precot.correo + "</td>";
-                    //     newRow += "<td>" + precot.telefono + "</td>";
-                    //     newRow += "<td>" + precot.nombre_completo + "</td>";
-                    //     newRow += "<td>" + precot.fecha_creacion + "</td>";
-                    //     newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
-                    //     newRow += "<td><button class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'>" + 'Ver detalle' + "</button></td>";
-                    //     newRow += "</tr>";
 
-                    //     $(newRow).appendTo("#lista_precot_cot_body");
-                    // });
+                        // // Optional - set properties on the document
+                        // doc.setProperties({
+                        //     title: 'Cotizaciones Vitalea',
+                        //     subject: 'Documento de Cotizaciones vitalea',
+                        //     author: 'Arcos Soluciones Tecnologicas',
+                        //     keywords: 'generated, javascript, web 2.0, ajax',
+                        //     creator: 'Alexander Pineda - Desarrollador'
+                        // });
+                        // // Output as Data URI
+                        // doc.save('detallePDFCotizacion.pdf');
+                    }
 
                 }
             });
+
+
+
+
+
+
 
         }
 

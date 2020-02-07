@@ -754,6 +754,7 @@ function verDetalleCotizacion() {
             i.addEventListener("click", (e) => {    
 
                 let eventoId = e.target.parentNode.parentNode.firstChild.textContent;
+                sessionStorage.setItem('idCotizacion', eventoId);
                 $("#listaResultadosVerDetalle").html("");
                 
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
