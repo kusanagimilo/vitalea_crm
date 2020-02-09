@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="../web/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="../web/css/dropzone/dropzone.css">
 <link rel="stylesheet" href="../web/css/summernote/summernote.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 
 
 <!-- SCRIPT JS -->

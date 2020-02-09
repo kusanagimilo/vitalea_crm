@@ -356,7 +356,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                     <div class="form-group" id="contenedorTablaDetalles"></div>
                     <!-- <div id="masInfoGeneral"></div> -->
-                    <button onclick="generarPdfCotizacion()">Generar PDF Cotizacion</button>
+                    <button onclick="generarPdfCotizacion()" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> Generar PDF Cotizacion</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
@@ -417,6 +417,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         });
 
         function generarPdfCotizacion() {
+            //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
             var imgData = new Image();
             imgData.src = "../images/vitaleaPdf.jpg";
             var imgData2 = new Image();
@@ -442,10 +443,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         var idCtz5 = retu[0].direccion;
                         var idCtz6 = retu[0].firma;
                         var idCtz7 = retu[0].fecha_creacion;
-                        //var idCtz8 = retu[0].firma;
-                        
-                                               
-                        //console.log(drawimage);                       
+                                             
                         var doc = new jsPDF();                        
                         doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
                         doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
@@ -466,38 +464,28 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             doc.addImage(idCtz6, 'PNG', 40, 160, 120, 70);
                         }
                         
-
                         doc.setLineWidth(3);
                         doc.setDrawColor(251, 202, 18);
                         doc.line(0, 60.5, 212, 60.5);
 
                         doc.setDrawColor(0);
                         doc.setFillColor(133, 0, 144);
-                        doc.rect(0, 272, 132, 26, 'F'); // filled red square
+                        doc.rect(0, 272, 132, 26, 'F');
 
-
-
-                        // Optional - set properties on the document
                         doc.setProperties({
+                            //Metadatos del documento
                             title: 'Cotizaciones Vitalea',
                             subject: 'Documento de Cotizaciones vitalea',
                             author: 'Arcos Soluciones Tecnologicas',
                             keywords: 'generated, javascript, web 2.0, ajax',
                             creator: 'Alexander Pineda - Desarrollador'
                         });
-                        // Output as Data URI
+                        // Funcion Generadora del PDF
                         doc.save('detallePDFCotizacion.pdf');
                     }
 
                 }
             });
-
-
-
-
-
-
-
         }
 
 

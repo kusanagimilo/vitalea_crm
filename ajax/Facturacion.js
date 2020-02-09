@@ -732,7 +732,7 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
                 newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
-                newRow += "<td><button class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'>" + 'Ver detalle' + "</button></td>";
+                newRow += "<td><button class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'><i class='fas fa-info-circle'></i>" + ' Ver detalle' + "</button></td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_precot_cot_body");
@@ -791,7 +791,7 @@ function verDetalleCotizacion() {
                             newRow += "<td name='idCotizacion' style='display: none;'>" + precot.id_precotizacion + "</td>";
                             newRow += "<td style='border-left: #808080 1px solid; border-top: #808080 1px solid'>" + precot.id_item + "</td>";
                             newRow += "<td style='border-top: #808080 1px solid'>" + precot.tipo_item + "</td>";
-                            newRow += "<td style='border-right: #808080 1px solid; border-top: #808080 1px solid'><button id='verMasInfo' class='btn btn-info'>"+"Ver Mas"+"</button></td>";
+                            newRow += "<td style='border-right: #808080 1px solid; border-top: #808080 1px solid'><button id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>"+" Ver Mas"+"</button></td>";
                             newRow += "</tr>";
                             newRow += "<tr id='masInfoGeneral' style='font-size: 10.5px; border: #808080 1px solid'></tr>";
                             $(newRow).appendTo("#listaResultadosVerDetalle");
