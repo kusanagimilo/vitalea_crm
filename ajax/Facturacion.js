@@ -755,20 +755,21 @@ function verDetalleCotizacion() {
 
                 let eventoId = e.target.parentNode.parentNode.firstChild.textContent;
                 sessionStorage.setItem('idCotizacion', eventoId);
-                $("#listaResultadosVerDetalle").html("");
+                $("#listaResultadosVerDetalleChequeos").html("");
+                $("#listaResultadosVerDetalleExamenes").html("");
                 
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
                 '<thead>' +
                 '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Lista Total de Items para esta Cotizacion</caption>' +
                 '<tr style="background-color: #214761">' +
-                '<th style="color:white; display: none">Cotización</th>' +
-                '<th style="color:white">Id Examen</th>' +
-                '<th style="color:white">Tipo Examen</th>' +
-                '<th style="color:white">Item</th>' +
+                '<th style="color:white;" colspan="3">Chequeos</th>' +                
                 '</tr>' +
+                '<tbody id="listaResultadosVerDetalleChequeos" colspan="3">' + '</tbody>' +
+                '<tr style="background-color: #214761">' +
+                '<th style="color:white" colspan="3">Examenes</th>' +//'<th style="color:white"><button id="verMasInfo" class="btn btn-info"><i class="far fa-plus-square"></i> Ver Mas</button></th>' +                
+                '</tr>' +
+                '<tbody id="listaResultadosVerDetalleExamenes" colspan="3">' + '</tbody>' +
                 '</thead>' +
-                '<tbody id="listaResultadosVerDetalle">' +
-                '</tbody>' +
                 '</table>';
                 
                 
@@ -784,8 +785,9 @@ function verDetalleCotizacion() {
                         idCot: eventoId
                     },
                     success: function (retu) {
-                        $("#listaResultadosVerDetalle").html("");
-                        $.each(retu, function (i, precot) {                            
+                        $("#listaResultadosVerDetalleChequeos").html("");
+                        $("#listaResultadosVerDetalleExamenes").html("");
+                        $.each(retu, function (i, precot) {                                                        
                             var newRow ="";
                             newRow += "<tr>";
                             newRow += "<td name='idCotizacion' style='display: none;'>" + precot.id_precotizacion + "</td>";
@@ -794,16 +796,18 @@ function verDetalleCotizacion() {
                             newRow += "<td style='border-right: #808080 1px solid; border-top: #808080 1px solid'><button id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>"+" Ver Mas"+"</button></td>";
                             newRow += "</tr>";
                             newRow += "<tr id='masInfoGeneral' style='font-size: 10.5px; border: #808080 1px solid'></tr>";
-                            $(newRow).appendTo("#listaResultadosVerDetalle");
-                            // if (newRow == newRow) {
-                            //     newRow = "";                               
-                            //     $(newRow).appendTo("#listaResultadosVerDetalle");
-                            // }                            
+
+                            if (precot.tipo_item == "perfil") {
+                                $(newRow).appendTo("#listaResultadosVerDetalleChequeos");                                
+                            } else {
+                                $(newRow).appendTo("#listaResultadosVerDetalleExamenes");    
+                            }
+                                                        
                         });
 
                         const moreDetails = document.querySelectorAll("#verMasInfo");
                         for (const iterator of moreDetails) {
-                            iterator.addEventListener("click", (e)=>{
+                            function verDetalleDiscriminado(e){
                                 let idEx = e.target.parentNode.parentNode.childNodes[1].textContent;
                                 let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;                                
                                 if (tipEx=="perfil") {
@@ -820,24 +824,53 @@ function verDetalleCotizacion() {
                                         tipo: tipo,                                        
                                         idExamen: idEx
                                     },
-                                    success: function (retur) {                            
+                                    success: function (retur) {                               
                                         $.each(retur, function (i, respuesta) {
+                                            let soloPerfiles;
+                                            if (respuesta.grupo_id == 1) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: CHEQUEO ESCENCIAL";                                                                                                
+                                            } else if(respuesta.grupo_id == 2){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: MONITOREO";                                                
+                                            } else if(respuesta.grupo_id == 3){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: FERTILIDAD Y EMBARAZO";                                                
+                                            }  else if(respuesta.grupo_id == 4){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: NUTRICION";                                                
+                                            }  else if(respuesta.grupo_id == 5){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: DEPORTE";                                                
+                                            }  else if(respuesta.grupo_id == 6){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: SALUD SEXUAL";                                                
+                                            }  else if(respuesta.grupo_id == 7){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: BIENESTAR";                                                
+                                            }  else if(respuesta.grupo_id == 8){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: VIAJERO";                                                
+                                            }  else if(respuesta.grupo_id == 9){
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: ADN";                                                
+                                            } else {
+                                                soloPerfiles = "Detalle:";
+                                            }
+
                                             if (tipo==16) {
                                                 var codigo = respuesta.codigo_crm;                                                
                                             } else {
                                                 codigo = respuesta.codigo;
                                             }
                                             let nombre = respuesta.nombre;
-                                            let recomendaciones = respuesta.recomendaciones;                                            
-                                            let contenedor = "<div style='margin-left:17px; width:130%'>" +"Nombre examen: "+ nombre + "</div>";
+                                            let recomendaciones = respuesta.recomendaciones; 
+                                            let precios = respuesta.precio; 
+
+                                            let contenedor = "<div style='margin-left:17px; width:130%; font-size: 14px'>" + soloPerfiles + "</div>";
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Nombre examen: "+ nombre + "</div>";
                                             contenedor += "<div style='margin-left:17px; width:130%'>" +"Crm codigo: " + codigo + "</div>";
                                             contenedor += "<div style='margin-left:17px; width:130%'>" +"Recomendaciones: "+ recomendaciones + "</div>";                                                                        
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Precio: "+ precios +"$"+ "</div>";                                                                        
                                             $(contenedor).appendTo(e.target.parentNode.parentNode.nextSibling);
                                         });
                             
                                     }
                                 });
-                            })
+                                iterator.removeEventListener('click', verDetalleDiscriminado);
+                            }
+                            iterator.addEventListener("click", verDetalleDiscriminado);
                         }
                     }
                 });                
@@ -846,8 +879,9 @@ function verDetalleCotizacion() {
             const paginacion2 = document.getElementById("myValoresRef");
             function borrarTemp(){
                 setTimeout(() => {
-                    $("#masInfoGeneral").html("");
-                }, 2000);
+                    //$("#masInfoGeneral").html("");
+                    location.reload();
+                }, 1200);
             }
             paginacion2.addEventListener("mouseleave", borrarTemp);
             
