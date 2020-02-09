@@ -434,38 +434,59 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 success: function(retu) {
                     
                     if (retu) {
-                        console.log(retu[0].id_precotizacion);
-                        var idCtz = retu[0].id_precotizacion;
-                        // var doc = new jsPDF();                        
-                        // doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
-                        // doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
+                        
+                        var idCtz1 = retu[0].nombre_cliente;
+                        var idCtz2= retu[0].correo;
+                        var idCtz3 = retu[0].telefono;
+                        var idCtz4 = retu[0].valor;
+                        var idCtz5 = retu[0].direccion;
+                        var idCtz6 = retu[0].firma;
+                        var idCtz7 = retu[0].fecha_creacion;
+                        //var idCtz8 = retu[0].firma;
+                        
+                                               
+                        //console.log(drawimage);                       
+                        var doc = new jsPDF();                        
+                        doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
+                        doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
+                        
 
-                        // doc.setFontSize(35);
-                        // doc.setFont("helvetica");
-                        // doc.setFontType("bold");
-                        // doc.setTextColor(233,24,127);
-                        // doc.text(10, 35, retu);
+                        doc.setFontSize(18);
+                        doc.setFont("helvetica");
+                        doc.setTextColor(0,24,0);
+                        doc.text(30, 80, "Nombre del Cotizante: " + idCtz1);
+                        doc.text(30, 90, "Correo: " + idCtz2);
+                        doc.text(30, 100, "Telefono: " + idCtz3);
+                        doc.text(30, 110, "Costo: " + idCtz4 + "$");
+                        doc.text(30, 120, "Direccion: " + idCtz5);
+                        doc.text(30, 130, "Fecha Cot: " + idCtz7);
+                        if (idCtz6 != null) {                            
+                            doc.setFontSize(10);
+                            doc.text(45, 170, "Firma: ");
+                            doc.addImage(idCtz6, 'PNG', 40, 160, 120, 70);
+                        }
+                        
 
-                        // doc.setLineWidth(3);
-                        // doc.setDrawColor(251, 202, 18);
-                        // doc.line(0, 60.5, 212, 60.5);
+                        doc.setLineWidth(3);
+                        doc.setDrawColor(251, 202, 18);
+                        doc.line(0, 60.5, 212, 60.5);
 
-                        // doc.setDrawColor(0);
-                        // doc.setFillColor(133, 0, 144);
-                        // doc.rect(0, 272, 132, 26, 'F'); // filled red square
+                        doc.setDrawColor(0);
+                        doc.setFillColor(133, 0, 144);
+                        doc.rect(0, 272, 132, 26, 'F'); // filled red square
 
 
 
-                        // // Optional - set properties on the document
-                        // doc.setProperties({
-                        //     title: 'Cotizaciones Vitalea',
-                        //     subject: 'Documento de Cotizaciones vitalea',
-                        //     author: 'Arcos Soluciones Tecnologicas',
-                        //     keywords: 'generated, javascript, web 2.0, ajax',
-                        //     creator: 'Alexander Pineda - Desarrollador'
-                        // });
-                        // // Output as Data URI
-                        // doc.save('detallePDFCotizacion.pdf');
+                        // Optional - set properties on the document
+                        doc.setProperties({
+                            title: 'Cotizaciones Vitalea',
+                            subject: 'Documento de Cotizaciones vitalea',
+                            author: 'Arcos Soluciones Tecnologicas',
+                            keywords: 'generated, javascript, web 2.0, ajax',
+                            creator: 'Alexander Pineda - Desarrollador'
+                        });
+                        // Output as Data URI
+                        doc.save('detallePDFCotizacion.pdf');
                     }
 
                 }
