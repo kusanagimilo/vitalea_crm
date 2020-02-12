@@ -72,9 +72,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                                         <br>
 
-                                        <div id="tabla_listado_sedes" class="table-responsive">
-
-                                        </div>
+                                        <div id="tabla_listado_sedes" class="table-responsive"></div>
                                     </div>
                                 </div>
                             </div>

@@ -207,6 +207,16 @@ require_once '../include/header_administrador.php';
                                 </center>
                             </a>
                         </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 animate-box">
+                            <a class="fh5co-card" href="./administracionGeografica.php" style="padding-top: 10px;">
+                                <center>
+                                    <img class="rounded-circle img-fluid d-block mx-auto" src="images/geografia.jpg" height="100" width="100" alt="">
+                                    <div class="fh5co-card-body">
+                                        <h3>Administración Geográfica</h3>
+                                    </div>
+                                </center>
+                            </a>
+                        </div>
 
 
 
