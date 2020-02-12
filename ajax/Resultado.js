@@ -111,6 +111,7 @@ function ResultadosIndividual() {
                     '<th style="color:white">Fecha recepcion resultados</th>' +
                     '<th style="color:white">Documento</th>' +
                     '<th style="color:white">Ver detalle</th>' +
+                    '<th style="color:white">Enviar resultado</th>' +
                     //'<th style="color:white">%Resultados</th>' +
                     '</tr>' +
                     '</thead>' +
@@ -128,12 +129,18 @@ function ResultadosIndividual() {
                 var fecha_recepcion = "";
                 var archivos = "";
                 var detalle = "";
+                var boton_envio = "";
                 if (resultados.estado == 1) {
                     estado = "En espera de envio de resultados";
                     fecha_recepcion = "En espera de envio de resultados";
                     archivos = "En espera de envio de resultados";
                     detalle = '<input type="button" onclick="ResultadosDetalle(' + resultados.idventa + ',' + resultados.idresultado + ')" data-toggle="modal" data-target="#myModalResultados" value="Ver detalle" class="btn btn-sm btn-primary">'
+                    boton_envio = "En espera de envio de resultados";
                 } else if (resultados.estado == 2) {
+
+                    var correo = '"' + resultados.email + '"';
+                    var cliente = '"' + resultados.nombre + ' ' + resultados.apellido + '"';
+
                     estado = "Resultado recibido";
                     fecha_recepcion = resultados.fecha_modificacion;
 
@@ -144,7 +151,7 @@ function ResultadosIndividual() {
                     }
 
                     detalle = '<input type="button" onclick="ResultadosDetalle(' + resultados.idventa + ',' + resultados.idresultado + ')" data-toggle="modal" data-target="#myModalResultados" value="Ver detalle" class="btn btn-sm btn-primary">';
-
+                    boton_envio = "<input type='button' onclick='CargaDataEnvioRes(" + correo + "," + cliente + "," + resultados.idresultado + ")' class='btn btn-info' value='Enviar' data-toggle='modal' data-target='#myModalEnvio'>";
 
                 }
                 var newRow = "<tr>";
@@ -156,9 +163,11 @@ function ResultadosIndividual() {
                 newRow += "<td>" + fecha_recepcion + "</td>";
                 newRow += "<td>" + archivos + "</td>";
                 newRow += "<td>" + detalle + "</td>";
+                newRow += "<td>" + boton_envio + "</td>";
                 //newRow += "<td>" + resultados.porcentaje + "</td>";
                 newRow += "</tr>";
 
+                /* function EnviarCorreo($correo_cliente, $nombre_cliente, $id_resultado, $tipo_envio)*/
                 $(newRow).appendTo("#lista_resultado_cot_body");
             });
 
@@ -190,12 +199,12 @@ function ResultadosDetalle(venta_id, id_resultado) {
             datos = retu;
         }
     });
-    
+
     var arreglo_por = datos.porcentaje;
-    
+
     var porcentaje = '<h2>Porcentaje de resultados ingresados</h2>' +
             '<div class="progress">' +
-            '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:'+arreglo_por.porcentaje+'%">'+arreglo_por.porcentaje+'%</div>' +
+            '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:' + arreglo_por.porcentaje + '%">' + arreglo_por.porcentaje + '%</div>' +
             '</div>'
     var html = porcentaje + "<div id='perfiles'><h4>Perfiles</h4>";
     html += '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
@@ -457,4 +466,58 @@ function VerLogsSolicitud(id_solicitud_athenea) {
         }
     });
 
+}
+
+
+function CargaDataEnvioRes(correo_cli, nombre_cliente, id_resultado) {
+
+    var nombre_cliente_f = "'" + nombre_cliente + "'";
+    $("#correo_resultado").val("");
+    $("#correo_resultado").val(correo_cli);
+    $("#enviar_res").attr("onclick", "EnviarCorreoResultado(" + nombre_cliente_f + "," + id_resultado + ")");
+
+}
+
+function EnviarCorreoResultado(nombre_cliente, id_resultado) {
+
+
+    var correo_cliente = $("#correo_resultado").val();
+
+    if (correo_cliente == "") {
+        alertify.alert("Revise el formulario y complete los datos obligatorios");
+    } else {
+        var confirma = confirm("Esta seguro de  enviar el correo");
+        if (confirma) {
+
+            var datos;
+            $.ajax({
+                type: "POST",
+                url: "../controladores/ResultadoController.php",
+                async: false,
+                dataType: 'json',
+                data: {
+                    tipo: 6,
+                    correo_cliente: correo_cliente,
+                    nombre_cliente: nombre_cliente,
+                    id_resultado: id_resultado
+                },
+                success: function (retu) {
+                    datos = retu;
+                }
+            });
+
+            if (datos == 1) {
+                alertify.alert("Se envio el correo correctamente", function () {
+                    $('#myModalEnvio').modal('toggle');
+                });
+            } else if (datos == 2) {
+                alertify.alert("Ocurrio un error al tratar de enviar el correo");
+            }
+
+        }
+    }
+
+    /*$correo_cliente = $_POST['correo_cliente'];
+     $nombre_cliente = $_POST['nombre_cliente'];
+     $id_resultado = $_POST['id_resultado'];*/
 }

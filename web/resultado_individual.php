@@ -121,6 +121,31 @@ require_once '../include/header_administrador.php';
             </div>                            
         </div>
     </div>
+    <div class="modal" id="myModalEnvio"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white" >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt=""/>Envio de resultados</h4>
+                </div>
+                <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_analito">
+
+                    <div class="form-group">
+                        <label for="inputtext">* Ingrese el correo al que será enviada la información </label>
+                        <input type="text" class="form-control" id="correo_resultado" name="correo_resultado" placeholder="Ingrese el correo">
+                    </div>
+                    <div class="form-group">
+                        <button onclick="" id="enviar_res" type="button" class="btn btn-primary btn-lg btn-block">Enviar</button>
+                    </div>
+
+                </div>          
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>                            
+        </div>
+    </div>
 
 
 
