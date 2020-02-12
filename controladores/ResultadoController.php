@@ -23,3 +23,12 @@ if ($tipo == 2) {
     $retorno = $Obj_Resultado->VerAnalitos($_POST);
     echo $retorno;
 }
+if ($tipo == 6) {
+
+    $correo_cliente = $_POST['correo_cliente'];
+    $nombre_cliente = $_POST['nombre_cliente'];
+    $id_resultado = $_POST['id_resultado'];
+
+    $retorno = $Obj_Resultado->EnviarCorreo($correo_cliente, $nombre_cliente, $id_resultado, 'cliente');
+    echo $retorno;
+}
