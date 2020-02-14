@@ -15,7 +15,6 @@
 //ini_set('display_errors', '1');
 require_once '../conexion/conexion_bd.php';
 
-
 class WS {
 
     public $Username = '';
@@ -47,11 +46,11 @@ WHERE ven.id =:id");
 
 
         $par = array();
-        $client = new SoapClient("http://192.168.50.134/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
+        $client = new SoapClient("http://190.60.101.55/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
         $headers = new SoapHeader("http://tempuri.org/", 'ServiceAuthHeader', new WS("AtheneaWS", "4th3n3a*"));
         $client->__setSoapHeaders($headers);
-    
-    	
+
+
 
 
         $tipo_documento = "";
@@ -62,18 +61,18 @@ WHERE ven.id =:id");
         } else if ($arreglo[0]["tipo_documento"] == 3) {
             $tipo_documento = "CE";
         }
-		
-		$sexo = "";
-		
-		 if ($arreglo[0]["sexo"] == "Masculino") {
+
+        $sexo = "";
+
+        if ($arreglo[0]["sexo"] == "Masculino") {
             $sexo = "M";
         } else if ($arreglo[0]["sexo"] == "Femenino") {
             $sexo = "F";
-        } 
-		
+        }
 
-    
-    
+
+
+
 
 
         $xml_ingresar_paciente = "<ROOT>
@@ -84,7 +83,7 @@ WHERE ven.id =:id");
 		<FECHANACIMIENTO>" . $arreglo[0]['fecha_nacimiento'] . "T00:00:00</FECHANACIMIENTO>
                 <NOMBRE1>" . $arreglo[0]['nombre'] . "</NOMBRE1>
                 <APELLIDO1>" . $arreglo[0]['apellido'] . "</APELLIDO1>
-                <SEXO>".$sexo."</SEXO>
+                <SEXO>" . $sexo . "</SEXO>
 		<ACTIVO>1</ACTIVO>
                 <D0 BID='0' HOMOLOGAR='0'></D0>
 		<D1 BID='0' HOMOLOGAR='0'></D1>
@@ -121,18 +120,18 @@ WHERE ven.id =:id");
 		 </PACIENTE>
  		</SOLICITUD>
  		</ROOT>";
-    
-   
+
+
         $datos = array("CrearPaciente" =>
             array("strXml" => $xml_ingresar_paciente));
-	
-  
+
+
         $result = $client->__soapCall("CrearPaciente", $datos);
-   		
-    
-    	$xml = simplexml_load_string($result->CrearPacienteResult);
-    
-   
+
+
+        $xml = simplexml_load_string($result->CrearPacienteResult);
+
+
 
         $arreglo = array("xml" => $xml,
             "tipo_documento" => $tipo_documento,
@@ -143,35 +142,29 @@ WHERE ven.id =:id");
     }
 
     function AlmacenarFactura($id_venta) {
-    	$plan = 11713;
+
         $conexion = new Conexion();
 
         $query = $conexion->prepare("SELECT cli.id_cliente,cli.tipo_documento,cli.documento,cli.fecha_nacimiento,cli.nombre,cli.apellido,
 cli.sexo,cli.direccion,CONCAT(ci.nombre,' - ',dpto.nombre) AS ubicacion,cli.estrato,
-cli.email,cli.estado_civil_id,cli.id_cliente_athenea,cli.telefono_1,ven.id,ven.medio_pago,ven.bono,bon.cantidad_descuento
+cli.email,cli.estado_civil_id,cli.id_cliente_athenea,cli.telefono_1,ven.id,ven.medio_pago,plan.id_plan,plan.codigo_plan
 FROM cliente cli
 INNER JOIN ciudad ci ON ci.id = cli.ciudad_id
 INNER JOIN departamento dpto ON dpto.id = ci.departamento_id
 INNER JOIN venta ven ON ven.cliente_id = cli.id_cliente
-LEFT JOIN bono bon ON bon.id = ven.bono
+INNER JOIN plan ON plan.id_plan = ven.id_plan
 WHERE ven.id =:id");
 
 
         $query->execute(array(':id' => $id_venta));
         $arreglo = $query->fetchAll(PDO::FETCH_ASSOC);
-    
-    	if ($arreglo[0]["bono"] != "NO") {
-            if ($arreglo[0]["cantidad_descuento"] == "5000") {
-                $plan = 11714;
-            } else if ($arreglo[0]["cantidad_descuento"] == "10000") {
-                $plan = 11715;
-            }
-        }
+
+        $plan = $arreglo[0]['codigo_plan'];
 
 
 
         $par = array();
-        $client = new SoapClient("http://192.168.50.134/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
+        $client = new SoapClient("http://190.60.101.55/WebServices/Laboratorio/DatosGenerales/WSIntegracionLaboratorio.asmx?WSDL", $par);
         $headers = new SoapHeader("http://tempuri.org/", 'ServiceAuthHeader', new WS("AtheneaWS", "4th3n3a*"));
         $client->__setSoapHeaders($headers);
 
@@ -218,27 +211,19 @@ WHERE ven.id =:id");
                 $query_perfiles = $conexion->prepare("SELECT id,codigo_crm,precio FROM examen WHERE id =:examen_id");
                 $query_perfiles->execute(array(':examen_id' => $value['examen_id']));
                 $arreglo_examenes_p = $query_perfiles->fetchAll(PDO::FETCH_ASSOC);
-            	
-            	 if ($plan == 11714) {
-                    $arreglo_examenes_completo[$i]["valor"] = (int) $arreglo_examenes_p[0]['precio'] - 5000;
-                } else if ($plan == 11715) {
-                    $arreglo_examenes_completo[$i]["valor"] = (int) $arreglo_examenes_p[0]['precio'] - 10000;
-                } else {
-                    $arreglo_examenes_completo[$i]["valor"] = $arreglo_examenes_p[0]['precio'];
-                }
-            
+                $arreglo_examenes_completo[$i]["valor"] = $value['valor'];
                 $arreglo_examenes_completo[$i]["codigo"] = $arreglo_examenes_p[0]['codigo_crm'];
             } else if ($value['tipo_examen'] == 2) {
                 $query_no_perfiles = $conexion->prepare("select id,codigo,precio from examenes_no_perfiles where id =:examen_id");
                 $query_no_perfiles->execute(array(':examen_id' => $value['examen_id']));
                 $arreglo_examenes_nop = $query_no_perfiles->fetchAll(PDO::FETCH_ASSOC);
-                $arreglo_examenes_completo[$i]["valor"] = $arreglo_examenes_nop[0]['precio'];
+                $arreglo_examenes_completo[$i]["valor"] = $value['valor'];
                 $arreglo_examenes_completo[$i]["codigo"] = $arreglo_examenes_nop[0]['codigo'];
             }
             $i++;
         }
 
-       
+
         /* $query_examenes = $conexion->prepare("select exm.codigo,itm.valor 
           from venta_items itm
           INNER JOIN examenes_no_perfiles exm ON exm.id = itm.examen_id
@@ -308,11 +293,10 @@ WHERE ven.id =:id");
                 $retorno["Id_Solicitud"] = trim($datos_resultado->intIDSolicitud);
                 $retorno["Facturado"] = "SI";
                 $retorno["ValorAthenea"] = $valor;
-            }else if(trim($datos_resultado->intIDSolicitud) == 0){
+            } else if (trim($datos_resultado->intIDSolicitud) == 0) {
 
                 $retorno = "error";
-
-            }else {
+            } else {
                 $mensaje = $datos_resultado->strMensajeActualizacion;
                 $arreglo = explode(".", $mensaje);
                 $arreglo_2 = explode(" V", $arreglo[1]);

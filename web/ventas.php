@@ -31,6 +31,7 @@ $guion = $gestion->guion($clasificacion_id);
 ?>
 
 <script src="../ajax/bono.js" ></script>
+<script src="../ajax/Plan.js" ></script>
 <script>
     $(document).ready(function ()
     {
@@ -93,7 +94,7 @@ $guion = $gestion->guion($clasificacion_id);
 
         $("#examen_descripcion_venta").change(function () {
 
-            obtener_examen_precios();
+            obtener_examen_precios2();
         });
 
         $("#btn_agregar_producto").click(function () {
@@ -109,7 +110,7 @@ $guion = $gestion->guion($clasificacion_id);
         });
 
         //obtenerExamenNoPerfil();
-           $("#examen_no_perfil").select2({
+        $("#examen_no_perfil").select2({
             ajax: {
                 url: "../controladores/Gestion.php",
                 type: "POST",
@@ -131,10 +132,11 @@ $guion = $gestion->guion($clasificacion_id);
         });
 
         $("#examen_no_perfil").change(function () {
-            obtenerPrecioExamenNoPerfil();
+            obtenerPrecioExamenNoPerfil2();
         });
 
-        BonosPersona($("#cliente_id").val());
+        ListaPlanesVenta();
+        //BonosPersona($("#cliente_id").val());
 
     });
 </script>
@@ -183,7 +185,7 @@ $guion = $gestion->guion($clasificacion_id);
 
 
     }
-     .loader {
+    .loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
         border-top: 16px solid #3498db;
@@ -288,7 +290,27 @@ $guion = $gestion->guion($clasificacion_id);
                         </div> 
                     </div>
 
-                    <div class="panel panel-default" id="contenedor_bonos">
+                    <div class="panel panel-default" id="contenedor_planes">
+                        <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
+                                <h3 class="panel-title"> 
+                                    <img src="images/examen_venta.png" alt=""/>
+                                    Seleccione el plan que va a aplicar para esta venta
+                                </h3>
+                            </div>
+
+
+                        </div>
+                        <div class="panel-body" >
+                            <div class="row pad-top" style="background-color: white;">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="con_plan">
+
+                                </div>
+                            </div>           
+                        </div>
+                    </div>
+
+                    <!--<div class="panel panel-default" id="contenedor_bonos">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
                                 <h3 class="panel-title"> 
@@ -306,7 +328,7 @@ $guion = $gestion->guion($clasificacion_id);
                                 </div>
                             </div>           
                         </div>
-                    </div>    
+                    </div>-->    
 
                     <div class="panel panel-default">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
@@ -316,7 +338,7 @@ $guion = $gestion->guion($clasificacion_id);
                                     Agregue examenes para generar venta o cotización </h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: right;">                 
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalResultados"> <img src="images/anadir_dos.png"> Agregar examen</button>
+                                <button type="button" class="btn btn-default"  id="btn_adicionar_plan" onclick="RevisaSeleccionPlan()"> <img src="images/anadir_dos.png"> Agregar examen</button>
                             </div>                  
 
                         </div>
@@ -549,8 +571,8 @@ $guion = $gestion->guion($clasificacion_id);
 
     </div>
 </div> 
-                
-<input type="hidden" id="bono_seleccionado" value="NO">
+<input type="hidden" id="plan_seleccionado" value="NO">
+<!--<input type="hidden" id="bono_seleccionado" value="NO">-->
 
 
 </body>

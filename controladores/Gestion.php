@@ -715,6 +715,16 @@ if ($tipo == 31) {
 }else if ($tipo == 32) {
     $examen_no_perfil = $gestion->examen_no_perfil_bus($_POST);
     echo $examen_no_perfil;
+}else if ($tipo == 33) {
+    $categora_id = $_POST["categoria_id"];
+    $id_plan = $_POST["id_plan"];
+    $examenes = $gestion->obtenerExamen2($categora_id,$id_plan);
+    echo $examenes;
+} else if ($tipo == 34) {
+    $examen_no_perfil = $_POST["examen_no_perfil"];
+    $id_plan = $_POST["id_plan"];
+    $examen_no_perfil = $gestion->examen_precio_no_perfil2($examen_no_perfil,$id_plan);
+    echo $examen_no_perfil;
 }
 ?>
 	

@@ -41,7 +41,7 @@ class Plan {
 
                 $id_plan = $this->conexion->lastInsertId();
 
-                $query_items_p = $this->conexion->prepare("SELECT * FROM examen WHERE grupo_id = 1 AND activo = 1");
+                $query_items_p = $this->conexion->prepare("SELECT * FROM examen WHERE grupo_id IS NOT NULL AND activo = 1");
                 $query_items_p->execute();
                 $rows_items_p = $query_items_p->fetchAll(PDO::FETCH_ASSOC);
 

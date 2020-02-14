@@ -123,3 +123,77 @@ function VerPlanes() {
     });
 }
 
+function ListaPlanesVenta() {
+    $.ajax({
+        url: '../controladores/PlanController.php',
+        data: {
+            tipo: 2
+        },
+        type: 'post',
+        dataType: 'json',
+        success: function (data)
+        {
+
+
+            var select = "<select id='plan_r' name='plan_r'>" +
+                    "<option value=''>--selecione un plan --</option>";
+            $.each(data, function (i, plan) {
+
+                select += "<option value='" + plan.id_plan + "'>" + plan.codigo_plan + " -- " + plan.nombre_plan + "</option>";
+
+            });
+            select += "</select>";
+
+            var tabla = "<table class='table table-responsive'><thead><tr><th colspan='2'>Utilizar plan</th><th>Accion</th></tr></thead>" +
+                    "<tbody>" +
+                    "<tr>" +
+                    "<td>Seleccione uno de los planes disponibles</td>" +
+                    "<td>" + select + "</td>" +
+                    "<td id='boton_plan'><input type='button' onclick='SeleccionarPlan()' value='Usar plan' class='btn btn-default'></td>" +
+                    "</tr>" +
+                    "</tbody>";
+
+            tabla += "</table>";
+            $("#con_plan").html(tabla);
+
+        }
+    });
+}
+
+function SeleccionarPlan() {
+    var plan_seleccionado = $("#plan_r").val();
+
+    //alert(bono_seleccionado);
+
+    if (plan_seleccionado == "" || plan_seleccionado == null) {
+        alert("Seleccione un plan");
+    } else {
+        $("#plan_seleccionado").val(plan_seleccionado);
+        $("#plan_r").attr("disabled", "disabled");
+        $("#boton_plan").html("<input type='button' onclick='CambiarPlan()' value='Cambiar plan' class='btn btn-info'>");
+        $("#btn_adicionar_plan").attr("data-toggle", "modal");
+        $("#btn_adicionar_plan").attr("data-target", "#myModalResultados");
+    }
+}
+
+function CambiarPlan() {
+    if ($("#examenes_agregados").length == 0) {
+        $("#plan_seleccionado").val("NO");
+        $("#boton_plan").html("<input type='button' onclick='SeleccionarPlan()' value='Usar plan' class='btn btn-default'>");
+        $("#plan_r").removeAttr("disabled");
+        $("#btn_adicionar_plan").removeAttr("data-toggle");
+        $("#btn_adicionar_plan").removeAttr("data-target");
+    } else {
+        alert("Debe eliminar todos los examenes agregados para cambiar de plan");
+    }
+
+}
+
+function RevisaSeleccionPlan() {
+
+    if ($("#plan_seleccionado").val() == "NO") {
+        alert("Debe usar un plan para poder adicionar examenes");
+    } else {
+        obtener_examen();
+    }
+}

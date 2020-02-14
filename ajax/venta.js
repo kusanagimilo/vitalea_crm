@@ -117,13 +117,13 @@ function obtener_examen_precios() {
         dataType: 'json',
         success: function (data)
         {
-            var bono;
-
-            if ($("#bono_seleccionado").val() != "" || $("#bono_seleccionado").val() != null) {
-                bono = $('#bono_seleccionado').val();
-            } else {
-                bono = "no_seleccionado";
-            }
+            /*var bono;
+             
+             if ($("#bono_seleccionado").val() != "" || $("#bono_seleccionado").val() != null) {
+             bono = $('#bono_seleccionado').val();
+             } else {
+             bono = "no_seleccionado";
+             }*/
 
             $("#examen_precios").empty();
             $("#preparacion").empty();
@@ -134,19 +134,20 @@ function obtener_examen_precios() {
                 var newRow = "<table class='table table-striped'>";
                 newRow += "<tr><th colspan='3'>Seleccion de Precios</th></tr>";
 
+                newRow += "<tr><td style='width:10px;' > <input type='radio' value='1_" + precio.precio + "' name='examen_precio'> </td><th>Precio</th><td>" + precio.precio + "</td></tr>";
 
-                if (bono != "NO") {
-
-                    var bono_arr = bono.split("-");
-                    if (bono_arr[1] == "5000") {
-                        newRow += "<tr><td style='width:10px;'> <input type='radio' value='2_" + precio.precio_menos_cinco + "' name='examen_precio'> </td><th>Precio $5.000 Dto. </th><td>$" + precio.precio_menos_cinco + "</td></tr>";
-                    } else if (bono_arr[1] == "10000") {
-                        newRow += "<tr><td style='width:10px;'> <input type='radio' value='3_" + precio.precio_menos_diez + "' name='examen_precio'> </td><th>Precio $10.000 Dto.</th><td>$" + precio.precio_menos_diez + "</td></tr>";
-                    }
-                    newRow += "</table>";
-                } else {
-                    newRow += "<tr><td style='width:10px;' > <input type='radio' value='1_" + precio.precio + "' name='examen_precio'> </td><th>Precio Full</th><td>" + precio.precio + "</td></tr>";
-                }
+                /*if (bono != "NO") {
+                 
+                 var bono_arr = bono.split("-");
+                 if (bono_arr[1] == "5000") {
+                 newRow += "<tr><td style='width:10px;'> <input type='radio' value='2_" + precio.precio_menos_cinco + "' name='examen_precio'> </td><th>Precio $5.000 Dto. </th><td>$" + precio.precio_menos_cinco + "</td></tr>";
+                 } else if (bono_arr[1] == "10000") {
+                 newRow += "<tr><td style='width:10px;'> <input type='radio' value='3_" + precio.precio_menos_diez + "' name='examen_precio'> </td><th>Precio $10.000 Dto.</th><td>$" + precio.precio_menos_diez + "</td></tr>";
+                 }
+                 newRow += "</table>";
+                 } else {
+                 newRow += "<tr><td style='width:10px;' > <input type='radio' value='1_" + precio.precio + "' name='examen_precio'> </td><th>Precio Full</th><td>" + precio.precio + "</td></tr>";
+                 }*/
 
                 var preparacion = "<p>" + precio.preparacion + "</p>";
 
@@ -180,18 +181,18 @@ function agregarVentaTemp() {
             alertify.alert(" Seleccione uno de los precios");
             return false;
         }
-    	
-    	if ($("#td_perfil_" + examen_id + "").length) {
+
+        if ($("#td_perfil_" + examen_id + "").length) {
             alertify.alert("El examen ya ha sido agregado");
             return false;
         }
-    
+
 
     } else if (tipo_examen = 2) { // No perfiles
         examen_id = $("#examen_no_perfil").val();
         precio = $("#precio_examen_no_perfil").val();
-    
-    	 if ($("#td_no_perfil_" + examen_id + "").length) {
+
+        if ($("#td_no_perfil_" + examen_id + "").length) {
             alertify.alert("El examen ya ha sido agregado");
             return false;
         }
@@ -354,8 +355,8 @@ function div_medio_comunicacion() {
 
 function generarCotizacion() {
 
-	
-	$('#ModalCargando').modal({backdrop: 'static', keyboard: false});
+
+    $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
 
 
 
@@ -387,7 +388,7 @@ function generarCotizacion() {
     if (email.length == 0) {
         alertify.alert("Ingrese un correo valido");
     } else {
-      
+
         $.ajax({
             url: '../controlador/Caja.php',
             data:
@@ -404,7 +405,7 @@ function generarCotizacion() {
             type: 'post',
             success: function (data)
             {
-             	$('#ModalCargando').modal('toggle');
+                $('#ModalCargando').modal('toggle');
                 if (data == 1) {
                     alertify.alert("Cotizacion enviada a <b>" + email + "</b>", function () {
                         window.location.href = "inicio_usuario.php";
@@ -428,7 +429,7 @@ function agregarVenta() {
     var medio_pago = $('input:radio[name=medio_pago]:checked').val();
     var observacion_venta = $("#observacion_venta").val();
     var email_venta = $("#email_venta").val();
-	var bono_seleccionado = $("#bono_seleccionado").val();
+    var plan_seleccionado = $("#plan_seleccionado").val();
 
     //medio de comunicacion
     if (permiso == 1) {
@@ -465,7 +466,7 @@ function agregarVenta() {
                         medios_comunicacion: medios_comunicacion,
                         observacion_venta: observacion_venta,
                         email_venta: email_venta,
-                   		bono_seleccionado:bono_seleccionado
+                        plan_seleccionado: plan_seleccionado
 
                     },
             type: 'post',
@@ -534,3 +535,92 @@ function obtenerPrecioExamenNoPerfil() {
 
 }
 
+function obtener_examen2() {
+    var examen_sub_categoria = $("#examen_categoria_venta").val();
+    var id_plan = $("#plan_seleccionado").val();
+
+    $.ajax({
+        url: '../controladores/Gestion.php',
+        data:
+                {
+                    tipo: 33,
+                    categoria_id: examen_sub_categoria,
+                    id_plan: id_plan
+                },
+        type: 'post',
+        dataType: 'json',
+        success: function (data)
+        {
+
+            $('#examen_descripcion_venta').html("<option value=''> - </option>");
+
+            $("#div_preparacion").hide();
+            $("#examen_precios").hide();
+
+            $.each(data, function (i, cliente) {
+                var newRow = "<option value='" + cliente.id + "'>" + cliente.nombre + "</option>";
+                $(newRow).appendTo("#examen_descripcion_venta");
+
+            });
+        }
+    });
+}
+
+
+function obtener_examen_precios2() {
+    var examen_descripcion_venta = $("#examen_descripcion_venta").val();
+    var plan = $("#plan_seleccionado").val();
+    $.ajax({
+        url: '../controlador/Caja.php',
+        data:
+                {
+                    tipo: 8,
+                    examen_id: examen_descripcion_venta,
+                    id_plan: plan
+                },
+        type: 'post',
+        dataType: 'json',
+        success: function (data)
+        {
+
+
+            $("#examen_precios").empty();
+            $("#preparacion").empty();
+            $("#div_preparacion").show();
+            $("#examen_precios").show();
+
+            $.each(data, function (i, precio) {
+                var newRow = "<table class='table table-striped'>";
+                newRow += "<tr><th colspan='3'>Seleccion de Precios</th></tr>";
+
+                newRow += "<tr><td style='width:10px;' > <input type='radio' value='1_" + precio.precio + "' name='examen_precio'> </td><th>Precio</th><td>" + precio.precio + "</td></tr>";
+
+                var preparacion = "<p>" + precio.preparacion + "</p>";
+
+                $(newRow).appendTo("#examen_precios");
+                $(preparacion).appendTo("#preparacion");
+
+            });
+        }
+    });
+}
+
+function obtenerPrecioExamenNoPerfil2() {
+    var examen_no_perfil = $("#examen_no_perfil").val();
+    var id_plan = $("#plan_seleccionado").val();
+    $.ajax({
+        url: '../controladores/Gestion.php',
+        data:
+                {
+                    tipo: 34,
+                    examen_no_perfil: examen_no_perfil,
+                    id_plan: id_plan
+                },
+        type: 'post',
+        success: function (data)
+        {
+            $("#precio_examen_no_perfil").val(data);
+        }
+    });
+
+}

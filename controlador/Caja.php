@@ -89,7 +89,7 @@ if ($tipo == 1) { /* REDIGIR Y CAJA GESTION */
     $medios_comunicacion = $_POST["medios_comunicacion"];
     $observacion_venta = $_POST["observacion_venta"];
     $email = $_POST["email_venta"];
-	$bono = $_POST["bono_seleccionado"];
+    $plan = $_POST["plan_seleccionado"];
 
     //VALIDAR SI HAY EXAMENES EN LA TABLA TEMPORAL
 
@@ -100,7 +100,7 @@ if ($tipo == 1) { /* REDIGIR Y CAJA GESTION */
         $gestion->ingresar_observacion($observacion_venta, $gestion_id);
         //INGRESAR VENTA
 
-        $venta_id = $caja->ingresar_gestion_pago($cliente_id, $usuario_id, $gestion_id, $medio_pago,$bono);
+        $venta_id = $caja->ingresar_gestion_pago($cliente_id, $usuario_id, $gestion_id, $medio_pago, $plan);
 
         //ACTUALIZAR ESTADO DEL CLIENTE
         //CONFIRMA SI TIENE VENTAS PREDIOS
@@ -121,13 +121,13 @@ if ($tipo == 1) { /* REDIGIR Y CAJA GESTION */
 
         //LIBERAR REGISTRO
         $gestion->liberar_registro($cliente_id, $usuario_id);
-		
-    
+
+
         include 'ticket.php';
-    	
+
         $pdf = PDFTICKET($venta_id);
-     
-    	
+
+
 
         if ($pdf == 1) {
             include ('email_venta.php');
@@ -170,17 +170,17 @@ if ($tipo == 1) { /* REDIGIR Y CAJA GESTION */
         $gestion->actualizar_estado_cliente(2, $cliente_id);
         //GENERAR COTIZACION PDF
         $html = $GenerarPDF->generarPdf($cotizacion_id, $cliente_id);
-    	
-    	
-    
+
+
+
         require_once('../web/pdf/html2pdf.class.php');
-   		
+
 
         try {
             $html2pdf = new HTML2PDF('P', 'b4', 'es', false, 'ISO-8859-15', array(0, 0, 0, 0));
             // display the full page
             $html2pdf->pdf->SetDisplayMode('fullpage');
-      		
+
             // convert
             //$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
             $html2pdf->writeHTML($html);
@@ -201,5 +201,10 @@ if ($tipo == 1) { /* REDIGIR Y CAJA GESTION */
         $msj = 2;
     }
     echo $msj;
+} else if ($tipo == 8) { // TRAER PRECIOS DE EXAMEN SELECCIONADO
+    $examen_id = $_POST["examen_id"];
+    $id_plan = $_POST['id_plan'];
+    $precios = $caja->listar_precios_examenes2($examen_id,$id_plan);
+    echo $precios;
 }
 ?>
