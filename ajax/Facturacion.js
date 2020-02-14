@@ -54,7 +54,8 @@ function VerListaFacturacion() {
                     var boton_turno = "";
                     if (ventas.estado == 1) {
                         estado = "Por pagar";
-                        botones = '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
+                        botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
+                                '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
                                 '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
                     } else if (ventas.estado == 2) {
 
@@ -139,7 +140,7 @@ function CambiarEstadoVenta(estado, id) {
 
                 if (retu == 1) {
                     alertify.alert("Se realizo la acción correctamente", function () {
-                        Cambiartd(id);    
+                        Cambiartd(id);
                     });
                 } else if (retu == 2) {
                     alertify.alert("no se logro realizar la acción");
@@ -270,15 +271,15 @@ function VerDetalleFacturacion(id_venta) {
             '<th scope="col" colpsan="3">Examenes</th>' +
             '</tr>' +
             '<tr>' +
+            '<th scope="col">Codigo examen</th>' +
             '<th scope="col">Examen</th>' +
-            '<th scope="col">Descuento</th>' +
             '<th scope="col">Valor</th>' +
             '</tr>' +
             '</thead><tbody>';
     $.each(retorno.items, function (i, items) {
         html += '<tr>' +
+                '<td>' + items.codigo_examen + '</td>' +
                 '<td>' + items.nombre_examen + '</td>' +
-                '<td>' + items.descuento + '</td>' +
                 '<td>' + items.valor + '</td>' +
                 '</tr>';
     });
@@ -747,34 +748,34 @@ function VerPrecotizaciones() {
 
 }
 
-function verDetalleCotizacion() {    
+function verDetalleCotizacion() {
     function agregarDatosTabla() {
         const boton = document.querySelectorAll('.botonVerDetalle');
         for (const i of boton) {
-            i.addEventListener("click", (e) => {    
+            i.addEventListener("click", (e) => {
 
                 let eventoId = e.target.parentNode.parentNode.firstChild.textContent;
                 sessionStorage.setItem('idCotizacion', eventoId);
                 $("#listaResultadosVerDetalleChequeos").html("");
                 $("#listaResultadosVerDetalleExamenes").html("");
-                
+
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
-                '<thead>' +
-                '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Lista Total de Items para esta Cotizacion</caption>' +
-                '<tr style="background-color: #214761">' +
-                '<th style="color:white;" colspan="3">Chequeos</th>' +                
-                '</tr>' +
-                '<tbody id="listaResultadosVerDetalleChequeos" colspan="3">' + '</tbody>' +
-                '<tr style="background-color: #214761">' +
-                '<th style="color:white" colspan="3">Examenes</th>' +//'<th style="color:white"><button id="verMasInfo" class="btn btn-info"><i class="far fa-plus-square"></i> Ver Mas</button></th>' +                
-                '</tr>' +
-                '<tbody id="listaResultadosVerDetalleExamenes" colspan="3">' + '</tbody>' +
-                '</thead>' +
-                '</table>';
-                
-                
+                        '<thead>' +
+                        '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Lista Total de Items para esta Cotizacion</caption>' +
+                        '<tr style="background-color: #214761">' +
+                        '<th style="color:white;" colspan="3">Chequeos</th>' +
+                        '</tr>' +
+                        '<tbody id="listaResultadosVerDetalleChequeos" colspan="3">' + '</tbody>' +
+                        '<tr style="background-color: #214761">' +
+                        '<th style="color:white" colspan="3">Examenes</th>' + //'<th style="color:white"><button id="verMasInfo" class="btn btn-info"><i class="far fa-plus-square"></i> Ver Mas</button></th>' +                
+                        '</tr>' +
+                        '<tbody id="listaResultadosVerDetalleExamenes" colspan="3">' + '</tbody>' +
+                        '</thead>' +
+                        '</table>';
+
+
                 $("#contenedorTablaDetalles").html(tabla);
-               
+
                 $.ajax({
                     type: "POST",
                     url: "../controladores/FacturacionController.php",
@@ -787,85 +788,85 @@ function verDetalleCotizacion() {
                     success: function (retu) {
                         $("#listaResultadosVerDetalleChequeos").html("");
                         $("#listaResultadosVerDetalleExamenes").html("");
-                        $.each(retu, function (i, precot) {                                                        
-                            var newRow ="";
+                        $.each(retu, function (i, precot) {
+                            var newRow = "";
                             newRow += "<tr>";
                             newRow += "<td name='idCotizacion' style='display: none;'>" + precot.id_precotizacion + "</td>";
                             newRow += "<td style='border-left: #808080 1px solid; border-top: #808080 1px solid'>" + precot.id_item + "</td>";
                             newRow += "<td style='border-top: #808080 1px solid'>" + precot.tipo_item + "</td>";
-                            newRow += "<td style='border-right: #808080 1px solid; border-top: #808080 1px solid'><button id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>"+" Ver Mas"+"</button></td>";
+                            newRow += "<td style='border-right: #808080 1px solid; border-top: #808080 1px solid'><button id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>" + " Ver Mas" + "</button></td>";
                             newRow += "</tr>";
                             newRow += "<tr id='masInfoGeneral' style='font-size: 10.5px; border: #808080 1px solid'></tr>";
 
                             if (precot.tipo_item == "perfil") {
-                                $(newRow).appendTo("#listaResultadosVerDetalleChequeos");                                
+                                $(newRow).appendTo("#listaResultadosVerDetalleChequeos");
                             } else {
-                                $(newRow).appendTo("#listaResultadosVerDetalleExamenes");    
+                                $(newRow).appendTo("#listaResultadosVerDetalleExamenes");
                             }
-                                                        
+
                         });
 
                         const moreDetails = document.querySelectorAll("#verMasInfo");
                         for (const iterator of moreDetails) {
-                            function verDetalleDiscriminado(e){
+                            function verDetalleDiscriminado(e) {
                                 let idEx = e.target.parentNode.parentNode.childNodes[1].textContent;
-                                let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;                                
-                                if (tipEx=="perfil") {
-                                    var tipo=16;
+                                let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;
+                                if (tipEx == "perfil") {
+                                    var tipo = 16;
                                 } else {
-                                    tipo=15;
-                                }   
+                                    tipo = 15;
+                                }
                                 $.ajax({
                                     type: "POST",
                                     url: "../controladores/FacturacionController.php",
                                     async: false,
                                     dataType: 'json',
                                     data: {
-                                        tipo: tipo,                                        
+                                        tipo: tipo,
                                         idExamen: idEx
                                     },
-                                    success: function (retur) {                               
+                                    success: function (retur) {
                                         $.each(retur, function (i, respuesta) {
                                             let soloPerfiles;
                                             if (respuesta.grupo_id == 1) {
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: CHEQUEO ESCENCIAL";                                                                                                
-                                            } else if(respuesta.grupo_id == 2){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: MONITOREO";                                                
-                                            } else if(respuesta.grupo_id == 3){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: FERTILIDAD Y EMBARAZO";                                                
-                                            }  else if(respuesta.grupo_id == 4){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: NUTRICION";                                                
-                                            }  else if(respuesta.grupo_id == 5){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: DEPORTE";                                                
-                                            }  else if(respuesta.grupo_id == 6){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: SALUD SEXUAL";                                                
-                                            }  else if(respuesta.grupo_id == 7){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: BIENESTAR";                                                
-                                            }  else if(respuesta.grupo_id == 8){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: VIAJERO";                                                
-                                            }  else if(respuesta.grupo_id == 9){
-                                                soloPerfiles = "CATEGORIA DE CHEQUEO: ADN";                                                
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: CHEQUEO ESCENCIAL";
+                                            } else if (respuesta.grupo_id == 2) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: MONITOREO";
+                                            } else if (respuesta.grupo_id == 3) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: FERTILIDAD Y EMBARAZO";
+                                            } else if (respuesta.grupo_id == 4) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: NUTRICION";
+                                            } else if (respuesta.grupo_id == 5) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: DEPORTE";
+                                            } else if (respuesta.grupo_id == 6) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: SALUD SEXUAL";
+                                            } else if (respuesta.grupo_id == 7) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: BIENESTAR";
+                                            } else if (respuesta.grupo_id == 8) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: VIAJERO";
+                                            } else if (respuesta.grupo_id == 9) {
+                                                soloPerfiles = "CATEGORIA DE CHEQUEO: ADN";
                                             } else {
                                                 soloPerfiles = "Detalle:";
                                             }
 
-                                            if (tipo==16) {
-                                                var codigo = respuesta.codigo_crm;                                                
+                                            if (tipo == 16) {
+                                                var codigo = respuesta.codigo_crm;
                                             } else {
                                                 codigo = respuesta.codigo;
                                             }
                                             let nombre = respuesta.nombre;
-                                            let recomendaciones = respuesta.recomendaciones; 
-                                            let precios = respuesta.precio; 
+                                            let recomendaciones = respuesta.recomendaciones;
+                                            let precios = respuesta.precio;
 
                                             let contenedor = "<div style='margin-left:17px; width:130%; font-size: 14px'>" + soloPerfiles + "</div>";
-                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Nombre examen: "+ nombre + "</div>";
-                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Crm codigo: " + codigo + "</div>";
-                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Recomendaciones: "+ recomendaciones + "</div>";                                                                        
-                                            contenedor += "<div style='margin-left:17px; width:130%'>" +"Precio: "+ precios +"$"+ "</div>";                                                                        
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" + "Nombre examen: " + nombre + "</div>";
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" + "Crm codigo: " + codigo + "</div>";
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" + "Recomendaciones: " + recomendaciones + "</div>";
+                                            contenedor += "<div style='margin-left:17px; width:130%'>" + "Precio: " + precios + "$" + "</div>";
                                             $(contenedor).appendTo(e.target.parentNode.parentNode.nextSibling);
                                         });
-                            
+
                                     }
                                 });
                                 iterator.removeEventListener('click', verDetalleDiscriminado);
@@ -873,26 +874,26 @@ function verDetalleCotizacion() {
                             iterator.addEventListener("click", verDetalleDiscriminado);
                         }
                     }
-                });                
+                });
             });
-                        
+
             const paginacion2 = document.getElementById("myValoresRef");
-            function borrarTemp(){
+            function borrarTemp() {
                 setTimeout(() => {
                     //$("#masInfoGeneral").html("");
                     location.reload();
                 }, 1200);
             }
             paginacion2.addEventListener("mouseleave", borrarTemp);
-            
+
         }
-    }    
+    }
     const paginacion = document.querySelector('#lista_precot_cot');
     const search = document.querySelector("input[type='text']");
-    function cargarEvento() {      
+    function cargarEvento() {
         agregarDatosTabla();
     }
-    
+
     paginacion.addEventListener("mouseenter", cargarEvento);
     search.addEventListener("mouseleave", cargarEvento);
     search.addEventListener("touchend", agregarDatosTabla);

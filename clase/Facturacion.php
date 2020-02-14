@@ -240,7 +240,7 @@ GROUP BY ven.id");
 
         $query = $this->conexion->prepare("SELECT ven.id as id_venta,cli.id_cliente,tpd.nombre as tipo_doc,cli.documento,ges.observacion,
 mdp.medio_pago,CONCAT(cli.nombre,' ',cli.apellido) as cliente,
-SUM(vei.valor) as total_venta,ven.fecha_creacion,ven.fecha_pago,ven.estado,mdp.id as id_medio_pago
+FORMAT(SUM(vei.valor),0) as total_venta,ven.fecha_creacion,ven.fecha_pago,ven.estado,mdp.id as id_medio_pago
 FROM venta ven
 INNER JOIN gestion ges ON ges.id = ven.gestion_id
 INNER JOIN cliente cli ON cli.id_cliente = ven.cliente_id
@@ -268,9 +268,9 @@ GROUP BY ven.id");
 
             $sql = "";
             if ($value['tipo_examen'] == 2) {
-                $sql = "SELECT * FROM examenes_no_perfiles WHERE id=:id_examen";
+                $sql = "SELECT id,nombre,codigo FROM examenes_no_perfiles WHERE id=:id_examen";
             } else if ($value['tipo_examen'] == 1) {
-                $sql = "SELECT * FROM examen WHERE id=:id_examen";
+                $sql = "SELECT id,nombre,codigo_crm AS codigo FROM examen WHERE id=:id_examen";
             }
             $query_detalle_examen = $this->conexion->prepare($sql);
             $query_detalle_examen->execute(array(':id_examen' => $value['examen_id']));
@@ -278,9 +278,10 @@ GROUP BY ven.id");
 
             $arreglo_items[$i]["id_venta_item"] = $value["id"];
             $arreglo_items[$i]["examen_id"] = $value["examen_id"];
-            $arreglo_items[$i]["valor"] = $value["valor"];
+            $arreglo_items[$i]["valor"] = number_format(intval($value["valor"]));
             $arreglo_items[$i]["descuento"] = $value["descuento"];
             $arreglo_items[$i]["nombre_examen"] = $row_item[0]["nombre"];
+            $arreglo_items[$i]["codigo_examen"] = $row_item[0]["codigo"];
             $i++;
         }
 
