@@ -12,4 +12,7 @@ if ($tipo == 1) {
 }if ($tipo == 2) {
     $retorno = $Obj_Plan->VerPlanes($_POST);
     echo $retorno;
+}if ($tipo == 3) {
+    $retorno = $Obj_Plan->ItemsPorPlan($_POST);
+    echo $retorno;
 }

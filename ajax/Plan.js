@@ -99,11 +99,10 @@ function VerPlanes() {
         },
         success: function (retu) {
             $.each(retu, function (i, plan) {
-                var botones = "BOTONES";
+                //var botones = "BOTONES";
 
-                /*var botones = '<input type="button" data-toggle="modal" data-target="#myModalPerfilesMod" onclick="CargaDataExamenPerfil(' + nperfil.id + ')" value="Modificar perfil" class="btn btn-sm btn-default"><br>' +
-                 '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerExamenesPorPerfil(' + nperfil.id + ')" value="Ver y adicionar examenes" class="btn btn-sm btn-primary">';*/
-                //var btn_prueba = "<input value='pdf_prueba' type='button' class='btn btn-sm btn-danger' onclick='pfdprueba(" + ventas.id_venta + ")'>";
+                var botones = '<input type="button" data-toggle="modal" onclick="LlenarOnclick(' + plan.id_plan + ')" data-target="#myModalPlanesItems"  value="Ver items" class="btn btn-sm btn-default">';
+
 
                 var newRow = "<tr>";
                 newRow += "<td id='plc_" + plan.id_plan + "'>" + plan.codigo_plan + "</td>";
@@ -195,5 +194,73 @@ function RevisaSeleccionPlan() {
         alert("Debe usar un plan para poder adicionar examenes");
     } else {
         obtener_examen();
+    }
+}
+
+function LlenarOnclick(id_plan) {
+    $("#ver_itm_pl").attr("onclick", "ItemsPorPlan(" + id_plan + ")");
+    $("#tipo_item").val("");
+    $("#tabla_items_int").html("");
+}
+
+function ItemsPorPlan(id_plan) {
+
+    var tipo_item = $("#tipo_item").val();
+
+    if (tipo_item == "") {
+        alert("Seleccione una opcion");
+    } else {
+
+        $("#tabla_items_int").html("");
+
+        $("#lista_itemp_cot_body").html("");
+
+        var tabla = '<table id="lista_itemp_cot" class="table table-bordered">' +
+                '<thead>' +
+                '<tr style="background-color: #214761;">' +
+                '<th style="color:white">Codigo item</th>' +
+                '<th style="color:white">Nombre item</th>' +
+                '<th style="color:white">Precio regular</th>' +
+                '<th style="color:white">Precio plan</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody id="lista_itemp_cot_body">' +
+                '</tbody>' +
+                '</table>';
+
+        $("#tabla_items_int").html(tabla);
+
+        var data;
+        $.ajax({
+            type: "POST",
+            url: "../controladores/PlanController.php",
+            async: false,
+            dataType: 'json',
+            data: {
+                tipo: 3,
+                id_plan: id_plan,
+                tipo_item: tipo_item
+            },
+            success: function (retu) {
+                $.each(retu, function (i, plan) {
+
+
+                    var newRow = "<tr>";
+                    newRow += "<td id='plic_" + plan.id_plan_item + "'>" + plan.codigo + "</td>";
+                    newRow += "<td id='plin_" + plan.id_plan_item + "'>" + plan.nombre + "</td>";
+                    newRow += "<td id='plipr_" + plan.id_plan_item + "'>" + plan.precio_regular + "</td>";
+                    newRow += "<td id='plipp_" + plan.id_plan_item + "'>" + plan.precio_plan + "</td>";
+                    newRow += "</tr>";
+
+                    $(newRow).appendTo("#lista_itemp_cot_body");
+                });
+            }
+        });
+
+
+
+        var tabla = $('#lista_itemp_cot').DataTable({
+            responsive: true
+        });
     }
 }

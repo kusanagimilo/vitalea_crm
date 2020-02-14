@@ -126,6 +126,47 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
 
+    <div class="modal" id="myModalPlanesItems"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white" >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt=""/>Items por plan</h4>
+                </div>
+                <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
+
+                    <!-- formulario -->
+
+                    <div class="form-group">
+                        <div class="col-md-12"><label for="inputtext">Seleccione el tipo de item a mostrar</label></div>
+                        <div class="col-md-6">
+                            <select id="tipo_item" class="form-control">
+                                <option value="">--seleccione--</option>
+                                <option value="chequeo">ITEMS-CHEQUEOS</option>
+                                <option value="examen">ITEMS-EXAMENES</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <button id="ver_itm_pl" type="button" class="btn btn-primary btn-lg btn-block">Ver items</button>
+                        </div>
+                    </div>
+
+                    <div id="tabla_items_int">
+
+                    </div>
+
+
+
+                </div>          
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>                            
+        </div>
+    </div>
+
+
 
     <script>
         VerPlanes();

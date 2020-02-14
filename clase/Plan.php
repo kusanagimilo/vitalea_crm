@@ -82,4 +82,29 @@ class Plan {
         }
     }
 
+    public function ItemsPorPlan($data) {
+
+        if ($data['tipo_item'] == "examen") {
+            $sql = "SELECT pli.id_plan_item,pli.precio_plan,pli.precio_regular,exam.codigo,exam.nombre
+FROM plan_item pli 
+INNER JOIN plan ON pli.id_plan = plan.id_plan
+INNER JOIN examenes_no_perfiles exam ON exam.id = pli.id_item
+WHERE pli.id_plan = :id_plan
+AND tipo_item = 'examen'";
+        } else {
+            $sql = "SELECT pli.id_plan_item,pli.precio_plan,pli.precio_regular,exam.codigo_crm AS codigo,exam.nombre
+FROM plan_item pli 
+INNER JOIN plan ON pli.id_plan = plan.id_plan
+INNER JOIN examen exam ON exam.id = pli.id_item
+WHERE pli.id_plan = :id_plan
+AND tipo_item = 'chequeo'";
+        }
+
+        $query = $this->conexion->prepare($sql);
+        $query->execute(array(':id_plan' => $data['id_plan']));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($rows);
+    }
+
 }
