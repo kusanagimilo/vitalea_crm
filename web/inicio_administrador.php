@@ -186,7 +186,7 @@ require_once '../include/header_administrador.php';
                             </a>
                         </div>
 
-						 <div class="col-lg-4 col-md-6 col-sm-6 animate-box">
+                        <div class="col-lg-4 col-md-6 col-sm-6 animate-box">
                             <a class="fh5co-card" href="./valoresReferencia.php" style="padding-top: 10px;">
                                 <center>
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/valoresRef.png" height="100" width="100" alt="">
@@ -213,6 +213,16 @@ require_once '../include/header_administrador.php';
                                     <img class="rounded-circle img-fluid d-block mx-auto" src="images/geografia.jpg" height="100" width="100" alt="">
                                     <div class="fh5co-card-body">
                                         <h3>Administración Geográfica</h3>
+                                    </div>
+                                </center>
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 animate-box">
+                            <a class="fh5co-card" href="planes.php" style="padding-top: 10px;">
+                                <center>
+                                    <img class="rounded-circle img-fluid d-block mx-auto" src="images/plan.png" height="100" width="100" alt="">
+                                    <div class="fh5co-card-body">
+                                        <h3>Administracion de planes</h3>
                                     </div>
                                 </center>
                             </a>
