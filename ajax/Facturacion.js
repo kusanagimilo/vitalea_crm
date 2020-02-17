@@ -635,7 +635,7 @@ function AlmacenarPreCotizacion() {
         var observaciones = $("#observacion").val();
         var radio = $('input:radio[name=contacto]:checked').val();
         /*En la variable imagenBase64 Realizamos la lectura de la codificacion de la firma, almacenada via SessionStorage desde el documento ../ajax/firmasAlmacenar.js*/
-        let imagenBase64 = sessionStorage.getItem('imagenCadena');
+        let imagenBase64 = null;
         /*---------------------------------------------------------------------------------------------------------------------*/
 
 

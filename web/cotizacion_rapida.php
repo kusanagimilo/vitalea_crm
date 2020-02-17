@@ -127,20 +127,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <label>No</label>
                                                             <input type="radio" value="No" name="contacto">
                                                         </div>
-                                                    </div>
-                                                    <h3 style="text-align: center">Politica de tratamiento de datos VITALEA </h3>
-                                                    <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
-                                                        <?php include('./reportes/habeasData.php') ?>
-                                                    </div>
-                                                    <div style="padding: 40px; text-align: center; box-sizing: border-box; display: inline;">
-                                                        <div>
-                                                            <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label>
-                                                        </div>
+                                                    </div>                                                    
+                                                    
+                                                    <!-- <div style="padding: 40px; text-align: center; box-sizing: border-box; display: inline;">                                                        
                                                         <div style="display: block">
                                                             Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;">
                                                             No <input name="habeasData" data-toggle="modal" data-target="#modalAnuncioHD" type="radio" id="checkHabeasData" style="margin-top: -4px;">
                                                         </div>
-                                                    </div>
+                                                    </div> -->
 
 
                                                     <div class="panel panel-primary">
@@ -258,34 +252,6 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             </div>
         </div>
     </div>
-
-    <!-- Modal de Anuncio de aceptacion Habeas Data -->
-    <div class="modal" id="modalAnuncioHD" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" style="width: 80%;">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #214761; color: white">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">
-                        <img src="images/examen_venta.png" alt="" /> Aceptacion de las politicas de tratamiento de datos</h4>
-                </div>
-                <div class="modal-body col-md-12" style="height: 100px; overflow : auto;" id="cuerpo_modal">
-                    <!-- Contenedor de firma -->
-                    <div class="contenedor">
-                        <section>
-                            <h3 style="text-align: center;">Es Necesario aceptar las politicas de tratamiento de datos "Habeas Data", para poder continuar el proceso.</h3>
-                        </section>
-                    </div>
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <!-- Modal de firmas Habeas Data -->
     <div class="modal" id="myModalFirma" role="dialog" aria-labelledby="myModalLabel">
@@ -441,7 +407,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         var idCtz3 = retu[0].telefono;
                         var idCtz4 = retu[0].valor;
                         var idCtz5 = retu[0].direccion;
-                        var idCtz6 = retu[0].firma;
+                        // var idCtz6 = retu[0].firma;
                         var idCtz7 = retu[0].fecha_creacion;
                                              
                         var doc = new jsPDF();                        
@@ -457,13 +423,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         doc.text(30, 100, "Telefono: " + idCtz3);
                         doc.text(30, 110, "Costo: " + idCtz4 + "$");
                         doc.text(30, 120, "Direccion: " + idCtz5);
-                        doc.text(30, 130, "Fecha Cot: " + idCtz7);
-                        if (idCtz6 != null) {                            
-                            doc.setFontSize(10);
-                            doc.text(45, 170, "Firma: ");
-                            doc.addImage(idCtz6, 'PNG', 40, 160, 120, 70);
-                        }
-                        
+                        doc.text(30, 130, "Fecha Cot: " + idCtz7);    
                         doc.setLineWidth(3);
                         doc.setDrawColor(251, 202, 18);
                         doc.line(0, 60.5, 212, 60.5);
