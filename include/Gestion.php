@@ -16,6 +16,7 @@ class Gestion {
     
     public function buscar_registro($id_cliente){
         $query = $this->conexion->prepare("SELECT c.id_cliente,c.tipo_documento AS id_tipo_documento,t.nombre as tipo_documento,c.documento, c.nombre as nombre_cliente,c.apellido as apellido_cliente,
+            
             c.telefono_1,c.telefono_2,c.email,c.fecha_nacimiento,c.ciudad_id,cd.nombre as ciudad,
             c.barrio,c.direccion,e.nombre as estado_civil,if(c.activo=1,'Activo','Inactivo') as activo,d.id AS id_departamento,d.nombre as departamento,
             c.estrato,c.sexo,c.estado_civil_id,c.activo,c.tipo_cliente,

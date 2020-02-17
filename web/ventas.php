@@ -30,14 +30,15 @@ $clasificacion_id = $gestion->clasificacion_paciente($id_cliente);
 $guion = $gestion->guion($clasificacion_id);
 ?>
 
-<script src="../ajax/bono.js" ></script>
-<script src="../ajax/Plan.js" ></script>
+<script src="../ajax/bono.js"></script>
+<script src="../ajax/Plan.js"></script>
+<script src="../web/js/dist/jspdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
-    $(document).ready(function ()
-    {
+    $(document).ready(function() {
         window.location.hash = "no-back-button";
-        window.location.hash = "Again-No-back-button";//esta linea es necesaria para chrome
-        window.onhashchange = function () {
+        window.location.hash = "Again-No-back-button"; //esta linea es necesaria para chrome
+        window.onhashchange = function() {
             window.location.hash = "no-back-button";
         }
 
@@ -48,7 +49,7 @@ $guion = $gestion->guion($clasificacion_id);
         obtener_categoria_examen();
         tablaTemporalInicial();
 
-        $('.i-checks').on('click', function () {
+        $('.i-checks').on('click', function() {
             if ($(this).is(':checked')) {
                 var valor = $(this).val();
                 if (valor == "1") {
@@ -62,50 +63,48 @@ $guion = $gestion->guion($clasificacion_id);
             }
         });
 
-        $(".atras").click(function () {
+        $(".atras").click(function() {
             var usuario_id = $("#usuario_id").val();
             var id_cliente = $("#cliente_id").val();
             var gestion_id = $("#gestion_id").val();
 
             $.ajax({
                 url: '../controladores/Gestion.php',
-                data:
-                        {
-                            tipo: 27,
-                            gestion_id: gestion_id,
-                            id_cliente: id_cliente,
-                            usuario_id: usuario_id
-                        },
+                data: {
+                    tipo: 27,
+                    gestion_id: gestion_id,
+                    id_cliente: id_cliente,
+                    usuario_id: usuario_id
+                },
                 type: 'post',
-                success: function (data)
-                {
+                success: function(data) {
                     window.location.href = "../web/inicio_usuario.php";
                 }
             });
         });
 
-        $("#medios_comunicacion").change(function () {
+        $("#medios_comunicacion").change(function() {
             div_medio_comunicacion();
         })
 
-        $("#examen_categoria_venta").change(function () {
+        $("#examen_categoria_venta").change(function() {
             obtener_examen();
         });
 
-        $("#examen_descripcion_venta").change(function () {
+        $("#examen_descripcion_venta").change(function() {
 
             obtener_examen_precios2();
         });
 
-        $("#btn_agregar_producto").click(function () {
+        $("#btn_agregar_producto").click(function() {
             agregarVentaTemp();
         });
 
-        $("#btn_finalizar_cotizacion").click(function () {
+        $("#btn_finalizar_cotizacion").click(function() {
             generarCotizacion();
         });
 
-        $("#btn_finalizar_venta").click(function () {
+        $("#btn_finalizar_venta").click(function() {
             agregarVenta();
         });
 
@@ -116,13 +115,13 @@ $guion = $gestion->guion($clasificacion_id);
                 type: "POST",
                 dataType: 'json',
                 delay: 250,
-                data: function (params) {
+                data: function(params) {
                     return {
                         searchTerm: params.term,
                         tipo: 32
                     };
                 },
-                processResults: function (response) {
+                processResults: function(response) {
                     return {
                         results: response
                     };
@@ -131,7 +130,7 @@ $guion = $gestion->guion($clasificacion_id);
             }
         });
 
-        $("#examen_no_perfil").change(function () {
+        $("#examen_no_perfil").change(function() {
             obtenerPrecioExamenNoPerfil2();
         });
 
@@ -145,7 +144,8 @@ $guion = $gestion->guion($clasificacion_id);
     @media screen and (max-width: 800px) {
 
         /* Desaparecer el header */
-        table.tinfo thead, th {
+        table.tinfo thead,
+        th {
             border: none;
             clip: rect(0, 0, 0, 0);
             height: 1px;
@@ -156,8 +156,8 @@ $guion = $gestion->guion($clasificacion_id);
             width: 1px;
         }
 
-        table.tinfo tr{
-            border-bottom: 3px solid; 
+        table.tinfo tr {
+            border-bottom: 3px solid;
         }
 
         table.tinfo td {
@@ -167,6 +167,7 @@ $guion = $gestion->guion($clasificacion_id);
             text-align: right;
             padding: 10px;
         }
+
         table.tinfo th {
             border-bottom: 1px solid #ddd;
             display: block;
@@ -174,7 +175,8 @@ $guion = $gestion->guion($clasificacion_id);
             text-align: right;
             padding: 10px;
         }
-        table.tinfo td:before{
+
+        table.tinfo td:before {
             content: attr(data-label);
             float: left;
             color: #273b47;
@@ -185,31 +187,43 @@ $guion = $gestion->guion($clasificacion_id);
 
 
     }
+
     .loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
         border-top: 16px solid #3498db;
         width: 250px;
         height: 250px;
-        -webkit-animation: spin 2s linear infinite; /* Safari */
+        -webkit-animation: spin 2s linear infinite;
+        /* Safari */
         animation: spin 2s linear infinite;
     }
 
     /* Safari */
     @-webkit-keyframes spin {
-        0% { -webkit-transform: rotate(0deg); }
-        100% { -webkit-transform: rotate(360deg); }
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
     }
 
     @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+        0% {
+            transform: rotate(0deg);
+        }
 
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
-<script src="../ajax/venta.js" ></script>
-<script src="../include/constante.js" ></script>
+<script src="../ajax/venta.js"></script>
+<script src="../include/constante.js"></script>
+
 <body style="background-color: #F6F8FA; ">
 
 
@@ -222,7 +236,7 @@ $guion = $gestion->guion($clasificacion_id);
     <div class="main-menu-area mg-tb-40" style="height:auto;">
         <div id="div_cargando">
             <div class="container" style="height:auto;">
-                <div class="row" >
+                <div class="row">
                     <ol class="breadcrumb">
                         <li><a class="atras" title="Volver atras"><img src="images/atras.png"></a></li>
 
@@ -232,81 +246,82 @@ $guion = $gestion->guion($clasificacion_id);
 
                     <div class="panel panel-default">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px; ">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"> 
-                                <h3 class="panel-title"> 
-                                    <b  style="float: left">  <img src="images/calificacion.png" alt=""/> 
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <h3 class="panel-title">
+                                    <b style="float: left"> <img src="images/calificacion.png" alt="" />
                                         Ventas y/o Cotizaciónes</b> </h3>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"> 
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" >
-                                    <a  href="javascript:VentanaCentrada('ver_solicitud.php?x=<?php echo base64_encode($id_cliente) ?>&o=<?php echo base64_encode(1) ?>','Ventas','','1024','768','true')" style="width: 100%"  >
-                                        <button class="btn btn-primary" style="width: 100%" >
-                                            <img src="images/pago_paciente.png" alt="" style="width: 20px;"/> Ventas Realizadas
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <a href="javascript:VentanaCentrada('ver_solicitud.php?x=<?php echo base64_encode($id_cliente) ?>&o=<?php echo base64_encode(1) ?>','Ventas','','1024','768','true')" style="width: 100%">
+                                        <button class="btn btn-primary" style="width: 100%">
+                                            <img src="images/pago_paciente.png" alt="" style="width: 20px;" /> Ventas Realizadas
                                         </button></a>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">    
-                                    <a  href="javascript:VentanaCentrada('ver_solicitud.php?x=<?php echo base64_encode($id_cliente) ?>&o=<?php echo base64_encode(2) ?>','Cotizaciones','','1024','768','true')" style="width: 100%"  >
-                                        <button class="btn btn-primary" style="width: 100%" >
-                                            <img src="images/cotizacion.png" alt="" style="width: 20px;"/> Cotizaciónes Realizadas
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <a href="javascript:VentanaCentrada('ver_solicitud.php?x=<?php echo base64_encode($id_cliente) ?>&o=<?php echo base64_encode(2) ?>','Cotizaciones','','1024','768','true')" style="width: 100%">
+                                        <button class="btn btn-primary" style="width: 100%">
+                                            <img src="images/cotizacion.png" alt="" style="width: 20px;" /> Cotizaciónes Realizadas
                                         </button></a>
-                                </div>   
+                                </div>
 
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">               
-                                    <a  href="javascript:VentanaCentrada('examenes.php','Examenes','','1024','768','true')" style="width: 100%" >
-                                        <button class="btn btn-default" style="width: 100%" >
-                                            <img src="images/cerrar.png" alt="" style="width: 20px;"/> Lista de Examenes
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <a href="javascript:VentanaCentrada('examenes.php','Examenes','','1024','768','true')" style="width: 100%">
+                                        <button class="btn btn-default" style="width: 100%">
+                                            <img src="images/cerrar.png" alt="" style="width: 20px;" /> Lista de Examenes
                                         </button></a>
-                                </div>  
-                            </div>   
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="panel panel-default">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
-                            <h3 class="panel-title"> 
-                                <img src="images/gestion_llamada.png" alt=""/> <b>Bienvenida</b> </h3>
+                            <h3 class="panel-title">
+                                <img src="images/gestion_llamada.png" alt="" /> <b>Bienvenida</b> </h3>
 
                         </div>
-                        <div class="panel-body" >
+                        <div class="panel-body">
                             <div class="row pad-top" style="background-color: white; padding: 20px;">
                                 <br><br>
                                 <?php echo $guion; ?>
-                            </div>           
+                            </div>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="panel panel-default">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
-                            <h3 class="panel-title"> 
-                                <img src="images/examen_venta.png" alt=""/> Informacion del Paciente </h3>
+                            <h3 class="panel-title">
+                                <img src="images/examen_venta.png" alt="" /> Informacion del Paciente </h3>
 
                         </div>
 
-                        <div class="panel-body" >
+                        <div class="panel-body">
                             <div class="row pad-top" style="background-color: white;">
                                 <div id="tabla_informacion_cliente" class="table table-responsive"></div>
                             </div>
-                        </div> 
+                        </div>
+                        <button class="btn btn-danger" id="btnHabeas" style="margin: 0px 0px 35px 20px"><i class="fas fa-file-pdf"></i> Generar PDF Habeas Data</button>
                     </div>
 
                     <div class="panel panel-default" id="contenedor_planes">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-                                <h3 class="panel-title"> 
-                                    <img src="images/examen_venta.png" alt=""/>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <h3 class="panel-title">
+                                    <img src="images/examen_venta.png" alt="" />
                                     Seleccione el plan que va a aplicar para esta venta
                                 </h3>
                             </div>
 
 
                         </div>
-                        <div class="panel-body" >
+                        <div class="panel-body">
                             <div class="row pad-top" style="background-color: white;">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="con_plan">
 
                                 </div>
-                            </div>           
+                            </div>
                         </div>
                     </div>
 
@@ -328,37 +343,37 @@ $guion = $gestion->guion($clasificacion_id);
                                 </div>
                             </div>           
                         </div>
-                    </div>-->    
+                    </div>-->
 
                     <div class="panel panel-default">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-                                <h3 class="panel-title"> 
-                                    <img src="images/examen_venta.png" alt=""/>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <h3 class="panel-title">
+                                    <img src="images/examen_venta.png" alt="" />
                                     Agregue examenes para generar venta o cotización </h3>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: right;">                 
-                                <button type="button" class="btn btn-default"  id="btn_adicionar_plan" onclick="RevisaSeleccionPlan()"> <img src="images/anadir_dos.png"> Agregar examen</button>
-                            </div>                  
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="text-align: right;">
+                                <button type="button" class="btn btn-default" id="btn_adicionar_plan" onclick="RevisaSeleccionPlan()"> <img src="images/anadir_dos.png"> Agregar examen</button>
+                            </div>
 
                         </div>
-                        <div class="panel-body" >
+                        <div class="panel-body">
                             <div class="row pad-top" style="background-color: white;">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div id="tabla_temporal" class="table table-responsive"></div>
                                 </div>
-                            </div>           
+                            </div>
                         </div>
-                    </div>    
+                    </div>
                     <!-- Seleccion medio de comunicacion -->
                     <?php if ($permiso == 1) { ?>
                         <div class="panel panel-default">
                             <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="min-height: 50px;height: auto">
-                                <h3 class="panel-title col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-                                    <img src="images/medio_comunicacion.png" alt=""/> Seleccione el medio de comunicación por el cual el paciente se comunica</h3>
+                                <h3 class="panel-title col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <img src="images/medio_comunicacion.png" alt="" /> Seleccione el medio de comunicación por el cual el paciente se comunica</h3>
 
                             </div>
-                            <div class="panel-body" >
+                            <div class="panel-body">
                                 <div class="row pad-top col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: white;">
 
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -374,42 +389,42 @@ $guion = $gestion->guion($clasificacion_id);
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px;">
 
-                                        <p id="texto_comunicacion" ></p>
-                                        <div id="medio_chat" style="display: none" >
+                                        <p id="texto_comunicacion"></p>
+                                        <div id="medio_chat" style="display: none">
 
-                                            <textarea class="form-control" id="mensaje" style="width: 100%;" rows="10" ></textarea>
-                                        </div>    
+                                            <textarea class="form-control" id="mensaje" style="width: 100%;" rows="10"></textarea>
+                                        </div>
 
-                                    </div>           
+                                    </div>
                                 </div>
                             </div>
-                        </div>          
-                    <?php } ?>  
+                        </div>
+                    <?php } ?>
                     <div class="panel panel-default">
                         <div class="panel-heading " style="height: 50px;">
-                            <h3 class="panel-title"> 
-                                <img src="images/finalizar_dos.png" alt=""/> Seleccione proceso</h3>
+                            <h3 class="panel-title">
+                                <img src="images/finalizar_dos.png" alt="" /> Seleccione proceso</h3>
 
                         </div>
-                        <div class="panel-body" >
+                        <div class="panel-body">
                             <div class="row pad-top" style="background-color: white;">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <input type="radio" value="1" name="evento" onclick="mostrarCotizacion()">
-                                    <img src="images/historial-medico.png"> 
+                                    <img src="images/historial-medico.png">
                                     Cotización
                                     <input type="radio" value="2" name="evento" onclick="mostrarVenta()">
-                                    <img src="images/pago_paciente.png"> 
+                                    <img src="images/pago_paciente.png">
                                     Venta
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div id="evento_cotizacion" style="display: none">
                                         <hr>
                                         <p style="font-size: 11pt;">
-                                            <img src="images/info.png" alt=""/>
+                                            <img src="images/info.png" alt="" />
                                             Realice la validaci&oacute;n de correo electronico</p>
                                         <hr>
                                         <div class="form-group">
-                                            <label> <img src="images/arroba.png" alt=""/> Correo electronico</label>
+                                            <label> <img src="images/arroba.png" alt="" /> Correo electronico</label>
                                             <div class="nk-int-st">
                                                 <input type="email" id="email" name="email" value="<?php echo $email; ?>" class="form-control">
                                             </div>
@@ -424,34 +439,34 @@ $guion = $gestion->guion($clasificacion_id);
                                             </div>
                                         </div>
                                         <br><br>
-                                        <button  id="btn_finalizar_cotizacion" style="float: right;" class="btn btn-primary"> <img src="images/finalizar_tres.png"> Finalizar y enviar correo electr&oacute;nico</button>   <br>
+                                        <button id="btn_finalizar_cotizacion" style="float: right;" class="btn btn-primary"> <img src="images/finalizar_tres.png"> Finalizar y enviar correo electr&oacute;nico</button> <br>
 
                                     </div>
                                     <div id="evento_venta" style="display: none">
                                         <hr>
                                         <p style="font-size: 11pt;">
-                                            <img src="images/info.png" alt=""/>
-                                            Seleccione el medio de pago</p> 
+                                            <img src="images/info.png" alt="" />
+                                            Seleccione el medio de pago</p>
                                         <hr>
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-md-4">
-                                                <input type="radio" value="1" name="medio_pago" >  
-                                                <img src="images/internet.png">  PSE (Pago Online)
-                                            </div> 
-                                            <div class="col-md-4">  
-                                                <input type="radio" value="3" name="medio_pago">  
+                                                <input type="radio" value="1" name="medio_pago">
+                                                <img src="images/internet.png"> PSE (Pago Online)
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="radio" value="3" name="medio_pago">
                                                 <img src="images/tarjeta_credito.png"> Tarjeta de Crédito
                                             </div>
 
 
-                                            <div class="col-md-4">     
-                                                <input type="radio" value="2" name="medio_pago">  
-                                                <img src="images/efectivo.png">    En efectivo
-                                            </div> 
+                                            <div class="col-md-4">
+                                                <input type="radio" value="2" name="medio_pago">
+                                                <img src="images/efectivo.png"> En efectivo
+                                            </div>
                                         </div>
                                         <br><br>
                                         <div class="form-group">
-                                            <label> <img src="images/arroba.png" alt=""/> Realice la validaci&oacute;n de Correo electronico para envio de Codigo QR</label>
+                                            <label> <img src="images/arroba.png" alt="" /> Realice la validaci&oacute;n de Correo electronico para envio de Codigo QR</label>
                                             <div class="nk-int-st">
                                                 <input type="email" id="email_venta" name="email" value="<?php echo $email; ?>" class="form-control">
                                             </div>
@@ -466,115 +481,114 @@ $guion = $gestion->guion($clasificacion_id);
                                             </div>
                                         </div>
                                         <br><br>
-                                        <button type="button" id="btn_finalizar_venta" style="float: right;" class="btn btn-primary"> <img src="images/finalizar_tres.png"> Finalizar venta</button>  
+                                        <button type="button" id="btn_finalizar_venta" style="float: right;" class="btn btn-primary"> <img src="images/finalizar_tres.png"> Finalizar venta</button>
 
                                     </div>
-                                </div>           
+                                </div>
                             </div>
                         </div>
-                    </div> 
-                </div> 
-
-            </div>  
-
-        </div>  
-    </div>  
-</div>
-</div>    
-<!-- /. ROW  -->   
-</div>
-
-
-<!-- PANTALLA MODAL  AGREGAR PRODUCTO -->
-
-<!-- Modal -->
-<div class="modal" id="myModalResultados"  role="dialog" aria-labelledby="myModalLabel" >
-    <div class="modal-dialog" style="width: 80%;">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #214761; color: white" >
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">
-                    <img src="images/examen_venta.png" alt=""/>
-                    Seleccione examen</h4>
-            </div>
-            <div class="modal-body col-md-12" style="height: auto">
-                <div class="col-md-12">
-                    <input type="radio" name="examen_lista" value="1"  class="i-checks"> Chequeo
-
-                    <input type="radio" name="examen_lista" value="2"  class="i-checks"> Examen
+                    </div>
                 </div>
-                <div id="examenes_perfiles" style="display: none">   
-                    <div class="col-md-6">
-                        <label> <img src="images/item.png"> Categoria</label> <br>
-                        <select id="examen_categoria_venta" style="width: 100%">
-                            <option value=""> Seleccione</option>
-                        </select>
-                    </div>
 
-                    <div class="col-md-12">
-                        <label> <img src="images/item.png"> Examen</label><br>   
-                        <select id="examen_descripcion_venta" style="width: 100%">
-                            <option value=""> Seleccione</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6" id="div_preparacion" style="display: none; padding: 20px;">
-                        <label><img src="images/recomendacion.png"> Recomendaciones</label>
-                        <div id="preparacion"></div> 
-                    </div>    
-
-                    <div class="col-md-6" id="div_precios"><br>
-                        <div id="examen_precios"></div>
-                    </div>
-                </div> 
-                <div id="examenes_no_perfiles" style="display: none"> 
-                    <div class="col-md-12">
-                        <label> <img src="images/item.png"> Examen</label><br>   
-                        <select id="examen_no_perfil" style="width: 100%">
-                            <option value=""> INGRESE UN VALOR PARA BUSCAR EL EXAMEN</option>
-                        </select>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Precio $</label><br><input type="text" id="precio_examen_no_perfil" class="form-control" readonly="true">
-                    </div>
-                </div>   
-
-            </div>          
-            <div class="modal-footer">
-                <button type="button" id="btn_agregar_producto" class="btn btn-primary" style="font-size: 11pt;">  <img src="images/anadir_dos.png"> Agregar Examen</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
             </div>
 
-
-
-        </div>                            
+        </div>
     </div>
-</div>
+    </div>
+    </div>
+    <!-- /. ROW  -->
+    </div>
 
-<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalCargando" role="dialog">
-    <div class="modal-dialog modal-lg">
 
-        <!-- Modal content-->
-        <div class="modal-content">
+    <!-- PANTALLA MODAL  AGREGAR PRODUCTO -->
 
-            <div class="modal-body">
-                <div class="row">
-                    <div id="div_informacion_cliente">
-                        <center>
-                            <div class="loader"></div>
-                            <h2>REALIZANDO OPERACION POR FAVOR ESPERE</h2>
-                        </center>
-                    </div>
+    <!-- Modal -->
+    <div class="modal" id="myModalResultados" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt="" />
+                        Seleccione examen</h4>
                 </div>
+                <div class="modal-body col-md-12" style="height: auto">
+                    <div class="col-md-12">
+                        <input type="radio" name="examen_lista" value="1" class="i-checks"> Chequeo
+
+                        <input type="radio" name="examen_lista" value="2" class="i-checks"> Examen
+                    </div>
+                    <div id="examenes_perfiles" style="display: none">
+                        <div class="col-md-6">
+                            <label> <img src="images/item.png"> Categoria</label> <br>
+                            <select id="examen_categoria_venta" style="width: 100%">
+                                <option value=""> Seleccione</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label> <img src="images/item.png"> Examen</label><br>
+                            <select id="examen_descripcion_venta" style="width: 100%">
+                                <option value=""> Seleccione</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6" id="div_preparacion" style="display: none; padding: 20px;">
+                            <label><img src="images/recomendacion.png"> Recomendaciones</label>
+                            <div id="preparacion"></div>
+                        </div>
+
+                        <div class="col-md-6" id="div_precios"><br>
+                            <div id="examen_precios"></div>
+                        </div>
+                    </div>
+                    <div id="examenes_no_perfiles" style="display: none">
+                        <div class="col-md-12">
+                            <label> <img src="images/item.png"> Examen</label><br>
+                            <select id="examen_no_perfil" style="width: 100%">
+                                <option value=""> INGRESE UN VALOR PARA BUSCAR EL EXAMEN</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Precio $</label><br><input type="text" id="precio_examen_no_perfil" class="form-control" readonly="true">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_agregar_producto" class="btn btn-primary" style="font-size: 11pt;"> <img src="images/anadir_dos.png"> Agregar Examen</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+
+
 
             </div>
         </div>
-
     </div>
-</div> 
-<input type="hidden" id="plan_seleccionado" value="NO">
-<!--<input type="hidden" id="bono_seleccionado" value="NO">-->
 
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" id="ModalCargando" role="dialog">
+        <div class="modal-dialog modal-lg">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="div_informacion_cliente">
+                            <center>
+                                <div class="loader"></div>
+                                <h2>REALIZANDO OPERACION POR FAVOR ESPERE</h2>
+                            </center>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <input type="hidden" id="plan_seleccionado" value="NO">
+    <!--<input type="hidden" id="bono_seleccionado" value="NO">-->
 </body>
 <?php require_once '../include/footer.php'; ?>
+
 </html>

@@ -17,7 +17,7 @@ class Gestion {
 
     public function buscar_registro($id_cliente) {
         $query = $this->conexion->prepare("SELECT c.id_cliente,c.tipo_documento AS id_tipo_documento,t.nombre as tipo_documento,c.documento, c.nombre as nombre_cliente,c.apellido as apellido_cliente,
-            c.telefono_1,c.telefono_2,c.email,c.fecha_nacimiento,c.ciudad_id,cd.nombre as ciudad,
+            c.firma as firma, c.telefono_1,c.telefono_2,c.email,c.fecha_nacimiento,c.ciudad_id,cd.nombre as ciudad,
             c.barrio,c.direccion,e.nombre as estado_civil,if(c.activo=1,'Activo','Inactivo') as activo,d.id AS id_departamento,d.nombre as departamento,
             c.estrato,c.sexo,c.estado_civil_id,c.activo,c.tipo_cliente,
             (SELECT descripcion FROM cliente_estado where cliente_estado_id = cliente_estado) as estado_cliente,
@@ -59,14 +59,15 @@ class Gestion {
                     'estado_civil_id' => $valor["estado_civil_id"],
                     'estado_cliente' => $valor["estado_cliente"],
                     'tipo_cliente' => $valor["tipo_cliente"],
-                    'clasificacion' => $valor["clasificacion"]
+                    'clasificacion' => $valor["clasificacion"],
+                    'firma' => $valor["firma"]
                 );
             }
         }
         return json_encode($opciones);
     }
 
-    public function crear_cliente($tipo_documento, $documento, $nombre, $apellido, $telefono_1, $telefono_2, $email, $fecha_nacimiento, $ciudad_id, $barrio, $direccion, $estado_civil_id, $sexo, $estrato, $tipo_cliente, $edad, $pregunta_22, $clasificacion, $pregunta_23) {
+    public function crear_cliente($tipo_documento, $documento, $nombre, $apellido, $telefono_1, $telefono_2, $email, $fecha_nacimiento, $ciudad_id, $barrio, $direccion, $estado_civil_id, $sexo, $estrato, $tipo_cliente, $edad, $pregunta_22, $clasificacion, $pregunta_23, $firma) {
         $query = $this->conexion->prepare("INSERT INTO cliente 
                                                 (tipo_documento,
                                                 documento,nombre,
@@ -85,7 +86,8 @@ class Gestion {
                                                 edad,
                                                 origen_contacto,
                                                 observacion_origen,
-                                                venta_virtual)
+                                                venta_virtual,
+                                                firma)
                                             VALUES 
                                                 (:tipo_documento,
                                                 :documento,
@@ -105,7 +107,8 @@ class Gestion {
                                                 :edad,
                                                 :origen_contacto,
                                                 :observacion_origen,
-                                                :venta_virtual)");
+                                                :venta_virtual,
+                                                :firma)");
 
         $query->execute(array(':tipo_documento' => $tipo_documento,
             ':documento' => $documento,
@@ -125,7 +128,8 @@ class Gestion {
             ':edad' => $edad,
             ':origen_contacto' => $pregunta_22,
             ':observacion_origen' => $clasificacion,
-            ':venta_virtual' => $pregunta_23
+            ':venta_virtual' => $pregunta_23,
+            ':firma' => $firma
         ));
     }
 

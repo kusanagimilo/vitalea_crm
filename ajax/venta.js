@@ -7,14 +7,13 @@ function informacion_cliente() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 4,
-                    id_cliente: id_cliente
-                },
+        {
+            tipo: 4,
+            id_cliente: id_cliente
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
             $.each(data, function (i, cliente) {
                 var newRow = "<table class='tinfo table table-striped'  >";
                 newRow += "<tr><th style='color:#0C4F5A;text-align: left;'><b>Tipo de documento</b></th><td data-label='Tipo documento'>" + cliente.tipo_documento + "</td>";
@@ -35,9 +34,33 @@ function informacion_cliente() {
                 newRow += "<th style='color:#0C4F5A;text-align: left;'><b>Tipo cliente</th><td data-label='Tipo cliente' style='color:#079244'><b>" + cliente.tipo_cliente + "</b></td>";
                 newRow += "<th style='color:#0C4F5A;text-align: left;'><b>Clasificacion</th><td data-label='Clasificacion' style='color:#079244'><b>" + cliente.clasificacion + "</b></td></tr>";
                 newRow += "</table>";
-                $(newRow).appendTo("#tabla_informacion_cliente");
                 var nombre_cliente = "<b>" + cliente.nombre_cliente + " " + cliente.apellido_cliente + "</b>";
+                $(newRow).appendTo("#tabla_informacion_cliente");
                 $(nombre_cliente).appendTo("#nombre_cliente");
+                sessionStorage.setItem('nombreCliente', cliente.nombre_cliente + " " + cliente.apellido_cliente);
+                sessionStorage.setItem('documento', cliente.tipo_documento + ": " + cliente.documento);
+                sessionStorage.setItem('firma', cliente.firma);
+
+                
+                const btnpdf = document.querySelector("#btnHabeas");
+                btnpdf.addEventListener("click", () => {
+                    firmaComprobacion = sessionStorage.getItem('firma').substr(0,1);
+                    console.log(firmaComprobacion)
+                        
+                    if (firmaComprobacion != "d") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Generacion PDF Fallida',
+                            text: 'No se completo la operacion debido a que no hay registros de firmas, guardados en la base de datos!',
+                            footer: '<a target="_blank" href="https://wa.me/573506793449">¿Algun problema con el CRM?, Contacta a Soporte.</a>',
+                            allowOutsideClick: false
+                        })
+                    } else {
+                        data = 1;
+                        generarPdf(data);
+                    }
+                })
+
             });
 
         }
@@ -52,13 +75,12 @@ function obtener_categoria_examen() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 13
-                },
+        {
+            tipo: 13
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
 
             $("#examen_categoria_venta").empty();
             $("#examen_categoria_venta").append("<option value=''>---Seleccione----</option>");
@@ -79,14 +101,13 @@ function obtener_examen() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 14,
-                    categoria_id: examen_sub_categoria
-                },
+        {
+            tipo: 14,
+            categoria_id: examen_sub_categoria
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
 
             $('#examen_descripcion_venta').html("<option value=''> - </option>");
 
@@ -109,14 +130,13 @@ function obtener_examen_precios() {
     $.ajax({
         url: '../controlador/Caja.php',
         data:
-                {
-                    tipo: 2,
-                    examen_id: examen_descripcion_venta
-                },
+        {
+            tipo: 2,
+            examen_id: examen_descripcion_venta
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
             /*var bono;
              
              if ($("#bono_seleccionado").val() != "" || $("#bono_seleccionado").val() != null) {
@@ -213,17 +233,16 @@ function agregarVentaTemp() {
     $.ajax({
         url: '../controlador/Caja.php',
         data:
-                {
-                    tipo: 3,
-                    examen_id: examen_id,
-                    precio: precio,
-                    gestion_id: gestion_id,
-                    cliente_id: cliente_id,
-                    tipo_examen: tipo_examen
-                },
-        type: 'post',
-        success: function (data)
         {
+            tipo: 3,
+            examen_id: examen_id,
+            precio: precio,
+            gestion_id: gestion_id,
+            cliente_id: cliente_id,
+            tipo_examen: tipo_examen
+        },
+        type: 'post',
+        success: function (data) {
 
             alertify.success("Examen agregado");
             tablaTemporalInicial();
@@ -240,14 +259,13 @@ function tablaTemporalInicial() {
     $.ajax({
         url: '../controlador/Caja.php',
         data:
-                {
-                    tipo: 4,
-                    gestion_id: gestion_id,
-                    cliente_id: cliente_id
-                },
-        type: 'post',
-        success: function (data)
         {
+            tipo: 4,
+            gestion_id: gestion_id,
+            cliente_id: cliente_id
+        },
+        type: 'post',
+        success: function (data) {
             $("#tabla_temporal").html(data);
         }
     });
@@ -260,13 +278,12 @@ function eliminar(element) {
     $.ajax({
         url: '../controlador/Caja.php',
         data:
-                {
-                    tipo: 5,
-                    examen_id: element
-                },
-        type: 'post',
-        success: function (data)
         {
+            tipo: 5,
+            examen_id: element
+        },
+        type: 'post',
+        success: function (data) {
             tablaTemporalInicial();
         }
     });
@@ -293,13 +310,12 @@ function medios_comunicacion() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 3
-                },
+        {
+            tipo: 3
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
             $.each(data, function (i, cliente) {
                 var newRow = "<option value='" + cliente.id + "'>" + cliente.nombre + "</option>";
 
@@ -320,15 +336,14 @@ function div_medio_comunicacion() {
         $.ajax({
             url: '../controladores/Gestion.php',
             data:
-                    {
-                        tipo: 12,
-                        medio_comunicacion_id: medio_comunicacion_id
+            {
+                tipo: 12,
+                medio_comunicacion_id: medio_comunicacion_id
 
-                    },
+            },
             type: 'post',
             dataType: 'json',
-            success: function (data)
-            {
+            success: function (data) {
                 $("#imagen_medio_comunicacion").empty();
                 $("#texto_comunicacion").empty();
 
@@ -356,7 +371,7 @@ function div_medio_comunicacion() {
 function generarCotizacion() {
 
 
-    $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
+    $('#ModalCargando').modal({ backdrop: 'static', keyboard: false });
 
 
 
@@ -392,19 +407,18 @@ function generarCotizacion() {
         $.ajax({
             url: '../controlador/Caja.php',
             data:
-                    {
-                        tipo: 7,
-                        cliente_id: cliente_id,
-                        gestion_id: gestion_id,
-                        usuario_id: usuario_id,
-                        email: email,
-                        medios_comunicacion: medios_comunicacion,
-                        observacion_cotizacion: observacion_cotizacion
-
-                    },
-            type: 'post',
-            success: function (data)
             {
+                tipo: 7,
+                cliente_id: cliente_id,
+                gestion_id: gestion_id,
+                usuario_id: usuario_id,
+                email: email,
+                medios_comunicacion: medios_comunicacion,
+                observacion_cotizacion: observacion_cotizacion
+
+            },
+            type: 'post',
+            success: function (data) {
                 $('#ModalCargando').modal('toggle');
                 if (data == 1) {
                     alertify.alert("Cotizacion enviada a <b>" + email + "</b>", function () {
@@ -453,28 +467,27 @@ function agregarVenta() {
         alertify.alert("Seleccione el medio de pago");
     } else {
 
-        $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
+        $('#ModalCargando').modal({ backdrop: 'static', keyboard: false });
         $.ajax({
             url: '../controlador/Caja.php',
             data:
-                    {
-                        tipo: 6,
-                        cliente_id: cliente_id,
-                        gestion_id: gestion_id,
-                        usuario_id: usuario_id,
-                        medio_pago: medio_pago,
-                        medios_comunicacion: medios_comunicacion,
-                        observacion_venta: observacion_venta,
-                        email_venta: email_venta,
-                        plan_seleccionado: plan_seleccionado
+            {
+                tipo: 6,
+                cliente_id: cliente_id,
+                gestion_id: gestion_id,
+                usuario_id: usuario_id,
+                medio_pago: medio_pago,
+                medios_comunicacion: medios_comunicacion,
+                observacion_venta: observacion_venta,
+                email_venta: email_venta,
+                plan_seleccionado: plan_seleccionado
 
-                    },
+            },
             type: 'post',
             beforeSend: function () {
                 //$('#ModalCargando').modal({backdrop: 'static', keyboard: false});
             },
-            success: function (data)
-            {
+            success: function (data) {
                 $('#ModalCargando').modal('toggle');
                 //$('#div_cargando').css('background', 'none')
                 if (data == 1) {
@@ -497,13 +510,12 @@ function obtenerExamenNoPerfil() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 28
-                },
+        {
+            tipo: 28
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
 
             $("#examen_no_perfil").empty();
 
@@ -522,13 +534,12 @@ function obtenerPrecioExamenNoPerfil() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 29,
-                    examen_no_perfil: examen_no_perfil
-                },
-        type: 'post',
-        success: function (data)
         {
+            tipo: 29,
+            examen_no_perfil: examen_no_perfil
+        },
+        type: 'post',
+        success: function (data) {
             $("#precio_examen_no_perfil").val(data);
         }
     });
@@ -542,15 +553,14 @@ function obtener_examen2() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 33,
-                    categoria_id: examen_sub_categoria,
-                    id_plan: id_plan
-                },
+        {
+            tipo: 33,
+            categoria_id: examen_sub_categoria,
+            id_plan: id_plan
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
 
             $('#examen_descripcion_venta').html("<option value=''> - </option>");
 
@@ -573,15 +583,14 @@ function obtener_examen_precios2() {
     $.ajax({
         url: '../controlador/Caja.php',
         data:
-                {
-                    tipo: 8,
-                    examen_id: examen_descripcion_venta,
-                    id_plan: plan
-                },
+        {
+            tipo: 8,
+            examen_id: examen_descripcion_venta,
+            id_plan: plan
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
 
 
             $("#examen_precios").empty();
@@ -611,16 +620,58 @@ function obtenerPrecioExamenNoPerfil2() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 34,
-                    examen_no_perfil: examen_no_perfil,
-                    id_plan: id_plan
-                },
-        type: 'post',
-        success: function (data)
         {
+            tipo: 34,
+            examen_no_perfil: examen_no_perfil,
+            id_plan: id_plan
+        },
+        type: 'post',
+        success: function (data) {
             $("#precio_examen_no_perfil").val(data);
         }
     });
+
+}
+
+function generarPdf(data) {
+
+    if (data == 1) {
+        //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
+        let nombreCliente = sessionStorage.getItem('nombreCliente');
+        let docu = sessionStorage.getItem('documento');
+        let firma = sessionStorage.getItem('firma');
+        var imgData = new Image();
+        imgData.src = "../images/habeasData.png";
+        var imgData2 = new Image();
+        imgData2.src = "../images/vitaleaPdf2.png";
+
+        var doc = new jsPDF();
+        doc.addImage(firma, 'png', 134, 215, 80, 26);
+        doc.addImage(imgData, 'png', 2, 1, 205, 190);
+        doc.setFontSize(10);
+        doc.setFont("helvetica");
+        doc.setTextColor(0, 24, 0);
+        doc.text(5, 230, "Nombre: " + nombreCliente);
+        doc.text(55, 230, docu);
+        doc.text(125, 230, "Firma: ");
+
+        doc.setDrawColor(0);
+        doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
+        doc.setFillColor(133, 0, 144);
+        doc.rect(0, 272, 132, 26, 'F');
+
+        doc.setProperties({
+            //Metadatos del documento
+            title: 'Cotizaciones Vitalea',
+            subject: 'Documento de Cotizaciones vitalea',
+            author: 'Arcos Soluciones Tecnologicas',
+            keywords: 'generated, javascript, web 2.0, ajax',
+            creator: 'Alexander Pineda - Desarrollador'
+        });
+        // Funcion Generadora del PDF
+        doc.save('detallePerfilCliente.pdf');
+    } else {
+        
+    }
 
 }

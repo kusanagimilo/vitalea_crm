@@ -203,6 +203,7 @@ require_once '../include/header_administrador.php';
             var usuario = $("#usuario").val();
             var coincide_email = $("#coincide_email").val();
             var edad = $("#edad").val();
+            var firma = imagenBase64 = sessionStorage.getItem('imagenCadena');
 
 
             if (typeof tipo_cliente === 'undefined') {
@@ -320,7 +321,8 @@ require_once '../include/header_administrador.php';
                             edad: edad,
                             pregunta_22: pregunta_22,
                             pregunta_23: pregunta_23,
-                            clasificacion: clasificacion    
+                            clasificacion: clasificacion,
+                            firma: firma   
                         },
                 type: 'post',
                 success: function (data)
