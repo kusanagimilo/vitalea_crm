@@ -18,4 +18,7 @@ if ($tipo == 1) {
 }if ($tipo == 4) {
     $retorno = $Obj_Plan->EditarPrecioItem($_POST);
     echo $retorno;
+}if ($tipo == 5) {
+    $retorno = $Obj_Plan->AlmacenarPlanTarifaCsv($_POST, $_FILES);
+    echo $retorno;
 }

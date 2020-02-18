@@ -16,7 +16,7 @@ function CambiarTipoTarifa(tipo_cambio) {
         html = "<h4><span class='label label-info'>ESTA OPCION PERMITE CARGAR AUTOMATICAMENTE TODAS LAS TARIFAS QUE EXISTEN EN EL SISTEMA, LUEGO SE PODRA MODIFICAR EL VALOR DE CADA UNO DE LOS ITEMS DE ESTE PLAN</span></h4>";
     } else if (tipo_cambio == 2) {
         html = '<label for="inputtext">* Seleccione el archivo csv de tarifas</label>' +
-                '<input type="file" class="custom-file-input" id="csv_carga">'
+                '<input type="file" class="custom-file-input" id="archivo" name="archivo">'
     }
 
     $("#desicion").html(html);
@@ -65,6 +65,44 @@ function AlmacenarPlan() {
                 } else if (datos == 3) {
                     alertify.alert("Este plan ya existe, cambielo");
                 }
+            } else if (desicion == 2) {
+                var archivo = document.getElementById("archivo");
+                var formElement = document.getElementById("frm_forms");
+                var data = new FormData(formElement);
+                var file;
+                file = archivo.files[0];
+                data.append('archivo', file);
+                data.append('tipo', 5);
+                data.append('codigo_plan', codigo_plan);
+                data.append('nombre_plan', nombre_plan);
+
+                var url = "../controladores/PlanController.php";
+                var retorno;
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: false,
+                    data: data,
+                    async: false,
+                    processData: false,
+                    cache: false
+                }).done(function (retu) {
+                    retorno = retu;
+                });
+
+
+                if (retorno == 1) {
+                    /*alertify.alert("Se ingreso correctamente el plan");*/
+                    alertify.alert("Se ingreso correctamente el plan", function () {
+                        VerPlanes();
+                        $('#myModalPlanes').modal('toggle');
+                    });
+                } else if (retorno == 2) {
+                    alertify.alert("Ocurrio un error al tratar de ingresar el plan");
+                } else if (retorno == 3) {
+                    alertify.alert("Este plan ya existe, cambielo");
+                }
+
             }
         }
 

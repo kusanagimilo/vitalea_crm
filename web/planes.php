@@ -88,32 +88,33 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <img src="images/examen_venta.png" alt=""/>Nuevo plan</h4>
                 </div>
                 <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
-
-                    <!-- formulario -->
-                    <div class="form-group">
-                        <label for="inputtext">* Ingrese el codigo para el plan</label>
-                        <input type="text" class="form-control" id="codigo_plan" placeholder="Codigo plan" name="codigo_plan">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputtext">* Ingrese el nombre de el plan</label>
-                        <input type="text" class="form-control" id="nombre_plan" placeholder="Nombre plan" name="nombre_plan">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputtext">* Seleccione la opcion de carga de tarifas</label>
-                        <div class="radio">
-                            <label><input type="radio"  name="opcion_tarifa" value="1">Cargar tarifas actuales de el sistema</label>
+                    <form enctype='multipart/form-data' method='post' name='fileinfo' id='frm_forms'> 
+                        <!-- formulario -->
+                        <div class="form-group">
+                            <label for="inputtext">* Ingrese el codigo para el plan</label>
+                            <input type="text" class="form-control" id="codigo_plan" placeholder="Codigo plan" name="codigo_plan">
                         </div>
-                        <div class="radio">
-                            <label><input type="radio"  name="opcion_tarifa" value="2">Carga tarifa mediante archivo CSV</label>
+                        <div class="form-group">
+                            <label for="inputtext">* Ingrese el nombre de el plan</label>
+                            <input type="text" class="form-control" id="nombre_plan" placeholder="Nombre plan" name="nombre_plan">
                         </div>
-                    </div>
 
-                    <div class="form-group" id="desicion">
-                    </div>
-                    <div class="form-group">
-                        <button onclick="AlmacenarPlan()" type="button" class="btn btn-primary btn-lg btn-block">Crear plan</button>
-                    </div>
+                        <div class="form-group">
+                            <label for="inputtext">* Seleccione la opcion de carga de tarifas</label>
+                            <div class="radio">
+                                <label><input type="radio"  name="opcion_tarifa" value="1">Cargar tarifas actuales de el sistema</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio"  name="opcion_tarifa" value="2">Carga tarifa mediante archivo CSV</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="desicion">
+                        </div>
+                        <div class="form-group">
+                            <button onclick="AlmacenarPlan()" type="button" class="btn btn-primary btn-lg btn-block">Crear plan</button>
+                        </div>
+                    </form>
 
 
 
@@ -137,7 +138,6 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
 
                     <!-- formulario -->
-
                     <div class="form-group">
                         <div class="col-md-12"><label for="inputtext">Seleccione el tipo de item a mostrar</label></div>
                         <div class="col-md-6">
