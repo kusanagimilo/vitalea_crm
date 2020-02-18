@@ -222,6 +222,7 @@ function ItemsPorPlan(id_plan) {
                 '<th style="color:white">Nombre item</th>' +
                 '<th style="color:white">Precio regular</th>' +
                 '<th style="color:white">Precio plan</th>' +
+                '<th style="color:white">Editar precio plan</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody id="lista_itemp_cot_body">' +
@@ -244,12 +245,15 @@ function ItemsPorPlan(id_plan) {
             success: function (retu) {
                 $.each(retu, function (i, plan) {
 
+                    var precio = '"' + plan.precio_plan + '"';
+                    var boton = "<input type='button' onclick='InicioEdicion(" + plan.id_plan_item + "," + precio + ")' value='editar' class='btn btn-default'>";
 
                     var newRow = "<tr>";
                     newRow += "<td id='plic_" + plan.id_plan_item + "'>" + plan.codigo + "</td>";
                     newRow += "<td id='plin_" + plan.id_plan_item + "'>" + plan.nombre + "</td>";
                     newRow += "<td id='plipr_" + plan.id_plan_item + "'>" + plan.precio_regular + "</td>";
                     newRow += "<td id='plipp_" + plan.id_plan_item + "'>" + plan.precio_plan + "</td>";
+                    newRow += "<td id='plib_" + plan.id_plan_item + "'>" + boton + "</td>";
                     newRow += "</tr>";
 
                     $(newRow).appendTo("#lista_itemp_cot_body");
@@ -263,4 +267,53 @@ function ItemsPorPlan(id_plan) {
             responsive: true
         });
     }
+}
+function InicioEdicion(id_plan_item, precio) {
+
+    var html_botones = "<input type='button' class='btn btn-primary' value='Editar' onclick='EditarItemPlan(" + id_plan_item + ")'>" +
+            "<input type='button' class='btn btn-danger' value='Cancelar' onclick='CancelarEdicion(" + id_plan_item + "," + precio + ")'>";
+    var html_campo = "<input type='text' value='" + precio + "' placeholder='precio item' id='precio_item_" + id_plan_item + "' name='precio_item_" + id_plan_item + "'>"
+    $("#plib_" + id_plan_item + "").html(html_botones);
+    $("#plipp_" + id_plan_item + "").html(html_campo);
+}
+function CancelarEdicion(id_plan_item, precio) {
+    var html_botones = "<input type='button' onclick='InicioEdicion(" + id_plan_item + "," + precio + ")' value='editar' class='btn btn-default'>";
+    $("#plib_" + id_plan_item + "").html(html_botones);
+    $("#plipp_" + id_plan_item + "").html(precio);
+}
+
+function EditarItemPlan(id_plan_item) {
+    var confirma = confirm("Esta seguro de realizar esta accion");
+    if (confirma) {
+        var precio_item = $("#precio_item_" + id_plan_item + "").val();
+        if ($.trim(precio_item) == "") {
+            alert("Debe ingresar un valor");
+        } else {
+            var datos;
+            $.ajax({
+                type: "POST",
+                url: "../controladores/PlanController.php",
+                async: false,
+                dataType: 'json',
+                data: {
+                    tipo: 4,
+                    id_plan_item: id_plan_item,
+                    precio: precio_item
+                },
+                success: function (retu) {
+                    datos = retu;
+                }
+            });
+
+            if (datos == 1) {
+                /*alertify.alert("Se ingreso correctamente el plan");*/
+                alertify.alert("Se modifico correctamente el plan", function () {
+                    CancelarEdicion(id_plan_item, precio_item);
+                });
+            } else if (datos == 2) {
+                alertify.alert("Ocurrio un error al tratar de modificar el plan");
+            }
+        }
+    }
+
 }

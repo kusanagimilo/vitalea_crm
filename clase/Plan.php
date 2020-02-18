@@ -107,4 +107,17 @@ AND tipo_item = 'chequeo'";
         return json_encode($rows);
     }
 
+    public function EditarPrecioItem($data) {
+        try {
+            $sql_editar_plan = "UPDATE plan_item SET precio_plan = :precio_plan WHERE id_plan_item=:id_plan_item";
+            $query_editar = $this->conexion->prepare($sql_editar_plan);
+            $query_editar->execute(array(':precio_plan' => $data['precio'],
+                ':id_plan_item' => $data['id_plan_item']));
+
+            return 1;
+        } catch (Exception $exc) {
+            return 2;
+        }
+    }
+
 }

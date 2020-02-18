@@ -15,4 +15,7 @@ if ($tipo == 1) {
 }if ($tipo == 3) {
     $retorno = $Obj_Plan->ItemsPorPlan($_POST);
     echo $retorno;
+}if ($tipo == 4) {
+    $retorno = $Obj_Plan->EditarPrecioItem($_POST);
+    echo $retorno;
 }
