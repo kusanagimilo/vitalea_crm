@@ -320,8 +320,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <label for="inputselect">Esta es la relacion de todos los items asociados a esta cotizacion</label>
                     </div>
 
-                    <div class="form-group" id="contenedorTablaDetalles"></div>
-                    <!-- <div id="masInfoGeneral"></div> -->
+                    <div class="form-group" id="contenedorTablaDetallesChequeos"></div>
+                    <div class="form-group" id="contenedorTablaDetallesExamenes"></div>                    
                     <button onclick="generarPdfCotizacion()" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> Generar PDF Cotizacion</button>
                 </div>
                 <div class="modal-footer">
@@ -389,6 +389,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             var imgData2 = new Image();
             imgData2.src = "../images/vitaleaPdf2.png";
             let cotizacionId = sessionStorage.getItem('idCotizacion');
+            //console.log(cotizacionId);
             $.ajax({
                 type: "POST",
                 url: "../controladores/FacturacionController.php",
@@ -398,16 +399,13 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                     tipo: 17,
                     cotizId: cotizacionId
                 },
-                success: function(retu) {
-                    
-                    if (retu) {
-                        
+                success: function(retu) {                    
+                        console.log(retu)
                         var idCtz1 = retu[0].nombre_cliente;
                         var idCtz2= retu[0].correo;
                         var idCtz3 = retu[0].telefono;
                         var idCtz4 = retu[0].valor;
-                        var idCtz5 = retu[0].direccion;
-                        // var idCtz6 = retu[0].firma;
+                        var idCtz5 = retu[0].direccion;        
                         var idCtz7 = retu[0].fecha_creacion;
                                              
                         var doc = new jsPDF();                        
@@ -442,7 +440,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         });
                         // Funcion Generadora del PDF
                         doc.save('detallePDFCotizacion.pdf');
-                    }
+                    
 
                 }
             });

@@ -71,4 +71,16 @@ if ($tipo == 3) {
 }if ($tipo == 17) {
     $retorno = $Obj_Facturacion->consultaCotizacionPdf($_POST);
     echo $retorno;
+}if ($tipo == 18) {
+    $retorno = $Obj_Facturacion->consultaModalPerfil($_POST);
+    echo $retorno;
+}if ($tipo == 19) {
+    $firma = $_POST["firma"];
+    $documento = $_POST["documento"];
+    $retorno = $Obj_Facturacion->insercionFirma($firma, $documento);
+    echo $retorno;
+}if ($tipo == 20) {
+    $inputIdValue = $_POST["inputIdValue"];
+    $retorno = $Obj_Facturacion->consultarFirma($inputIdValue);
+    echo $retorno;
 }

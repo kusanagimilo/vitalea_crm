@@ -169,6 +169,8 @@ if ($tipo_cliente == "Tercero") {
 <script src="../ajax/Crear_usuario.js" ></script>
 <script src="../ajax/actualizar_paciente.js" ></script>
 <script src="../ajax/Resultado.js" ></script>
+<script src="../web/js/dist/jspdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <input type="hidden" name="usuario_id" id="usuario_id" value="<?php echo $_SESSION['ID_USUARIO'] ?>">
 <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $cliente_id ?>">
@@ -416,6 +418,13 @@ if ($tipo_cliente == "Tercero") {
                                         <input name="direccion_actual" id="direccion_actual" class="form-control" type="text" readonly="true" value="<?php echo $direccion; ?>">
                                     </div>
                                 </div>
+                            </div> 
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-8">                                 
+                                                                   
+                                    <div class="nk-int-st">
+                                        <button class="btn btn-danger" id="btnHabPDF" style="margin: 10px 0px"><i class="fas fa-file-pdf"></i> Generar PDF Habeas Data</button>
+                                    </div>
+                                
                             </div> 
                         </div>
                     </div>

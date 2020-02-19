@@ -41,12 +41,11 @@ function informacion_cliente() {
                 sessionStorage.setItem('documento', cliente.tipo_documento + ": " + cliente.documento);
                 sessionStorage.setItem('firma', cliente.firma);
 
-                
+
                 const btnpdf = document.querySelector("#btnHabeas");
                 btnpdf.addEventListener("click", () => {
-                    firmaComprobacion = sessionStorage.getItem('firma').substr(0,1);
-                    console.log(firmaComprobacion)
-                        
+                    const firmaComprobacion = sessionStorage.getItem('firma').substr(0, 1);   
+
                     if (firmaComprobacion != "d") {
                         Swal.fire({
                             icon: 'warning',
@@ -55,9 +54,8 @@ function informacion_cliente() {
                             footer: '<a target="_blank" href="https://wa.me/573506793449">¿Algun problema con el CRM?, Contacta a Soporte.</a>',
                             allowOutsideClick: false
                         })
-                    } else {
-                        data = 1;
-                        generarPdf(data);
+                    } else {                        
+                        generarPdf();
                     }
                 })
 
@@ -633,45 +631,41 @@ function obtenerPrecioExamenNoPerfil2() {
 
 }
 
-function generarPdf(data) {
+function generarPdf() {
+    const firma = sessionStorage.getItem('imagenCadena');
+    // Funcion para la creacion del PDF, utilizando la libreria JSPDF.
+    let nombreCliente = sessionStorage.getItem('nombreCliente');
+    let docu = sessionStorage.getItem('documento');
+    var imgData = new Image();
+    imgData.src = "../images/habeasData.png";
+    var imgData2 = new Image();
+    imgData2.src = "../images/vitaleaPdf2.png";
+    // console.log(firma);
 
-    if (data == 1) {
-        //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
-        let nombreCliente = sessionStorage.getItem('nombreCliente');
-        let docu = sessionStorage.getItem('documento');
-        let firma = sessionStorage.getItem('firma');
-        var imgData = new Image();
-        imgData.src = "../images/habeasData.png";
-        var imgData2 = new Image();
-        imgData2.src = "../images/vitaleaPdf2.png";
+    var doc = new jsPDF();
+    doc.addImage(firma, 'png', 134, 215, 80, 26);
+    doc.addImage(imgData, 'png', 2, 1, 205, 190);
+    doc.setFontSize(10);
+    doc.setFont("helvetica");
+    doc.setTextColor(0, 24, 0);
+    doc.text(5, 230, "Nombre: " + nombreCliente);
+    doc.text(55, 230, docu);
+    doc.text(125, 230, "Firma: ");
 
-        var doc = new jsPDF();
-        doc.addImage(firma, 'png', 134, 215, 80, 26);
-        doc.addImage(imgData, 'png', 2, 1, 205, 190);
-        doc.setFontSize(10);
-        doc.setFont("helvetica");
-        doc.setTextColor(0, 24, 0);
-        doc.text(5, 230, "Nombre: " + nombreCliente);
-        doc.text(55, 230, docu);
-        doc.text(125, 230, "Firma: ");
+    doc.setDrawColor(0);
+    doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
+    doc.setFillColor(133, 0, 144);
+    doc.rect(0, 272, 132, 26, 'F');
 
-        doc.setDrawColor(0);
-        doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
-        doc.setFillColor(133, 0, 144);
-        doc.rect(0, 272, 132, 26, 'F');
-
-        doc.setProperties({
-            //Metadatos del documento
-            title: 'Cotizaciones Vitalea',
-            subject: 'Documento de Cotizaciones vitalea',
-            author: 'Arcos Soluciones Tecnologicas',
-            keywords: 'generated, javascript, web 2.0, ajax',
-            creator: 'Alexander Pineda - Desarrollador'
-        });
-        // Funcion Generadora del PDF
-        doc.save('detallePerfilCliente.pdf');
-    } else {
-        
-    }
+    doc.setProperties({
+        //Metadatos del documento
+        title: 'Cotizaciones Vitalea',
+        subject: 'Documento de Cotizaciones vitalea',
+        author: 'Arcos Soluciones Tecnologicas',
+        keywords: 'generated, javascript, web 2.0, ajax',
+        creator: 'Alexander Pineda - Desarrollador'
+    });
+    // Funcion Generadora del PDF
+    doc.save('detallePerfilCliente.pdf');
 
 }

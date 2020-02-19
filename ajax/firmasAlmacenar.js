@@ -1,13 +1,6 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
     principal();
-  });
-/*
-		El siguiente codigo en JS Contiene mucho codigo
-		de las siguietes 3 fuentes:
-		https://stipaltamar.github.io/dibujoCanvas/
-		https://developer.mozilla.org/samples/domref/touchevents.html - https://developer.mozilla.org/es/docs/DOM/Touch_events
-		http://bencentra.com/canvas/signature/signature.html - https://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
-*/
+});
 
 function principal() { // Comenzamos una funcion auto-ejecutable
 
@@ -44,6 +37,23 @@ function principal() { // Comenzamos una funcion auto-ejecutable
         var dataUrl = canvas.toDataURL();
         drawImage.setAttribute("src", dataUrl);
         sessionStorage.setItem('imagenCadena', dataUrl);
+        var firma = sessionStorage.getItem('imagenCadena');
+        var documento = document.querySelector("td").nextSibling.nextSibling.innerText;
+        $.ajax({
+            url: '../controladores/FacturacionController.php',
+            data:
+            {
+                tipo: 19,
+                firma: firma,
+                documento: documento
+            },
+            type: 'post',
+            success: function (data) {
+                console.log(data);
+            }
+        });
+
+
     }
     submitBtn.addEventListener("click", guardarImagen, false);
 
@@ -161,4 +171,3 @@ function principal() { // Comenzamos una funcion auto-ejecutable
     })();
 
 };
-
