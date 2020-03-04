@@ -32,7 +32,7 @@ class WS {
 
         $query = $conexion->prepare("SELECT cli.id_cliente,cli.tipo_documento,cli.documento,cli.fecha_nacimiento,cli.nombre,cli.apellido,
 cli.sexo,cli.direccion,CONCAT(ci.nombre,' - ',dpto.nombre) AS ubicacion,cli.estrato,
-cli.email,cli.estado_civil_id,cli.id_cliente_athenea,cli.telefono_1
+cli.email,cli.estado_civil_id,cli.id_cliente_athenea,cli.telefono_1,ci.codigo
 FROM cliente cli
 INNER JOIN ciudad ci ON ci.id = cli.ciudad_id
 INNER JOIN departamento dpto ON dpto.id = ci.departamento_id
@@ -69,12 +69,7 @@ WHERE ven.id =:id");
         } else if ($arreglo[0]["sexo"] == "Femenino") {
             $sexo = "F";
         }
-
-
-
-
-
-
+        
         $xml_ingresar_paciente = "<ROOT>
  		<SOLICITUD NUEVO='1' USUARIOGENERO='LABIT' IDENTIFICADOR='' TIPOHOMOLOGACION=''>
  		<PACIENTE>
@@ -98,11 +93,19 @@ WHERE ven.id =:id");
                 <DIMENSIONESVARIABLES>
                 <DIMENSION>
  		<NUMERO>10</NUMERO>
+		<VALOR>" . $arreglo[0]['codigo'] . "</VALOR>
+ 		</DIMENSION>
+                <DIMENSION>
+ 		<NUMERO>11</NUMERO>
 		<VALOR>1</VALOR>
  		</DIMENSION>
 		<DIMENSION>
  		<NUMERO>12</NUMERO>
 		<VALOR>" . $arreglo[0]['estrato'] . "</VALOR>
+ 		</DIMENSION>
+                <DIMENSION>
+ 		<NUMERO>13</NUMERO>
+		<VALOR>1</VALOR>
  		</DIMENSION>
  		<DIMENSION>
  		<NUMERO>14</NUMERO>
@@ -114,6 +117,10 @@ WHERE ven.id =:id");
  		</DIMENSION>
  		<DIMENSION>
  		<NUMERO>16</NUMERO>
+ 		<VALOR>" . $arreglo[0]['email'] . "</VALOR>
+ 		</DIMENSION>
+                <DIMENSION>
+ 		<NUMERO>33</NUMERO>
  		<VALOR>" . $arreglo[0]['email'] . "</VALOR>
  		</DIMENSION>
  		</DIMENSIONESVARIABLES>

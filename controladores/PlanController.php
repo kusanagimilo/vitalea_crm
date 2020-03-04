@@ -21,4 +21,10 @@ if ($tipo == 1) {
 }if ($tipo == 5) {
     $retorno = $Obj_Plan->AlmacenarPlanTarifaCsv($_POST, $_FILES);
     echo $retorno;
+}if ($tipo == 6) {
+    $retorno = $Obj_Plan->InfoPlan($_POST);
+    echo $retorno;
+}if ($tipo == 7) {
+    $retorno = $Obj_Plan->EditarInfoPlan($_POST, $_FILES);
+    echo $retorno;
 }

@@ -179,7 +179,7 @@ AND tipo_item = 'chequeo'";
                             $query_explora_examen->execute(array(':codigo' => trim($data_ex[1])));
                             $rows_examen = $query_explora_examen->fetchAll(PDO::FETCH_ASSOC);
                             if (!empty($rows_examen)) {
-                                
+
                                 $sql_insert_plan_item = "INSERT INTO plan_item(id_item,id_plan,tipo_item,precio_regular,precio_plan)
                             VALUES(:id_item,:id_plan,:tipo_item,:precio_regular,:precio_plan)";
                                 $query_insert_plan_item = $this->conexion->prepare($sql_insert_plan_item);
@@ -210,6 +210,127 @@ AND tipo_item = 'chequeo'";
         } else {
             return 3;
         }
+    }
+
+    public function EditarInfoPlan($data, $files_data) {
+        session_start();
+        $id_usuario = $_SESSION["ID_USUARIO"];
+        $query = $this->conexion->prepare("SELECT id_plan FROM plan WHERE codigo_plan = :codigo_plan");
+        $query->execute(array(':codigo_plan' => $data['codigo_plan']));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $query_cod_id = $this->conexion->prepare("SELECT id_plan FROM plan WHERE codigo_plan = :codigo_plan AND id_plan=:id_plan");
+        $query_cod_id->execute(array(':codigo_plan' => $data['codigo_plan'], ':id_plan' => $data['id_plan']));
+        $rows_cod_id = $query_cod_id->fetchAll(PDO::FETCH_ASSOC);
+
+
+        if (empty($rows) || !empty($rows_cod_id)) {
+            try {
+                $sql_update = "UPDATE plan SET codigo_plan=:codigo_plan,
+                              nombre_plan=:nombre_plan,
+                              id_usr_modifico=:id_usr_modifico
+                              WHERE id_plan=:id_plan";
+                $query_update = $this->conexion->prepare($sql_update);
+                $query_update->execute(array(':codigo_plan' => $data['codigo_plan'],
+                    ':nombre_plan' => $data['nombre_plan'],
+                    ':id_usr_modifico' => $id_usuario,
+                    ':id_plan' => $data['id_plan']));
+
+
+
+                if ($files_data['archivo_edt']['tmp_name'] != NULL || $files_data['archivo_edt']['tmp_name'] != "" || $files_data['archivo_edt']['tmp_name'] != 0) {
+
+                    $fp = fopen($files_data['archivo_edt']['tmp_name'], "r");
+                    $i = 0;
+                    while ($data_ex = fgetcsv($fp, 1000000, ";")) {
+                        if ($i > 0) {
+
+                            $sql_explora_chequeo = "SELECT * FROM examen WHERE codigo_crm = :codigo";
+                            $query_explora_chequeo = $this->conexion->prepare($sql_explora_chequeo);
+                            $query_explora_chequeo->execute(array(':codigo' => trim($data_ex[1])));
+                            $rows_chequeo = $query_explora_chequeo->fetchAll(PDO::FETCH_ASSOC);
+
+                            if (empty($rows_chequeo)) {
+                                $sql_explora_examen = "SELECT * FROM examenes_no_perfiles WHERE codigo = :codigo";
+                                $query_explora_examen = $this->conexion->prepare($sql_explora_examen);
+                                $query_explora_examen->execute(array(':codigo' => trim($data_ex[1])));
+                                $rows_examen = $query_explora_examen->fetchAll(PDO::FETCH_ASSOC);
+                                if (!empty($rows_examen)) {
+
+                                    /* Explora si existe el item plan para modificarlo */
+
+                                    $sql_explora_item = "SELECT * FROM plan_item WHERE id_plan=:id_plan AND id_item=:id_item AND tipo_item = 'examen'";
+                                    $query_explora_item = $this->conexion->prepare($sql_explora_item);
+                                    $query_explora_item->execute(array(':id_plan' => $data['id_plan'],
+                                        ':id_item' => $rows_examen[0]['id']));
+                                    $rows_item = $query_explora_item->fetchAll(PDO::FETCH_ASSOC);
+
+                                    if (!empty($rows_item)) {
+
+                                        /* Edita el precio de los items de los planes */
+
+                                        $sql_update_item = "UPDATE plan_item SET precio_plan =:precio_plan WHERE id_plan_item=:id_plan_item";
+                                        $query_update_plan_item = $this->conexion->prepare($sql_update_item);
+                                        $query_update_plan_item->execute(array(':id_plan_item' => $rows_item[0]['id_plan_item'],
+                                            ':precio_plan' => trim($data_ex[3])));
+                                    } else {
+
+                                        /* si no esta el item lo agrega */
+
+                                        $sql_insert_plan_item = "INSERT INTO plan_item(id_item,id_plan,tipo_item,precio_regular,precio_plan)
+                            VALUES(:id_item,:id_plan,:tipo_item,:precio_regular,:precio_plan)";
+                                        $query_insert_plan_item = $this->conexion->prepare($sql_insert_plan_item);
+                                        $query_insert_plan_item->execute(array(':id_item' => $rows_examen[0]['id'],
+                                            ':id_plan' => $data['id_plan'],
+                                            ':tipo_item' => 'examen',
+                                            ':precio_regular' => $rows_examen[0]['precio'],
+                                            ':precio_plan' => trim($data_ex[3])));
+                                    }
+                                }
+                            } else {
+                                /* Explora si existe el item plan para modificarlo */
+
+                                $sql_explora_item = "SELECT * FROM plan_item WHERE id_plan=:id_plan AND id_item=:id_item AND tipo_item = 'chequeo'";
+                                $query_explora_item = $this->conexion->prepare($sql_explora_item);
+                                $query_explora_item->execute(array(':id_plan' => $data['id_plan'],
+                                    ':id_item' => $rows_chequeo[0]['id']));
+                                $rows_item = $query_explora_item->fetchAll(PDO::FETCH_ASSOC);
+
+                                if (!empty($rows_item)) {
+
+                                    $sql_update_item = "UPDATE plan_item SET precio_plan =:precio_plan WHERE id_plan_item=:id_plan_item";
+                                    $query_update_plan_item = $this->conexion->prepare($sql_update_item);
+                                    $query_update_plan_item->execute(array(':id_plan_item' => $rows_item[0]['id_plan_item'],
+                                        ':precio_plan' => trim($data_ex[3])));
+                                } else {
+                                    $sql_insert_plan_item = "INSERT INTO plan_item(id_item,id_plan,tipo_item,precio_regular,precio_plan)
+                                  VALUES(:id_item,:id_plan,:tipo_item,:precio_regular,:precio_plan)";
+                                    $query_insert_plan_item = $this->conexion->prepare($sql_insert_plan_item);
+                                    $query_insert_plan_item->execute(array(':id_item' => $rows_chequeo[0]['id'],
+                                        ':id_plan' => $data['id_plan'],
+                                        ':tipo_item' => 'chequeo',
+                                        ':precio_regular' => $rows_chequeo[0]['precio'],
+                                        ':precio_plan' => trim($data_ex[3])));
+                                }
+                            }
+                        }
+                        $i++;
+                    }
+                }
+                return 1;
+            } catch (Exception $exc) {
+                return 2;
+            }
+        } else {
+            return 3;
+        }
+    }
+
+    function InfoPlan($data) {
+        $query = $this->conexion->prepare("SELECT * FROM plan WHERE activo = 1 AND id_plan=:id_plan");
+        $query->execute(array(':id_plan' => $data['id_plan']));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($rows[0]);
     }
 
 }

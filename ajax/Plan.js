@@ -139,7 +139,8 @@ function VerPlanes() {
             $.each(retu, function (i, plan) {
                 //var botones = "BOTONES";
 
-                var botones = '<input type="button" data-toggle="modal" onclick="LlenarOnclick(' + plan.id_plan + ')" data-target="#myModalPlanesItems"  value="Ver items" class="btn btn-sm btn-default">';
+                var botones = '<input type="button" data-toggle="modal" onclick="LlenarOnclick(' + plan.id_plan + ')" data-target="#myModalPlanesItems"  value="Ver items" class="btn btn-sm btn-default"><br>' +
+                        '<input type="button" onclick="InfoPlan(' + plan.id_plan + ')" data-toggle="modal" data-target="#myModalEdtPlan"  value="Editar info plan" class="btn btn-sm btn-info">';
 
 
                 var newRow = "<tr>";
@@ -353,5 +354,84 @@ function EditarItemPlan(id_plan_item) {
             }
         }
     }
+
+}
+
+function EditarInfoPlan(id_plan) {
+    var codigo_plan = $("#edt_codigo_plan").val();
+    var nombre_plan = $("#edt_nombre_plan").val();
+
+
+    if (codigo_plan == "" || nombre_plan == "") {
+        alertify.alert("Revise el formulario y complete los datos obligatorios");
+    } else {
+
+        var confirma = confirm("Esta seguro de modificar este plan");
+        if (confirma) {
+
+            var archivo = document.getElementById("archivo_edt");
+            var formElement = document.getElementById("frm_forms_edt");
+            var data = new FormData(formElement);
+            var file;
+            file = archivo.files[0];
+            data.append('archivo_edt', file);
+            data.append('tipo', 7);
+            data.append('id_plan', id_plan);
+            data.append('codigo_plan', codigo_plan);
+            data.append('nombre_plan', nombre_plan);
+
+            var url = "../controladores/PlanController.php";
+            var retorno;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: false,
+                data: data,
+                async: false,
+                processData: false,
+                cache: false
+            }).done(function (retu) {
+                retorno = retu;
+            });
+
+            if (retorno == 1) {
+                /*alertify.alert("Se ingreso correctamente el plan");*/
+                alertify.alert("Se modifico correctamente el plan", function () {
+                    VerPlanes();
+                    $('#myModalEdtPlan').modal('toggle');
+                });
+            } else if (retorno == 2) {
+                alertify.alert("Ocurrio un error al tratar de modificar el plan");
+            } else if (retorno == 3) {
+                alertify.alert("Este plan ya existe, cambielo");
+            }
+        }
+
+    }
+}
+
+function InfoPlan(id_plan) {
+    $("#edt_codigo_plan").val("");
+    $("#edt_nombre_plan").val("");
+    $("#archivo_edt").val("");
+
+    var datos;
+    $.ajax({
+        type: "POST",
+        url: "../controladores/PlanController.php",
+        async: false,
+        dataType: 'json',
+        data: {
+            tipo: 6,
+            id_plan: id_plan
+        },
+        success: function (retu) {
+            datos = retu;
+        }
+    });
+
+    $("#edt_btn_plan").attr("onclick", "EditarInfoPlan(" + datos.id_plan + ")");
+    $("#edt_codigo_plan").val(datos.codigo_plan);
+    $("#edt_nombre_plan").val(datos.nombre_plan);
 
 }

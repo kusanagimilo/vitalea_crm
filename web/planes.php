@@ -167,6 +167,42 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
 
+    <div class="modal" id="myModalEdtPlan"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white" >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt=""/>Editar información plan</h4>
+                </div>
+                <div class="modal-body col-md-12" style="height: 400px; overflow : auto;" id="cuerpo_modal">
+                    <form enctype='multipart/form-data' method='post' name='fileinfo' id='frm_forms_edt'> 
+                        <!-- formulario -->
+                        <div class="form-group">
+                            <label for="inputtext">* Ingrese el codigo para el plan</label>
+                            <input type="text" class="form-control" id="edt_codigo_plan" placeholder="Codigo plan" name="edt_codigo_plan">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputtext">* Ingrese el nombre de el plan</label>
+                            <input type="text" class="form-control" id="edt_nombre_plan" placeholder="Nombre plan" name="edt_nombre_plan">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputtext">Seleccione el archivo csv de tarifas para anexar nuevas o modificar las existentes</label>
+                            <input type="file" class="custom-file-input" id="archivo_edt" name="archivo_edt">
+                        </div>
+                        <div class="form-group">
+                            <button onclick="" type="button" id="edt_btn_plan" class="btn btn-primary btn-lg btn-block">Editar plan</button>
+                        </div>
+                    </form>
+                </div>          
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>                            
+        </div>
+    </div>
+
+
 
     <script>
         VerPlanes();
