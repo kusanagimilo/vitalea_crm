@@ -4,6 +4,18 @@ require_once '../include/header_administrador.php';
 $array_permisos = explode(",", $_SESSION['PERMISOS']);
 ?>
 <style>
+
+    .nombreChequeo {
+        width: 20%; 
+        font-size: 11px; 
+        text-align: center;        
+    }
+
+    .nombreChequeo:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #214761;
+    }
     .loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
@@ -13,7 +25,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         -webkit-animation: spin 2s linear infinite;
         /* Safari */
         animation: spin 2s linear infinite;
-    }
+    }   
 
     /* Safari */
     @-webkit-keyframes spin {
@@ -39,10 +51,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 <script src="../ajax/firmasAlmacenar.js"></script>
 <script src="../ajax/venta.js"></script>
 <script src="../web/js/dist/jspdf.min.js"></script>
-<script src="../web/js/dist/NotoSans-Bold-normal.js"></script>
-
+<script src="../ajax/Facturacion.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <body style="background-color: #F6F8FA">
-    <script src="../ajax/Facturacion.js" type="text/javascript"></script>
     <div class="main-menu-area mg-tb-40">
         <div class="container" style="height:auto;">
             <div class="row">
@@ -127,16 +138,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <label>No</label>
                                                             <input type="radio" value="No" name="contacto">
                                                         </div>
-                                                    </div>                                                    
+                                                    </div>                                                  
                                                     
-                                                    <!-- <div style="padding: 40px; text-align: center; box-sizing: border-box; display: inline;">                                                        
-                                                        <div style="display: block">
-                                                            Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;">
-                                                            No <input name="habeasData" data-toggle="modal" data-target="#modalAnuncioHD" type="radio" id="checkHabeasData" style="margin-top: -4px;">
-                                                        </div>
-                                                    </div> -->
-
-
                                                     <div class="panel panel-primary">
                                                         <div class="panel-heading">Adicionar examenes</div>
                                                         <div class="panel-body">
@@ -255,7 +258,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
     <!-- Modal de firmas Habeas Data -->
     <div class="modal" id="myModalFirma" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" style="width: 90%;">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #214761; color: white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -297,14 +300,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                    <button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel"   style="width: 110%; margin-top: -30px">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #214761; color: white">
@@ -325,7 +328,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                     <button onclick="generarPdfCotizacion()" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> Generar PDF Cotizacion</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                    <button type="button" id="cerrarModal" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
             </div>
         </div>
@@ -356,6 +359,11 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
     <script>
+        (function borrarTemp() {
+            const closeModal = document.getElementById("closeModal");
+            console.log(closeModal);
+        }());
+
         obtener_categoria_examen();
         $("#examen_categoria_venta").change(function() {
             obtener_examen();
@@ -446,12 +454,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             });
         }
 
-
         VerPrecotizaciones();
         verDetalleCotizacion();
     </script>
-
-
     <!-- End Contact Info area-->
     <?php require_once '../include/footer.php'; ?>
 

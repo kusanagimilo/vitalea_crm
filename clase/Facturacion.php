@@ -546,13 +546,13 @@ group by ven.usuario_id");
     }
 
     public function consultaModalPerfil($data) {
-        // $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.precotizacion WHERE id_precotizacion = :idExamen");
-        // $query->execute(array(
-        //     ':idExamen' => $data['cotizId']
-        // ));
-        // $rows = $query->fetchAll(PDO::FETCH_ASSOC);
-        // $json_retorno2 = json_encode($rows);
-        // return $json_retorno2;
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examenes_no_perfiles where id in( SELECT id_examen FROM crm_preatencion_prod.perfil_examen WHERE id_perfil = :respuestaId)");
+        $query->execute(array(
+            ':respuestaId' => $data['respuestaId']
+        ));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json_retorno2 = json_encode($rows);
+        return $json_retorno2;
     }
     public function insercionFirma($firma, $documento) {
         $query = $this->conexion->prepare("UPDATE  crm_preatencion_prod.cliente SET firma = :firma WHERE documento = :documento;");

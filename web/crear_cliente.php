@@ -388,7 +388,7 @@ require_once '../include/header_administrador.php';
 </script>
 <script src="../ajax/clasificar_paciente.js" ></script>
 <script src="../include/constante.js" ></script>
-<script src="../ajax/firmasAlmacenar.js"></script>
+<!-- <script src="../ajax/firmasAlmacenar.js"></script> -->
 <body style="background-color: #F6F8FA;">
     <input type="hidden" id="coincide_email" value="0">
     <div class="main-menu-area mg-tb-40" style="min-height: 400px;">

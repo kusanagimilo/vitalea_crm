@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function (event) {
+    showFieldHabeasData();
+});
+
 /* INFORMACION DEL CLIENTE */
 
 function informacion_cliente() {
@@ -39,12 +43,13 @@ function informacion_cliente() {
                 $(nombre_cliente).appendTo("#nombre_cliente");
                 sessionStorage.setItem('nombreCliente', cliente.nombre_cliente + " " + cliente.apellido_cliente);
                 sessionStorage.setItem('documento', cliente.tipo_documento + ": " + cliente.documento);
+                sessionStorage.setItem('documentoNumero', cliente.documento);
                 sessionStorage.setItem('firma', cliente.firma);
 
 
                 const btnpdf = document.querySelector("#btnHabeas");
                 btnpdf.addEventListener("click", () => {
-                    const firmaComprobacion = sessionStorage.getItem('firma').substr(0, 1);   
+                    const firmaComprobacion = sessionStorage.getItem('firma').substr(0, 1);
 
                     if (firmaComprobacion != "d") {
                         Swal.fire({
@@ -53,8 +58,9 @@ function informacion_cliente() {
                             text: 'No se completo la operacion debido a que no hay registros de firmas, guardados en la base de datos!',
                             footer: '<a target="_blank" href="https://wa.me/573506793449">¿Algun problema con el CRM?, Contacta a Soporte.</a>',
                             allowOutsideClick: false
-                        })
-                    } else {                        
+                        });
+
+                    } else {
                         generarPdf();
                     }
                 })
@@ -667,5 +673,35 @@ function generarPdf() {
     });
     // Funcion Generadora del PDF
     doc.save('detallePerfilCliente.pdf');
+}
 
+function showFieldHabeasData() {
+    setTimeout(() => {
+        var documentoFirma = sessionStorage.getItem('documentoNumero');
+        const fielHabeasData = document.querySelector("#fieldHabeasData");
+        $.ajax({
+            type: "POST",
+            url: "../controladores/FacturacionController.php",
+            async: false,
+            dataType: 'json',
+            data: {
+                tipo: 20,
+                inputIdValue: documentoFirma
+            },
+            success: function (retu) {
+                let firmaParametro = retu[0].firma
+                if (firmaParametro === null || firmaParametro === "null") {
+                    var condicional = 0;    
+                } else {
+                    var condicional = firmaParametro.toString();
+                    var condicionalStr = condicional.substr(0, 4);                    
+                }
+                if (condicionalStr === "data") {
+                    fielHabeasData.setAttribute("style", "display: none");
+                } else {
+                    fielHabeasData.setAttribute("style", "display: block");    
+                }
+            }
+        });
+    }, 500);
 }

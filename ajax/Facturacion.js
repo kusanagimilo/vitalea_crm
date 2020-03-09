@@ -11,24 +11,24 @@ function VerListaFacturacion() {
         $("#lista_ventas_cot_body").html("");
 
         var tabla = '<table id="lista_ventas_cot" class="table table-bordered">' +
-                '<thead>' +
-                '<tr style="background-color: #214761;">' +
-                '<th style="color:white">Tipo de Documento</th>' +
-                '<th style="color:white">No. Documento</th>' +
-                '<th style="color:white">Nombre Completo paciente</th>' +
-                '<th style="color:white">Medio de pago</th>' +
-                '<th style="color:white">Código</th>' +
-                '<th style="color:white">Factura Athenea</th>' +
-                '<th style="color:white">Fecha creacion</th>' +
-                '<th style="color:white">Fecha pagó</th>' +
-                '<th style="color:white">Estado</th>' +
-                '<th style="color:white">Valor total servicios</th>' +
-                '<th style="color:white">Acciónes</th>' +
-                '</tr>' +
-                '</thead>' +
-                '<tbody id="lista_ventas_cot_body">' +
-                '</tbody>' +
-                '</table>';
+            '<thead>' +
+            '<tr style="background-color: #214761;">' +
+            '<th style="color:white">Tipo de Documento</th>' +
+            '<th style="color:white">No. Documento</th>' +
+            '<th style="color:white">Nombre Completo paciente</th>' +
+            '<th style="color:white">Medio de pago</th>' +
+            '<th style="color:white">Código</th>' +
+            '<th style="color:white">Factura Athenea</th>' +
+            '<th style="color:white">Fecha creacion</th>' +
+            '<th style="color:white">Fecha pagó</th>' +
+            '<th style="color:white">Estado</th>' +
+            '<th style="color:white">Valor total servicios</th>' +
+            '<th style="color:white">Acciónes</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody id="lista_ventas_cot_body">' +
+            '</tbody>' +
+            '</table>';
 
         $("#tabla_factur").html(tabla);
 
@@ -55,8 +55,8 @@ function VerListaFacturacion() {
                     if (ventas.estado == 1) {
                         estado = "Por pagar";
                         botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
-                                '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
-                                '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
+                            '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
+                            '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
                     } else if (ventas.estado == 2) {
 
                         if (ventas.turno_facturacion == "permite_turno") {
@@ -68,7 +68,7 @@ function VerListaFacturacion() {
                         estado = "Pagado";
                         if (ventas.medio_pago == "Presencial con Tarjeta de Credito") {
                             botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
-                                    '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
+                                '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
                         } else {
                             botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' + boton_turno;
 
@@ -127,7 +127,7 @@ function CambiarEstadoVenta(estado, id) {
             type: 'POST',
             url: "../controladores/FacturacionController.php",
             beforeSend: function () {
-                $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
+                $('#ModalCargando').modal({ backdrop: 'static', keyboard: false });
             },
             data: {
                 tipo: 2,
@@ -172,7 +172,7 @@ function Cambiartd(idventa) {
                 if (ventas.estado == 1) {
                     estado = "Por pagar";
                     botones = '<input type="button" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
-                            '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
+                        '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
                 } else if (ventas.estado == 2) {
                     estado = "Pagado";
                     if (ventas.turno_facturacion == "permite_turno") {
@@ -184,7 +184,7 @@ function Cambiartd(idventa) {
                     estado = "Pagado";
                     if (ventas.medio_pago == "Presencial con Tarjeta de Credito") {
                         botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
-                                '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
+                            '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
                     } else {
                         botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' + boton_turno;
 
@@ -249,39 +249,39 @@ function VerDetalleFacturacion(id_venta) {
 
 
     var html = '<table class="table table-striped">' +
-            '<thead>' +
-            '<tr>' +
-            '<th scope="col" colpsan="2">Informacion general de la venta</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody>' +
-            '<tr><td>Tipo de documento</td><td>' + info_factura.tipo_doc + '</td></tr>' +
-            '<tr><td># Documento</td><td>' + info_factura.documento + '</td></tr>' +
-            '<tr><td>Nombre paciente</td><td>' + info_factura.cliente + '</td></tr>' +
-            '<tr><td>Fecha generacion solicitud</td><td>' + info_factura.fecha_creacion + '</td></tr>' +
-            '<tr><td>Medio de pago</td><td>' + info_factura.medio_pago + '</td></tr>' +
-            '<tr><td>Fecha de pago</td><td>' + info_factura.fecha_pago + '</td></tr>' +
-            '<tr><td>Valor total servicios</td><td>' + info_factura.total_venta + '</td></tr>' +
-            '<tr><td>Observaciones</td><td>' + info_factura.observacion + '</td></tr>' +
-            '</tbody>' +
-            '</table>' +
-            '<table class="table table-striped">' +
-            '<thead>' +
-            '<tr>' +
-            '<th scope="col" colpsan="3">Examenes</th>' +
-            '</tr>' +
-            '<tr>' +
-            '<th scope="col">Codigo examen</th>' +
-            '<th scope="col">Examen</th>' +
-            '<th scope="col">Valor</th>' +
-            '</tr>' +
-            '</thead><tbody>';
+        '<thead>' +
+        '<tr>' +
+        '<th scope="col" colpsan="2">Informacion general de la venta</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+        '<tr><td>Tipo de documento</td><td>' + info_factura.tipo_doc + '</td></tr>' +
+        '<tr><td># Documento</td><td>' + info_factura.documento + '</td></tr>' +
+        '<tr><td>Nombre paciente</td><td>' + info_factura.cliente + '</td></tr>' +
+        '<tr><td>Fecha generacion solicitud</td><td>' + info_factura.fecha_creacion + '</td></tr>' +
+        '<tr><td>Medio de pago</td><td>' + info_factura.medio_pago + '</td></tr>' +
+        '<tr><td>Fecha de pago</td><td>' + info_factura.fecha_pago + '</td></tr>' +
+        '<tr><td>Valor total servicios</td><td>' + info_factura.total_venta + '</td></tr>' +
+        '<tr><td>Observaciones</td><td>' + info_factura.observacion + '</td></tr>' +
+        '</tbody>' +
+        '</table>' +
+        '<table class="table table-striped">' +
+        '<thead>' +
+        '<tr>' +
+        '<th scope="col" colpsan="3">Examenes</th>' +
+        '</tr>' +
+        '<tr>' +
+        '<th scope="col">Codigo examen</th>' +
+        '<th scope="col">Examen</th>' +
+        '<th scope="col">Valor</th>' +
+        '</tr>' +
+        '</thead><tbody>';
     $.each(retorno.items, function (i, items) {
         html += '<tr>' +
-                '<td>' + items.codigo_examen + '</td>' +
-                '<td>' + items.nombre_examen + '</td>' +
-                '<td>' + items.valor + '</td>' +
-                '</tr>';
+            '<td>' + items.codigo_examen + '</td>' +
+            '<td>' + items.nombre_examen + '</td>' +
+            '<td>' + items.valor + '</td>' +
+            '</tr>';
     });
 
     html += '</tbody></table>';
@@ -308,25 +308,25 @@ function NoFactura(id_venta) {
     });
 
     var html = '<div class="panel panel-default">' +
-            '<div class="panel-heading">' +
-            '<h3 class="panel-title">' +
-            '<img src="images/lista.png" alt=""/>' +
-            '<b>Modificar Numero factura</b></h3>' +
-            '</div>' +
-            '<div class="panel-body">' +
-            '<div class="row">' +
-            '<div class="col-md-12" style="color:red; margin; margin-bottom: 5px;">' +
-            'Numero de actual factura actual: ' + retorno + '' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            '<input id="no_factura" name="no_factura" placeholder="Ingrese el numero de la factura" name="" type="text" class="form-control">' +
-            '</div>' +
-            '<div class="col-md-6">' +
-            '<input type="button" onclick="ModificarNoFacturacion(' + id_venta + ')" value="Modificar NºFactura" class="btn btn-primary">' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
+        '<div class="panel-heading">' +
+        '<h3 class="panel-title">' +
+        '<img src="images/lista.png" alt=""/>' +
+        '<b>Modificar Numero factura</b></h3>' +
+        '</div>' +
+        '<div class="panel-body">' +
+        '<div class="row">' +
+        '<div class="col-md-12" style="color:red; margin; margin-bottom: 5px;">' +
+        'Numero de actual factura actual: ' + retorno + '' +
+        '</div>' +
+        '<div class="col-md-6">' +
+        '<input id="no_factura" name="no_factura" placeholder="Ingrese el numero de la factura" name="" type="text" class="form-control">' +
+        '</div>' +
+        '<div class="col-md-6">' +
+        '<input type="button" onclick="ModificarNoFacturacion(' + id_venta + ')" value="Modificar NºFactura" class="btn btn-primary">' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
 
     $("#cuerpo_modal_factura").html(html);
 
@@ -423,21 +423,21 @@ function ListaArqueo() {
     $("#lista_arqueo_cot_body").html("");
 
     var tabla = '<center><input type="button" onclick="DescargarArqueo()" value="Descargar pdf arqueo" class="btn btn-danger"> <input type="button" onclick="descargarExcelArqueo()" value="Descargar Excel" class="btn btn-success"></center><table id="lista_arqueo_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Fecha venta</th>' +
-            '<th style="color:white">Factura</th>' +
-            '<th style="color:white">Medio pago</th>' +
-            '<th style="color:white">Asesor</th>' +
-            '<th style="color:white">Documento asesor</th>' +
-            '<th style="color:white">Paciente</th>' +
-            '<th style="color:white">Documento paciente</th>' +
-            '<th style="color:white">Total venta</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_arqueo_cot_body">' +
-            '</tbody>' +
-            '</table>';
+        '<thead>' +
+        '<tr style="background-color: #214761;">' +
+        '<th style="color:white">Fecha venta</th>' +
+        '<th style="color:white">Factura</th>' +
+        '<th style="color:white">Medio pago</th>' +
+        '<th style="color:white">Asesor</th>' +
+        '<th style="color:white">Documento asesor</th>' +
+        '<th style="color:white">Paciente</th>' +
+        '<th style="color:white">Documento paciente</th>' +
+        '<th style="color:white">Total venta</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody id="lista_arqueo_cot_body">' +
+        '</tbody>' +
+        '</table>';
 
     $("#tabla_arqueo").html(tabla);
 
@@ -575,12 +575,12 @@ function CotAddItem(tipo_item) {
             var numero = formatNumber(parseInt(datos.precio));
             var td_on = '"' + td_id + '"';
             var html = "<tr id='" + td_id + "'>" +
-                    "<td>" + codigo + "<input type='hidden' value='" + datos.id + "' name='item_id[]' id='item_id[]' />" +
-                    "<input type='hidden' value='" + tipo_item + "' name='tipo_item[]' id='tipo_item[]' ></td>" +
-                    "<td>" + datos.nombre + "</td>" +
-                    "<td>" + numero + "</td>" +
-                    "<td><input type='button' onclick='ElimItem(" + td_on + "," + datos.precio + ")' class='btn btn-danger' value='Eliminar item'></td>" +
-                    "</tr>";
+                "<td>" + codigo + "<input type='hidden' value='" + datos.id + "' name='item_id[]' id='item_id[]' />" +
+                "<input type='hidden' value='" + tipo_item + "' name='tipo_item[]' id='tipo_item[]' ></td>" +
+                "<td>" + datos.nombre + "</td>" +
+                "<td>" + numero + "</td>" +
+                "<td><input type='button' onclick='ElimItem(" + td_on + "," + datos.precio + ")' class='btn btn-danger' value='Eliminar item'></td>" +
+                "</tr>";
 
             $("#cuerpo_cotizacion").append(html);
 
@@ -649,7 +649,7 @@ function AlmacenarPreCotizacion() {
                 type: "POST",
                 url: "../controladores/FacturacionController.php",
                 beforeSend: function () {
-                    $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
+                    $('#ModalCargando').modal({ backdrop: 'static', keyboard: false });
                 },
                 dataType: 'json',
                 data: {
@@ -668,8 +668,8 @@ function AlmacenarPreCotizacion() {
                 success: function (retu) {
 
                     $('#ModalCargando').modal('toggle');
-
-                    if (retu == 1) {
+                    console.log(retu);
+                   /* if (retu == 1) {
                         alertify.alert("Se realizo la acción correctamente", function () {
                             location.reload();
                         });
@@ -677,7 +677,7 @@ function AlmacenarPreCotizacion() {
                     } else {
                         console.log(retu);
                         alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
-                    }
+                    }*/
                 }
             });
         }
@@ -692,21 +692,21 @@ function VerPrecotizaciones() {
     $("#lista_precot_cot_body").html("");
 
     var tabla = '<table id="lista_precot_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">#Cotización</th>' +
-            '<th style="color:white">Nombre cliente</th>' +
-            '<th style="color:white">Correo</th>' +
-            '<th style="color:white">Telefono</th>' +
-            '<th style="color:white">Asesor(a)</th>' +
-            '<th style="color:white">Fecha cotización</th>' +
-            '<th style="color:white">Valor</th>' +
-            '<th style="color:white">Ver detalle</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_precot_cot_body">' +
-            '</tbody>' +
-            '</table>';
+        '<thead>' +
+        '<tr style="background-color: #214761;">' +
+        '<th style="color:white">#Cotización</th>' +
+        '<th style="color:white">Nombre cliente</th>' +
+        '<th style="color:white">Correo</th>' +
+        '<th style="color:white">Telefono</th>' +
+        '<th style="color:white">Asesor(a)</th>' +
+        '<th style="color:white">Fecha cotización</th>' +
+        '<th style="color:white">Valor</th>' +
+        '<th style="color:white">Ver detalle</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody id="lista_precot_cot_body">' +
+        '</tbody>' +
+        '</table>';
 
     $("#tabla_coti").html(tabla);
 
@@ -755,39 +755,38 @@ function verDetalleCotizacion() {
             i.addEventListener("click", (e) => {
 
                 let eventoId = e.target.parentNode.parentNode.firstChild.innerText;
-                console.log(eventoId);
                 sessionStorage.setItem('idCotizacion', eventoId);
                 $("#listaResultadosVerDetalleChequeos").html("");
                 $("#listaResultadosVerDetalleExamenes").html("");
 
                 var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
-                            '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Chequeos</caption>' +
-                            '<thead style="display: flex; flex-direction: column">' +
-                            '<tr style="background-color: #214761">' +
-                            '<th style="color:white; width: 20%">Clasificación</th>' +
-                            '<th style="color:white; width: 20%">Nombre</th>' +
-                            '<th style="color:white; width: 20%">Código</th>' +
-                            '<th style="color:white; max-width: 100px">Recomend.</th>' +
-                            '<th style="color:white; width: 20%">Precio</th>' +
-                            '</tr>' +
-                            '</thead>' +
-                            '<tbody id="listaResultadosVerDetalleChequeos" style="display: flex; flex-direction: column">' + '</tbody>' +
-                            '</table>' ;
-                            $("#contenedorTablaDetallesChequeos").html(tabla);
-                var tabla2 ='<table class="table table-bordered">' +
-                            '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Examenes</caption>' +
-                            '<thead style="display: flex; flex-direction: column">' +
-                            '<tr style="background-color: #214761">' +
-                            '<th style="color:white; width: 20%">Clasificación</th>' +
-                            '<th style="color:white; width: 20%">Nombre</th>' +
-                            '<th style="color:white; width: 20%">Código</th>' +
-                            '<th style="color:white; max-width: 100px">Recomend.</th>' +
-                            '<th style="color:white; width: 20%">Precio</th>' +
-                            '</tr>' +
-                            '</thead>' +
-                            '<tbody id="listaResultadosVerDetalleExamenes" style="display: flex; flex-direction: column">' + '</tbody>' +
-                            '</table>' ;
-                            $("#contenedorTablaDetallesExamenes").html(tabla2);
+                    '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Chequeos</caption>' +
+                    '<thead style="display: flex; flex-direction: column">' +
+                    '<tr style="background-color: #214761">' +
+                    '<th style="color:white; width: 20%">Clasificación</th>' +
+                    '<th style="color:white; width: 20%">Nombre</th>' +
+                    '<th style="color:white; width: 20%">Código</th>' +
+                    '<th style="color:white; max-width: 100px">Recomend.</th>' +
+                    '<th style="color:white; width: 20%">Precio</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="listaResultadosVerDetalleChequeos" style="display: flex; flex-direction: column">' + '</tbody>' +
+                    '</table>';
+                $("#contenedorTablaDetallesChequeos").html(tabla);
+                var tabla2 = '<table class="table table-bordered">' +
+                    '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Examenes</caption>' +
+                    '<thead style="display: flex; flex-direction: column">' +
+                    '<tr style="background-color: #214761">' +
+                    '<th style="color:white; width: 20%">Clasificación</th>' +
+                    '<th style="color:white; width: 20%">Nombre</th>' +
+                    '<th style="color:white; width: 20%">Código</th>' +
+                    '<th style="color:white; max-width: 100px">Recomend.</th>' +
+                    '<th style="color:white; width: 20%">Precio</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="listaResultadosVerDetalleExamenes" style="display: flex; flex-direction: column">' + '</tbody>' +
+                    '</table>';
+                $("#contenedorTablaDetallesExamenes").html(tabla2);
 
                 $.ajax({
                     type: "POST",
@@ -801,14 +800,14 @@ function verDetalleCotizacion() {
                     success: function (retu) {
                         $("#listaResultadosVerDetalleChequeos").html("");
                         $("#listaResultadosVerDetalleExamenes").html("");
-                        $.each(retu, function (i, precot) {                        
-                           
+                        $.each(retu, function (i, precot) {
+
                             var newRow = "";
-                            newRow += "<tr style='order: 2'>";
+                            newRow += "<tr style='order:2; max-height: 30px'>";
                             newRow += "<td name='idCotizacion' style='display: none'>" + precot.id_precotizacion + "</td>";
                             newRow += "<td style='display: none'>" + precot.id_item + "</td>";
                             newRow += "<td style='display: none'>" + precot.tipo_item + "</td>";
-                            newRow += "<td style='width: 100%'><button id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>" + " Ver Mas" + "</button></td>";
+                            newRow += "<td style='visibility: hidden; width: 100%; ' colspan='4'><button style='max-height:2px' id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>" + " Ver Mas" + "</button></td>";
                             newRow += "</tr>";
                             newRow += "<tr id='masInfoGeneral' style='font-size: 10px; order: 1; width: 100%'></tr>";
 
@@ -823,8 +822,8 @@ function verDetalleCotizacion() {
                         const moreDetails = document.querySelectorAll("#verMasInfo");
                         for (const iterator of moreDetails) {
                             function verDetalleDiscriminado(e) {
-                                let idEx = e.target.parentNode.parentNode.childNodes[1].textContent;
-                                let tipEx = e.target.parentNode.parentNode.childNodes[2].textContent;
+                                let idEx = e.target.childNodes[1].textContent;
+                                let tipEx = e.target.childNodes[2].textContent;
                                 if (tipEx == "perfil") {
                                     var tipo = 16;
                                 } else {
@@ -840,7 +839,8 @@ function verDetalleCotizacion() {
                                         idExamen: idEx
                                     },
                                     success: function (retur) {
-                                        $.each(retur, function (i, respuesta) {
+                                        
+                                        $.each(retur, function (i, respuesta) {                                            
                                             let soloPerfiles;
                                             if (respuesta.grupo_id == 1) {
                                                 soloPerfiles = "CHEQUEO ESCENCIAL";
@@ -863,8 +863,8 @@ function verDetalleCotizacion() {
                                             } else {
                                                 soloPerfiles = "No Aplica. ";
                                             }
-
                                             if (tipo == 16) {
+                                                var respuestaId = respuesta.id;
                                                 var codigo = respuesta.codigo_crm;
                                             } else {
                                                 codigo = respuesta.codigo;
@@ -875,58 +875,69 @@ function verDetalleCotizacion() {
                                             let recomendaciones = respuesta.recomendaciones;
                                             let precios = respuesta.precio;
 
-                                            let contenedor = "<td style='width: 20%; font-size: 10px;'>" + soloPerfiles + "</td>";
-                                            contenedor += "<td id='nombreChequeo' style='width: 20%; font-size: 10px;'>" + nombre + "</td>";
-                                            contenedor += "<td style='width: 20%; font-size: 10px;'>" + codigo + "</td>";
-                                            contenedor += "<td style='width: 20%; font-size: 10px;'>" + recomendaciones + "</td>";
-                                            contenedor += "<td style='width: 20%; font-size: 10px;'>" + "$" +precios + "</td>";
-                                            
-                                            
-                                            $(contenedor).appendTo(e.target.parentNode.parentNode.nextSibling);
-                                        });
-                                        
-                                        const nombreChequeo = document.querySelector("#nombreChequeo")
-                                        nombreChequeo.addEventListener("click", () => {
-                                            let valorNombreChequeo = document.querySelector("#nombreChequeo").textContent;
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "../controladores/FacturacionController.php",
-                                                async: false,
-                                                dataType: 'json',
-                                                data: {
-                                                    tipo: 17,
-                                                    valorNombreChequeo: valorNombreChequeo
-                                        
-                                                },
-                                                success: function (retu) {
-                                        
-                                                    $.each(retu, function (i, precot) {
-                                                        
-                                                    });
-                                        
-                                                }
-                                            });
+                                            let contenedor = "<tr><td style='width: 20%; font-size: 10px; text-align: center; min-width: 107px;'>" + soloPerfiles + "</td>";
+                                            contenedor += "<td id='nombreChequeo' class='nombreChequeo'>" + nombre + "</td>";
+                                            contenedor += "<td style='width: 20%; font-size: 10px; text-align: center'>" + codigo + "</td>";
+                                            contenedor += "<td style='width: 20%; font-size: 10px; text-align: center'>" + recomendaciones + "</td>";
+                                            contenedor += "<td style='width: 20%; font-size: 10px; text-align: center'>" + "$" + formatNumber(precios) + "</td></tr>";
+                                            $(contenedor).appendTo(e.target.parentNode.childNodes[1]);
 
-                                        })
+                                            const nombreChequeo = document.querySelectorAll("#nombreChequeo");
+                                            for (let i = 0; i < nombreChequeo.length; i++) {
+                                                nombreChequeo[i].addEventListener("click", (e) => {
+                                                    
+                                                    if (respuestaId) {
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "../controladores/FacturacionController.php",
+                                                            async: false,
+                                                            dataType: 'json',
+                                                            data: {
+                                                                tipo: 18,
+                                                                respuestaId: respuestaId
+    
+                                                            },
+                                                            success: function (retu) {
+                                                                var allReturn = document.createElement("span");
+                                                                for (let i = 0; i < retu.length; i++) {                                                                     
+                                                                    var nombreEx = retu[i].codigo+ " " + retu[i].nombre + " | ";
+                                                                    allReturn.append(nombreEx);
+                                                                }
+                                                                console.log(allReturn);
+                                                                Swal.fire({
+                                                                    title: 'Examenes que conforman el chequeo',
+                                                                    text: `${allReturn.innerText}`,
+                                                                    icon: 'info',
+                                                                    confirmButtonText: 'Entendido',
+                                                                    onClose: () => {
+                                                                        location.reload();
+                                                                    }
+                                                                })
+                                                            }
+                                                        });
+                                                    } else {
+                                                        Swal.fire({
+                                                            title: 'Examen',
+                                                            text: 'Para este examen no aplica la descripción de examen',
+                                                            icon: 'info',
+                                                            confirmButtonText: 'Entendido',
+                                                            onClose: () => {
+                                                                location.reload();
+                                                            }
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        });
                                     }
                                 });
-                                iterator.removeEventListener('click', verDetalleDiscriminado);
+                                iterator.parentNode.parentNode.removeEventListener('mouseenter', verDetalleDiscriminado);
                             }
-                            iterator.addEventListener("click", verDetalleDiscriminado);
+                            iterator.parentNode.parentNode.addEventListener("mouseenter", verDetalleDiscriminado);
                         }
                     }
                 });
             });
-
-            const paginacion2 = document.getElementById("myValoresRef");
-            function borrarTemp() {
-                setTimeout(() => {
-                    //$("#masInfoGeneral").html("");
-                    //location.reload();
-                }, 1200);
-            }
-            paginacion2.addEventListener("mouseleave", borrarTemp);
-
         }
     }
     const paginacion = document.querySelector('#lista_precot_cot');

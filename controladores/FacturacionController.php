@@ -48,7 +48,6 @@ if ($tipo == 3) {
 }if ($tipo == 12) {
 
     $retorno = $Obj_Facturacion->AlmacenarPreCotizacion($_POST);
-
     if ($retorno != "mal") {
         include ('../controlador/email_venta.php');
         $retorno_correo = EnviarCorreoPrecotizacion($_POST['correo'], $retorno);

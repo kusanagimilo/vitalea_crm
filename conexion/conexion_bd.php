@@ -1,5 +1,5 @@
 <?php
-class Conexion extends PDO{
+class Conexion extends PDO {
     
     public function __construct() {
 

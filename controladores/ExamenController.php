@@ -47,5 +47,8 @@ if ($tipo == 1) {
 }if ($tipo == 12) {
     $retorno = $Obj_Examen->ModificarPerfil($_POST);
     echo $retorno;
+}if ($tipo == 13) {
+    $retorno = $Obj_Examen->modificarExamenesNoPerfiles($_POST);
+    echo $retorno;
 }
 

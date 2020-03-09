@@ -119,6 +119,39 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         </div>
     </div>
 
+    <div class="modal" id="modalEditarExamen"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white" >
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img src="images/examen_venta.png" alt=""/> Editar examenes</h4>
+                </div>
+                <div class="modal-body col-8" style="height: 400px; overflow : auto;" id="cuerpo_modal">
+                    <div class="col-8">
+                        
+                            <label><img src="images/item.png"> Estos son los parametros que podras modificar.</label><br>
+                       
+                            <input style="width:100%" id="codigoExamen" type="text" placeholder="Código"><br><br>                         
+                            <input style="width:100%" id="nombreExamen" type="text" placeholder="Nombre"><br><br>                        
+                            <input style="width:100%" id="precioExamen" type="text" placeholder="Precio"><br><br>                        
+                            <input id="boton_add_subexa" type="button" value="Adicionar" class="btn btn-default">
+                        
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-md-12" id="cont_modal_subexamen">
+
+
+                    </div>
+                </div>          
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>                            
+        </div>
+    </div>
+
     <div class="modal" id="myModalExamen"  role="dialog" aria-labelledby="myModalLabel" >
         <div class="modal-dialog" style="width: 80%;">
             <div class="modal-content">

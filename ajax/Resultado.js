@@ -552,19 +552,19 @@ function generarPdfPerfil() {
                 let documento = docu.toString();
                 if (firmaPdf != null) {
                     var doc = new jsPDF();
-                    doc.addImage(firmaPdf, 'png', 134, 215, 80, 26);
+                    doc.addImage(firmaPdf, 'png', 126, 215, 75, 26);
                     doc.addImage(imgData, 'png', 2, 1, 205, 190);
                     doc.setFontSize(10);
                     doc.setFont("helvetica");
                     doc.setTextColor(0, 24, 0);
                     doc.text(5, 230, "Nombre: " + nombreCliente);
                     doc.text(55, 230, "Documento: " + documento);
-                    doc.text(125, 230, "Firma: ");
+                    doc.text(120, 230, "Firma: ");
 
-                    doc.setDrawColor(0);
-                    doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
-                    doc.setFillColor(133, 0, 144);
-                    doc.rect(0, 272, 132, 26, 'F');
+                    // doc.setDrawColor(0);
+                    // doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
+                    // doc.setFillColor(133, 0, 144);
+                    // doc.rect(0, 272, 132, 26, 'F');
 
                     doc.setProperties({
                         //Metadatos del documento

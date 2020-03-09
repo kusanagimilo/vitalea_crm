@@ -290,38 +290,38 @@ $guion = $gestion->guion($clasificacion_id);
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                                        <div style="height: 50px;border-bottom:1px solid #00c292;padding: 10px; ">
-                                            <a href="#collapse3" id="colapsible_clasificacion" style=" text-decoration: none; color: black;">
-                                                <h4 style="color:#00c292;">
-                                                <i class="fas fa-id-card"></i>
-                                                    Politica de Tratamiento de datos "Habeas-Data"
-                                                    <span style="float:right"><img src="images/sort_desc.png" alt=""/></span></h4>
-                                            </a>
-                                        </div>
+                    <div class="panel panel-default" id="fieldHabeasData">
+                        <div style="height: 50px;border-bottom:1px solid #00c292;padding: 10px; ">
+                            <a href="#collapse3" id="colapsible_clasificacion" style=" text-decoration: none; color: black;">
+                                <h4 style="color:#00c292;">
+                                    <i class="fas fa-id-card"></i>
+                                    Politica de Tratamiento de datos "Habeas-Data"
+                                    <span style="float:right"><img src="images/sort_desc.png" alt="" /></span></h4>
+                            </a>
+                        </div>
 
-                                        <div id="collapse3" class="panel-collapse collapse" style="display: block">
-                                            <div class="panel-body">
-                                                <div class="cta-desc">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <h3 style="text-align: center">Politica de tratamiento de datos VITALEA </h3>
-                                                    <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
-                                                        <?php include('./reportes/habeasData.php') ?>
-                                                    </div>
-                                                    <div style="padding: 40px; text-align: center; box-sizing: border-box; display: inline;">
-                                                        <div>
-                                                            <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label>
-                                                        </div>
-                                                        <div style="display: block">
-                                                            Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;">
-                                                            No <input name="habeasData" data-toggle="modal" data-target="#modalAnuncioHD" type="radio" id="checkHabeasData" style="margin-top: -4px;">
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>   
-                                            </div>   
-                                        </div>                                                                               
+                        <div id="collapse3" class="panel-collapse collapse" style="display: block">
+                            <div class="panel-body">
+                                <div class="cta-desc">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <h3 style="text-align: center">Politica de tratamiento de datos VITALEA </h3>
+                                        <div style="max-height: 350px; overflow-y: scroll; padding: 70px; text-align: justify; box-sizing: border-box">
+                                            <?php include('./reportes/habeasData.php') ?>
+                                        </div>
+                                        <div style="padding: 40px; text-align: center; box-sizing: border-box; display: inline;">
+                                            <div>
+                                                <label for="">¿Estas de acuerdo con la politica de tratamiento de datos "Habeas Data"?</label>
+                                            </div>
+                                            <div style="display: block">
+                                                Si <input name="habeasData" data-toggle="modal" data-target="#myModalFirma" type="radio" id="checkHabeasData" style="margin-top: -4px;">
+                                                No <input name="habeasData" data-toggle="modal" data-target="#modalAnuncioHD" type="radio" id="checkHabeasData" style="margin-top: -4px;">
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="panel panel-default">
                         <div class="panel-heading col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:auto; min-height: 50px;">
@@ -335,7 +335,7 @@ $guion = $gestion->guion($clasificacion_id);
                                 <div id="tabla_informacion_cliente" class="table table-responsive"></div>
                             </div>
                         </div>
-                        <button class="btn btn-danger" id="btnHabeas" style="margin: 0px 0px 35px 20px"><i class="fas fa-file-pdf"></i> Generar PDF Habeas Data</button>
+                        <button class="btn btn-danger" id="btnHabeas" style="margin: 0px 0px 35px 20px; display: none !important;"><i class="fas fa-file-pdf"></i> Generar PDF Habeas Data</button>
                     </div>
 
                     <div class="panel panel-default" id="contenedor_planes">

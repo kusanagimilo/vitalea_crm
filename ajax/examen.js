@@ -232,7 +232,7 @@ function ListaExamenes() {
 
 
                 var botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerSubExamen(' + examen.id + ')" value="Ver y/o adicionar sub examen" class="btn btn-sm btn-primary">';
-
+                botones += '<input type="button" data-toggle="modal" data-target="#modalEditarExamen" onclick="editarExamenesNoPerfiles()" value="Editar Examen" class="btn btn-sm btn-success">';
 
                 var newRow = "<tr>";
                 newRow += "<td id='ex_cod" + examen.id + "'>" + examen.codigo + "</td>";
@@ -252,6 +252,28 @@ function ListaExamenes() {
         responsive: true
     });
 
+}
+
+function editarExamenesNoPerfiles() {
+    const inputCodigo = document.querySelector("#codigoExamen").value;
+    const nombreCodigo = document.querySelector("#nombreExamen").value;
+    const precioCodigo = document.querySelector("#precioExamen").value;
+
+    $.ajax({
+        type: "POST",
+        url: "../controladores/ExamenController.php",
+        async: false,
+        dataType: 'json',
+        data: {
+            tipo: 13,
+            inputCodigo: inputCodigo,
+            nombreCodigo: nombreCodigo,
+            precioCodigo: precioCodigo
+        },
+        success: function (retu) {
+
+        }
+    });
 }
 
 
