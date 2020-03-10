@@ -852,6 +852,7 @@ function discriminacionChequeos(idChequeo) {
                                         <td>${element.nombre}</td>
                                         <td>${element.precio}</td>
                                     </tr>`;
+                                
             });
         }
     });
