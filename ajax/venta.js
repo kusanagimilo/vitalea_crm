@@ -689,7 +689,7 @@ function showFieldHabeasData() {
                 inputIdValue: documentoFirma
             },
             success: function (retu) {
-                let firmaParametro = retu[0].firma
+                let firmaParametro = retu[0].firma;
                 if (firmaParametro === null || firmaParametro === "null") {
                     var condicional = 0;    
                 } else {

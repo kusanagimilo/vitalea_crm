@@ -669,15 +669,15 @@ function AlmacenarPreCotizacion() {
 
                     $('#ModalCargando').modal('toggle');
                     console.log(retu);
-                   /* if (retu == 1) {
-                        alertify.alert("Se realizo la acción correctamente", function () {
-                            location.reload();
-                        });
-
-                    } else {
-                        console.log(retu);
-                        alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
-                    }*/
+                    /* if (retu == 1) {
+                         alertify.alert("Se realizo la acción correctamente", function () {
+                             location.reload();
+                         });
+ 
+                     } else {
+                         console.log(retu);
+                         alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
+                     }*/
                 }
             });
         }
@@ -733,7 +733,7 @@ function VerPrecotizaciones() {
                 newRow += "<td>" + precot.nombre_completo + "</td>";
                 newRow += "<td>" + precot.fecha_creacion + "</td>";
                 newRow += "<td>" + formatNumber(parseInt(precot.valor)) + "</td>";
-                newRow += "<td><button class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'><i class='fas fa-info-circle'></i>" + ' Ver detalle' + "</button></td>";
+                newRow += "<td><button id='btnVerdetallesTotales' onclick='btnVerdetallesTotales()' class='btn btn-success botonVerDetalle' data-toggle='modal' data-target='#myValoresRef'><i class='fas fa-info-circle'></i>" + ' Ver detalle' + "</button></td>";
                 newRow += "</tr>";
 
                 $(newRow).appendTo("#lista_precot_cot_body");
@@ -748,208 +748,113 @@ function VerPrecotizaciones() {
 
 }
 
-function verDetalleCotizacion() {
-    function agregarDatosTabla() {
-        const boton = document.querySelectorAll('.botonVerDetalle');
-        for (const i of boton) {
-            i.addEventListener("click", (e) => {
+function btnVerdetallesTotales() {
+    const dataEnvio = this.event.target.parentNode.parentNode.childNodes[0].innerText;
+    $.ajax({
+        type: "POST",
+        url: "../controladores/FacturacionController.php",
+        async: false,
+        dataType: 'json',
+        data: {
+            tipo: 14,
+            dataEnvio: dataEnvio
+        },
+        success: function (retu) {
+            const retorno = retu;
 
-                let eventoId = e.target.parentNode.parentNode.firstChild.innerText;
-                sessionStorage.setItem('idCotizacion', eventoId);
-                $("#listaResultadosVerDetalleChequeos").html("");
-                $("#listaResultadosVerDetalleExamenes").html("");
+            const promesa = new Promise((resolve, reject) => {
+                if (retorno.length != 0) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
 
-                var tabla = '<table id="listaDetallesVer" class="table table-bordered">' +
-                    '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Chequeos</caption>' +
-                    '<thead style="display: flex; flex-direction: column">' +
-                    '<tr style="background-color: #214761">' +
-                    '<th style="color:white; width: 20%">Clasificación</th>' +
-                    '<th style="color:white; width: 20%">Nombre</th>' +
-                    '<th style="color:white; width: 20%">Código</th>' +
-                    '<th style="color:white; max-width: 100px">Recomend.</th>' +
-                    '<th style="color:white; width: 20%">Precio</th>' +
-                    '</tr>' +
-                    '</thead>' +
-                    '<tbody id="listaResultadosVerDetalleChequeos" style="display: flex; flex-direction: column">' + '</tbody>' +
-                    '</table>';
-                $("#contenedorTablaDetallesChequeos").html(tabla);
-                var tabla2 = '<table class="table table-bordered">' +
-                    '<caption style="background-color: #214761; color:white; font-weight: bolder; text-align: center">Examenes</caption>' +
-                    '<thead style="display: flex; flex-direction: column">' +
-                    '<tr style="background-color: #214761">' +
-                    '<th style="color:white; width: 20%">Clasificación</th>' +
-                    '<th style="color:white; width: 20%">Nombre</th>' +
-                    '<th style="color:white; width: 20%">Código</th>' +
-                    '<th style="color:white; max-width: 100px">Recomend.</th>' +
-                    '<th style="color:white; width: 20%">Precio</th>' +
-                    '</tr>' +
-                    '</thead>' +
-                    '<tbody id="listaResultadosVerDetalleExamenes" style="display: flex; flex-direction: column">' + '</tbody>' +
-                    '</table>';
-                $("#contenedorTablaDetallesExamenes").html(tabla2);
-
-                $.ajax({
-                    type: "POST",
-                    url: "../controladores/FacturacionController.php",
-                    async: true,
-                    dataType: 'json',
-                    data: {
-                        tipo: 14,
-                        idCot: eventoId
-                    },
-                    success: function (retu) {
-                        $("#listaResultadosVerDetalleChequeos").html("");
-                        $("#listaResultadosVerDetalleExamenes").html("");
-                        $.each(retu, function (i, precot) {
-
-                            var newRow = "";
-                            newRow += "<tr style='order:2; max-height: 30px'>";
-                            newRow += "<td name='idCotizacion' style='display: none'>" + precot.id_precotizacion + "</td>";
-                            newRow += "<td style='display: none'>" + precot.id_item + "</td>";
-                            newRow += "<td style='display: none'>" + precot.tipo_item + "</td>";
-                            newRow += "<td style='visibility: hidden; width: 100%; ' colspan='4'><button style='max-height:2px' id='verMasInfo' class='btn btn-info'><i class='far fa-plus-square'></i>" + " Ver Mas" + "</button></td>";
-                            newRow += "</tr>";
-                            newRow += "<tr id='masInfoGeneral' style='font-size: 10px; order: 1; width: 100%'></tr>";
-
-                            if (precot.tipo_item == "perfil") {
-                                $(newRow).appendTo("#listaResultadosVerDetalleChequeos");
-                            } else {
-                                $(newRow).appendTo("#listaResultadosVerDetalleExamenes");
+            promesa.then(() => {
+                const bodyTableModalChequeos = document.querySelector("#bodyTableModalChequeos");
+                const bodyTableModalExamenes = document.querySelector("#bodyTableModalExamenes");
+                const headerChequeos = document.querySelector("#headerChequeos");
+                const headerExamenes = document.querySelector("#headerExamenes");
+                bodyTableModalChequeos.innerHTML = "";
+                bodyTableModalExamenes.innerHTML = "";
+                headerChequeos.style.visibility = "hidden";
+                headerExamenes.style.visibility = "hidden";
+                retorno.forEach(element => {
+                    if (element.tipo_item === "examen") {
+                        $.ajax({
+                            type: "POST",
+                            url: "../controladores/FacturacionController.php",
+                            async: false,
+                            dataType: 'json',
+                            data: {
+                                tipo: 16,
+                                dataEnvio: element.id_item
+                            },
+                            success: function (retorno) {
+                                retorno.forEach(retorno2 => {
+                                    let rows = `<tr>
+                                                    <th scope="row">${retorno2.codigo}</th>
+                                                    <td>${retorno2.nombre}</td>
+                                                    <td>${formatNumber(retorno2.precio)}</td>
+                                                </tr>`
+                                    headerExamenes.style.visibility = "visible";
+                                    bodyTableModalExamenes.innerHTML += rows;
+                                });
                             }
-
+                        });
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: "../controladores/FacturacionController.php",
+                            async: false,
+                            dataType: 'json',
+                            data: {
+                                tipo: 15,
+                                dataEnvio2: element.id_item
+                            },
+                            success: function (retorno) {
+                                retorno.forEach(retorno2 => {
+                                    let rows = `<tr id="rowChecks">
+                                                    <th scope="row" id="myToolTip" aria-describedby="tooltip">${retorno2.codigo_crm}</th>
+                                                    <td>${retorno2.nombre}</td>
+                                                    <td>${formatNumber(retorno2.precio)}</td>
+                                                    <td><button class="btn btn-info btn-sm" onclick='discriminacionChequeos(${retorno2.id})'>Ver detalle</button></td>
+                                                </tr>`
+                                    headerChequeos.style.visibility = "visible";
+                                    bodyTableModalChequeos.innerHTML += rows;
+                                });
+                            }
                         });
 
-                        const moreDetails = document.querySelectorAll("#verMasInfo");
-                        for (const iterator of moreDetails) {
-                            function verDetalleDiscriminado(e) {
-                                let idEx = e.target.childNodes[1].textContent;
-                                let tipEx = e.target.childNodes[2].textContent;
-                                if (tipEx == "perfil") {
-                                    var tipo = 16;
-                                } else {
-                                    tipo = 15;
-                                }
-                                $.ajax({
-                                    type: "POST",
-                                    url: "../controladores/FacturacionController.php",
-                                    async: false,
-                                    dataType: 'json',
-                                    data: {
-                                        tipo: tipo,
-                                        idExamen: idEx
-                                    },
-                                    success: function (retur) {
-                                        
-                                        $.each(retur, function (i, respuesta) {                                            
-                                            let soloPerfiles;
-                                            if (respuesta.grupo_id == 1) {
-                                                soloPerfiles = "CHEQUEO ESCENCIAL";
-                                            } else if (respuesta.grupo_id == 2) {
-                                                soloPerfiles = "MONITOREO";
-                                            } else if (respuesta.grupo_id == 3) {
-                                                soloPerfiles = "FERTILIDAD Y EMBARAZO";
-                                            } else if (respuesta.grupo_id == 4) {
-                                                soloPerfiles = "NUTRICION";
-                                            } else if (respuesta.grupo_id == 5) {
-                                                soloPerfiles = "DEPORTE";
-                                            } else if (respuesta.grupo_id == 6) {
-                                                soloPerfiles = "SALUD SEXUAL";
-                                            } else if (respuesta.grupo_id == 7) {
-                                                soloPerfiles = "BIENESTAR";
-                                            } else if (respuesta.grupo_id == 8) {
-                                                soloPerfiles = "VIAJERO";
-                                            } else if (respuesta.grupo_id == 9) {
-                                                soloPerfiles = "ADN";
-                                            } else {
-                                                soloPerfiles = "No Aplica. ";
-                                            }
-                                            if (tipo == 16) {
-                                                var respuestaId = respuesta.id;
-                                                var codigo = respuesta.codigo_crm;
-                                            } else {
-                                                codigo = respuesta.codigo;
-                                            }
-
-
-                                            let nombre = respuesta.nombre;
-                                            let recomendaciones = respuesta.recomendaciones;
-                                            let precios = respuesta.precio;
-
-                                            let contenedor = "<tr><td style='width: 20%; font-size: 10px; text-align: center; min-width: 107px;'>" + soloPerfiles + "</td>";
-                                            contenedor += "<td id='nombreChequeo' class='nombreChequeo'>" + nombre + "</td>";
-                                            contenedor += "<td style='width: 20%; font-size: 10px; text-align: center'>" + codigo + "</td>";
-                                            contenedor += "<td style='width: 20%; font-size: 10px; text-align: center'>" + recomendaciones + "</td>";
-                                            contenedor += "<td style='width: 20%; font-size: 10px; text-align: center'>" + "$" + formatNumber(precios) + "</td></tr>";
-                                            $(contenedor).appendTo(e.target.parentNode.childNodes[1]);
-
-                                            const nombreChequeo = document.querySelectorAll("#nombreChequeo");
-                                            for (let i = 0; i < nombreChequeo.length; i++) {
-                                                nombreChequeo[i].addEventListener("click", (e) => {
-                                                    
-                                                    if (respuestaId) {
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: "../controladores/FacturacionController.php",
-                                                            async: false,
-                                                            dataType: 'json',
-                                                            data: {
-                                                                tipo: 18,
-                                                                respuestaId: respuestaId
-    
-                                                            },
-                                                            success: function (retu) {
-                                                                var allReturn = document.createElement("span");
-                                                                for (let i = 0; i < retu.length; i++) {                                                                     
-                                                                    var nombreEx = retu[i].codigo+ " " + retu[i].nombre + " | ";
-                                                                    allReturn.append(nombreEx);
-                                                                }
-                                                                console.log(allReturn);
-                                                                Swal.fire({
-                                                                    title: 'Examenes que conforman el chequeo',
-                                                                    text: `${allReturn.innerText}`,
-                                                                    icon: 'info',
-                                                                    confirmButtonText: 'Entendido',
-                                                                    onClose: () => {
-                                                                        location.reload();
-                                                                    }
-                                                                })
-                                                            }
-                                                        });
-                                                    } else {
-                                                        Swal.fire({
-                                                            title: 'Examen',
-                                                            text: 'Para este examen no aplica la descripción de examen',
-                                                            icon: 'info',
-                                                            confirmButtonText: 'Entendido',
-                                                            onClose: () => {
-                                                                location.reload();
-                                                            }
-                                                        })
-                                                    }
-                                                })
-                                            }
-                                        });
-                                    }
-                                });
-                                iterator.parentNode.parentNode.removeEventListener('mouseenter', verDetalleDiscriminado);
-                            }
-                            iterator.parentNode.parentNode.addEventListener("mouseenter", verDetalleDiscriminado);
-                        }
+                        
                     }
                 });
+            })
+        }
+    });
+}
+
+function discriminacionChequeos(idChequeo) {
+    $.ajax({
+        type: "POST",
+        url: "../controladores/FacturacionController.php",
+        async: false,
+        dataType: 'json',
+        data: {
+            tipo: 18,
+            respuestaId: idChequeo
+        },
+        success: function (retorno) {
+            const rowChecks = document.querySelector("#rowChecks");
+            retorno.forEach(element => {
+                let addDescrytion = `<tr>
+                                        <td>${element.codigo}</td>
+                                        <td>${element.nombre}</td>
+                                        <td>${element.precio}</td>
+                                    </tr>`;
             });
         }
-    }
-    const paginacion = document.querySelector('#lista_precot_cot');
-    const search = document.querySelector("input[type='text']");
-    function cargarEvento() {
-        agregarDatosTabla();
-    }
-
-    paginacion.addEventListener("mouseenter", cargarEvento);
-    search.addEventListener("mouseleave", cargarEvento);
-    search.addEventListener("touchend", agregarDatosTabla);
-
+    });
 }
 
 function formatNumber(num) {

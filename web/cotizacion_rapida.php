@@ -4,11 +4,10 @@ require_once '../include/header_administrador.php';
 $array_permisos = explode(",", $_SESSION['PERMISOS']);
 ?>
 <style>
-
     .nombreChequeo {
-        width: 20%; 
-        font-size: 11px; 
-        text-align: center;        
+        width: 20%;
+        font-size: 11px;
+        text-align: center;
     }
 
     .nombreChequeo:hover {
@@ -16,6 +15,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         cursor: pointer;
         color: #214761;
     }
+
     .loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
@@ -25,7 +25,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         -webkit-animation: spin 2s linear infinite;
         /* Safari */
         animation: spin 2s linear infinite;
-    }   
+    }
 
     /* Safari */
     @-webkit-keyframes spin {
@@ -53,6 +53,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 <script src="../web/js/dist/jspdf.min.js"></script>
 <script src="../ajax/Facturacion.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+
 <body style="background-color: #F6F8FA">
     <div class="main-menu-area mg-tb-40">
         <div class="container" style="height:auto;">
@@ -138,8 +140,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                             <label>No</label>
                                                             <input type="radio" value="No" name="contacto">
                                                         </div>
-                                                    </div>                                                  
-                                                    
+                                                    </div>
+
                                                     <div class="panel panel-primary">
                                                         <div class="panel-heading">Adicionar examenes</div>
                                                         <div class="panel-body">
@@ -220,7 +222,6 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                                             <th></th>
                                                                         </tr>
                                                                     </tfoot>
-
                                                                 </table>
                                                             </div>
                                                         </div>
@@ -307,7 +308,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     </div>
 
 
-    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel"   style="width: 110%; margin-top: -30px">
+    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel" style="width: 110%; margin-top: -30px">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #214761; color: white">
@@ -319,13 +320,31 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
                     <!-- Tabla contenedor -->
 
-                    <div class="form-group">
-                        <label for="inputselect">Esta es la relacion de todos los items asociados a esta cotizacion</label>
+                    <div>
+                        <table class="table">
+                            <caption>Este es el detalle completo patra esta cotización.</caption>
+                            <thead id="headerChequeos" style="visibility: hidden">
+                                <tr>
+                                    <th scope="col">Codigo Chequeo</th>
+                                    <th scope="col">Nombre Chequeo</th>
+                                    <th scope="col">Precio Chequeo</th>
+                                    <th scope="col">Ver Detalle</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyTableModalChequeos"></tbody>
+                        </table>
+                        <table class="table">
+                            <thead id="headerExamenes" style="visibility: hidden">
+                                <tr>
+                                    <th scope="col">Codigo Examen</th>
+                                    <th scope="col">Nombre Examen</th>
+                                    <th scope="col">Precio Examen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyTableModalExamenes"></tbody>
+                        </table>
                     </div>
-
-                    <div class="form-group" id="contenedorTablaDetallesChequeos"></div>
-                    <div class="form-group" id="contenedorTablaDetallesExamenes"></div>                    
-                    <button onclick="generarPdfCotizacion()" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> Generar PDF Cotizacion</button>
+                    <br><button onclick="generarPdfCotizacion()" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> Generar PDF Cotizacion</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="cerrarModal" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
@@ -361,7 +380,6 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
     <script>
         (function borrarTemp() {
             const closeModal = document.getElementById("closeModal");
-            console.log(closeModal);
         }());
 
         obtener_categoria_examen();
@@ -397,7 +415,6 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             var imgData2 = new Image();
             imgData2.src = "../images/vitaleaPdf2.png";
             let cotizacionId = sessionStorage.getItem('idCotizacion');
-            //console.log(cotizacionId);
             $.ajax({
                 type: "POST",
                 url: "../controladores/FacturacionController.php",
@@ -407,55 +424,53 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                     tipo: 17,
                     cotizId: cotizacionId
                 },
-                success: function(retu) {                    
-                        console.log(retu)
-                        var idCtz1 = retu[0].nombre_cliente;
-                        var idCtz2= retu[0].correo;
-                        var idCtz3 = retu[0].telefono;
-                        var idCtz4 = retu[0].valor;
-                        var idCtz5 = retu[0].direccion;        
-                        var idCtz7 = retu[0].fecha_creacion;
-                                             
-                        var doc = new jsPDF();                        
-                        doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
-                        doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
-                        
+                success: function(retu) {
+                    var idCtz1 = retu[0].nombre_cliente;
+                    var idCtz2 = retu[0].correo;
+                    var idCtz3 = retu[0].telefono;
+                    var idCtz4 = retu[0].valor;
+                    var idCtz5 = retu[0].direccion;
+                    var idCtz7 = retu[0].fecha_creacion;
 
-                        doc.setFontSize(18);
-                        doc.setFont("helvetica");
-                        doc.setTextColor(0,24,0);
-                        doc.text(30, 80, "Nombre del Cotizante: " + idCtz1);
-                        doc.text(30, 90, "Correo: " + idCtz2);
-                        doc.text(30, 100, "Telefono: " + idCtz3);
-                        doc.text(30, 110, "Costo: " + idCtz4 + "$");
-                        doc.text(30, 120, "Direccion: " + idCtz5);
-                        doc.text(30, 130, "Fecha Cot: " + idCtz7);    
-                        doc.setLineWidth(3);
-                        doc.setDrawColor(251, 202, 18);
-                        doc.line(0, 60.5, 212, 60.5);
+                    var doc = new jsPDF();
+                    doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
+                    doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
 
-                        doc.setDrawColor(0);
-                        doc.setFillColor(133, 0, 144);
-                        doc.rect(0, 272, 132, 26, 'F');
 
-                        doc.setProperties({
-                            //Metadatos del documento
-                            title: 'Cotizaciones Vitalea',
-                            subject: 'Documento de Cotizaciones vitalea',
-                            author: 'Arcos Soluciones Tecnologicas',
-                            keywords: 'generated, javascript, web 2.0, ajax',
-                            creator: 'Alexander Pineda - Desarrollador'
-                        });
-                        // Funcion Generadora del PDF
-                        doc.save('detallePDFCotizacion.pdf');
-                    
+                    doc.setFontSize(18);
+                    doc.setFont("helvetica");
+                    doc.setTextColor(0, 24, 0);
+                    doc.text(30, 80, "Nombre del Cotizante: " + idCtz1);
+                    doc.text(30, 90, "Correo: " + idCtz2);
+                    doc.text(30, 100, "Telefono: " + idCtz3);
+                    doc.text(30, 110, "Costo: " + idCtz4 + "$");
+                    doc.text(30, 120, "Direccion: " + idCtz5);
+                    doc.text(30, 130, "Fecha Cot: " + idCtz7);
+                    doc.setLineWidth(3);
+                    doc.setDrawColor(251, 202, 18);
+                    doc.line(0, 60.5, 212, 60.5);
+
+                    doc.setDrawColor(0);
+                    doc.setFillColor(133, 0, 144);
+                    doc.rect(0, 272, 132, 26, 'F');
+
+                    doc.setProperties({
+                        //Metadatos del documento
+                        title: 'Cotizaciones Vitalea',
+                        subject: 'Documento de Cotizaciones vitalea',
+                        author: 'Arcos Soluciones Tecnologicas',
+                        keywords: 'generated, javascript, web 2.0, ajax',
+                        creator: 'Alexander Pineda - Desarrollador'
+                    });
+                    // Funcion Generadora del PDF
+                    doc.save('detallePDFCotizacion.pdf');
+
 
                 }
             });
         }
 
         VerPrecotizaciones();
-        verDetalleCotizacion();
     </script>
     <!-- End Contact Info area-->
     <?php require_once '../include/footer.php'; ?>

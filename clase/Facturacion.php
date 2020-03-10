@@ -505,10 +505,13 @@ group by ven.usuario_id");
     }
 
     public function listaDetallecotizaciones($data) {
-        $query = $this->conexion->prepare("SELECT DISTINCT preit.id_precotizacion, preit.id_item, preit.tipo_item FROM precotizacion_items preit inner join precotizacion pre on
-                                            preit.id_precotizacion = pre.id_precotizacion where pre.id_precotizacion = :idCot");
+        $query = $this->conexion->prepare("SELECT precotizacion_items.tipo_item, precotizacion_items.id_item, precotizacion.nombre_cliente, precotizacion_items.id_precotizacion 
+        FROM crm_preatencion_prod.precotizacion
+        inner join crm_preatencion_prod.precotizacion_items 
+        on precotizacion_items.id_precotizacion = precotizacion.id_precotizacion 
+        where precotizacion.id_precotizacion = :dataEnvio");
         $query->execute(array(
-            ':idCot' => $data['idCot']
+            ':dataEnvio' => $data['dataEnvio']
         ));
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         $json_retorno2 = json_encode($rows);
@@ -516,9 +519,9 @@ group by ven.usuario_id");
     }
 
     public function btnVerMasDetallesExamenNoPerfiles($data) {
-        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examen WHERE id= :idExamen");
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examenes_no_perfiles WHERE id= :idExamen");
         $query->execute(array(
-            ':idExamen' => $data['idExamen']
+            ':idExamen' => $data['dataEnvio']
         ));
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         $json_retorno2 = json_encode($rows);
@@ -526,9 +529,9 @@ group by ven.usuario_id");
     }
 
     public function btnVerMasDetallesPerfiles($data) {
-        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examenes_no_perfiles WHERE id= :idExamen");
+        $query = $this->conexion->prepare("SELECT * FROM crm_preatencion_prod.examen WHERE id= :idExamen");
         $query->execute(array(
-            ':idExamen' => $data['idExamen']
+            ':idExamen' => $data['dataEnvio2']
         ));
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         $json_retorno2 = json_encode($rows);
