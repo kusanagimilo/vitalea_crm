@@ -234,29 +234,19 @@ WHERE exa.id = :id");
     }
 
     function modificarExamenesNoPerfiles($data) {
-        // session_start();
-        // $id_usuario = $_SESSION["ID_USUARIO"];
+        session_start();
+        $id_usuario = $_SESSION["ID_USUARIO"];
 
-        $query_mod = $this->conexion->prepare("UPDATE examenes_no_perfiles SET 
-                                               codigo =:codigo,
-                                               nombre =:nombre,
-                                               precio =:codigo
-                                               WHERE codigo = :inputCodigo");
+        $query = $this->conexion->prepare("UPDATE crm_preatencion_prod.examenes_no_perfiles 
+        SET codigo = :codigo , nombre = :nombre WHERE id = :id");
 
 
-        $query_mod->execute(array(':codigo' => $data['inputCodigo'],
-                                    ':nombre' => $data['nombre'],
-                                    ':codigo' => $data['codigo'],
-                                    ':preparacion' => $data['preparacion'],
-                                    ':recomendaciones' => $data['recomendaciones'],
-                                    ':precio' => $data['precio'],
-                                    ':precio_menos_cinco' => $precio_5,
-                                    ':precio_menos_diez' => $precio_10,
-                                    ':precio_menos_quince' => $precio_15,
-                                    ':id_usuario_modifico' => $id_usuario,
-                                    ':id_perfil' => $data['id_perfil']));
+        
+        $query->execute(array(':codigo' => $data['inputCodigo'],
+        ':nombre' => $data['nombreCodigo'],
+        ':id' => $data['idExamen']));
 
-        if ($query_mod) {
+        if ($query) {
             return 1;
         } else {
             return 2;

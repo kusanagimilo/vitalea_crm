@@ -4,17 +4,17 @@ function VerExamenesNoPerfiles() {
     $("#lista_nperfiles_cot_body").html("");
 
     var tabla = '<table id="lista_nperfiles_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Codigo perfil</th>' +
-            '<th style="color:white">Nombre perfil</th>' +
-            '<th style="color:white">Precio</th>' +
-            '<th style="color:white">Acciones</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_nperfiles_cot_body">' +
-            '</tbody>' +
-            '</table>';
+        '<thead>' +
+        '<tr style="background-color: #214761;">' +
+        '<th style="color:white">Codigo perfil</th>' +
+        '<th style="color:white">Nombre perfil</th>' +
+        '<th style="color:white">Precio</th>' +
+        '<th style="color:white">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody id="lista_nperfiles_cot_body">' +
+        '</tbody>' +
+        '</table>';
 
     $("#tabla_examen_perfil").html(tabla);
 
@@ -33,7 +33,7 @@ function VerExamenesNoPerfiles() {
 
 
                 var botones = '<input type="button" data-toggle="modal" data-target="#myModalPerfilesMod" onclick="CargaDataExamenPerfil(' + nperfil.id + ')" value="Modificar perfil" class="btn btn-sm btn-default"><br>' +
-                        '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerExamenesPorPerfil(' + nperfil.id + ')" value="Ver y adicionar examenes" class="btn btn-sm btn-primary">';
+                    '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerExamenesPorPerfil(' + nperfil.id + ')" value="Ver y adicionar examenes" class="btn btn-sm btn-primary">';
 
 
 
@@ -66,16 +66,16 @@ function VerExamenesPorPerfil(id_perfil) {
     $("#lista_nexa_cot_body").html("");
 
     var tabla = '<table id="lista_nexa_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Codigo examen</th>' +
-            '<th style="color:white">Nombre examen</th>' +
-            '<th style="color:white">Acciones</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_nexa_cot_body">' +
-            '</tbody>' +
-            '</table>';
+        '<thead>' +
+        '<tr style="background-color: #214761;">' +
+        '<th style="color:white">Codigo examen</th>' +
+        '<th style="color:white">Nombre examen</th>' +
+        '<th style="color:white">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody id="lista_nexa_cot_body">' +
+        '</tbody>' +
+        '</table>';
 
     $("#cont_modal_nexa").html(tabla);
 
@@ -113,13 +113,12 @@ function SelectExamenes() {
     $.ajax({
         url: '../controladores/Gestion.php',
         data:
-                {
-                    tipo: 28
-                },
+        {
+            tipo: 28
+        },
         type: 'post',
         dataType: 'json',
-        success: function (data)
-        {
+        success: function (data) {
 
             $("#examen_no_perfil").empty();
             $("#examen_no_perfil").append("<option value=''>--seleccione--</option>");
@@ -203,17 +202,18 @@ function ListaExamenes() {
     $("#lista_examen_cot_body").html("");
 
     var tabla = '<table id="lista_examen_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Codigo</th>' +
-            '<th style="color:white">Nombre</th>' +
-            '<th style="color:white">Precio</th>' +
-            '<th style="color:white">Acciones</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_examen_cot_body">' +
-            '</tbody>' +
-            '</table>';
+        '<thead>' +
+        '<tr style="background-color: #214761;">' +
+        '<th style="color:white">Codigo</th>' +
+        '<th style="color:white">Nombre</th>' +
+        '<th style="color:white">Precio</th>' +
+        '<th style="color:white; display: none">id</th>' +
+        '<th style="color:white">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody id="lista_examen_cot_body">' +
+        '</tbody>' +
+        '</table>';
 
     $("#tabla_examen").html(tabla);
 
@@ -231,13 +231,14 @@ function ListaExamenes() {
             $.each(retu, function (i, examen) {
 
 
-                var botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerSubExamen(' + examen.id + ')" value="Ver y/o adicionar sub examen" class="btn btn-sm btn-primary">';
+                var botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerSubExamen(' + examen.id + ')" value="Ver y/o adicionar sub examen" class="btn btn-sm btn-primary"><br><br>';
                 botones += '<input type="button" data-toggle="modal" data-target="#modalEditarExamen" onclick="editarExamenesNoPerfiles()" value="Editar Examen" class="btn btn-sm btn-success">';
 
                 var newRow = "<tr>";
                 newRow += "<td id='ex_cod" + examen.id + "'>" + examen.codigo + "</td>";
                 newRow += "<td id='ex_nom" + examen.id + "'>" + examen.nombre + "</td>";
-                newRow += "<td id='ex_pre" + examen.id + "'>" +formatNumber(parseInt(examen.precio)) + "</td>";
+                newRow += "<td id='ex_pre" + examen.id + "'>" + formatNumber(parseInt(examen.precio)) + "</td>";
+                newRow += "<td style='display: none' id='ex_id" + examen.id + "'>" + examen.id + "</td>";
                 newRow += "<td id='ex_btn" + examen.id + "'>" + botones + "</td>";
                 newRow += "</tr>";
 
@@ -255,25 +256,69 @@ function ListaExamenes() {
 }
 
 function editarExamenesNoPerfiles() {
-    const inputCodigo = document.querySelector("#codigoExamen").value;
-    const nombreCodigo = document.querySelector("#nombreExamen").value;
-    const precioCodigo = document.querySelector("#precioExamen").value;
+    const inputCodigo = document.querySelector("#codigoExamen");
+    const nombreCodigo = document.querySelector("#nombreExamen");
+    const precioCodigo = document.querySelector("#precioExamen");
 
-    $.ajax({
-        type: "POST",
-        url: "../controladores/ExamenController.php",
-        async: false,
-        dataType: 'json',
-        data: {
-            tipo: 13,
-            inputCodigo: inputCodigo,
-            nombreCodigo: nombreCodigo,
-            precioCodigo: precioCodigo
-        },
-        success: function (retu) {
+    let eventoBtn = this.event;
+    inputCodigo.value = eventoBtn.target.parentNode.parentNode.childNodes[0].innerText;
+    nombreCodigo.value = eventoBtn.target.parentNode.parentNode.childNodes[1].innerText;
+    precioCodigo.value = eventoBtn.target.parentNode.parentNode.childNodes[2].innerText;
+    precioCodigo.disabled = true;
 
-        }
-    });
+
+    const btnModificarExam = document.querySelector("#btnModificarExam");
+    btnModificarExam.addEventListener('click', () => {
+
+        Swal.fire({
+            title: 'Confirmacion Oeración',
+            text: 'Estas seguro de completar la operación.',
+            showCancelButton: true,
+        }).then((result) => {
+            let envioInputCodigo = document.querySelector("#codigoExamen").value;
+            let envioInputnombre = document.querySelector("#nombreExamen").value;
+            let envioInputPrecio = document.querySelector("#precioExamen").value;
+            let idExamen = eventoBtn.target.parentNode.parentNode.childNodes[3].innerText;
+
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../controladores/ExamenController.php",
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        tipo: 13,
+                        inputCodigo: envioInputCodigo,
+                        nombreCodigo: envioInputnombre,
+                        precioCodigo: envioInputPrecio,
+                        idExamen: idExamen
+                    },
+                    success: function (retu) {
+    
+                        if (retu == 1) {
+                            Swal.fire({
+                                title: '¡Alamacenamiento Exitoso!',
+                                text: 'El cambio se registro con exito en la base de datos.',
+                                icon: 'success',
+                                confirmButtonText: 'Entendido',
+                                onClose: () => {
+                                    location.reload();
+                                }
+                            })
+    
+                        } else {
+                            Swal.fire({
+                                title: '¡Fallo la conexión!',
+                                text: 'No se pudo completar la operación.',
+                                icon: 'error',
+                                confirmButtonText: 'Entendido'
+                            })
+                        }
+                    }
+                });
+            }
+        })
+    })
 }
 
 
@@ -287,16 +332,16 @@ function VerSubExamen(id_examen) {
 
 
     var tabla = '<table id="lista_subexamen_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Codigo examen</th>' +
-            '<th style="color:white">Nombre examen</th>' +
-            '<th style="color:white">Acciones</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_subexamen_cot_body">' +
-            '</tbody>' +
-            '</table>';
+        '<thead>' +
+        '<tr style="background-color: #214761;">' +
+        '<th style="color:white">Codigo examen</th>' +
+        '<th style="color:white">Nombre examen</th>' +
+        '<th style="color:white">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody id="lista_subexamen_cot_body">' +
+        '</tbody>' +
+        '</table>';
 
     $("#cont_modal_subexamen").html(tabla);
 
@@ -603,7 +648,7 @@ function formatNumber(num) {
     num = Math.floor(num / 100).toString();
     if (cents < 10)
         cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3) ; i++)
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
     return (((sign) ? '' : '-') + num);
 }

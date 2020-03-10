@@ -3,7 +3,7 @@ require_once '../include/script.php';
 require_once '../include/header_administrador.php';
 $array_permisos = explode(",", $_SESSION['PERMISOS']);
 ?>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="../ajax/examen.js" type="text/javascript"></script>
 <style>
     .loader {
@@ -132,10 +132,10 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         
                             <label><img src="images/item.png"> Estos son los parametros que podras modificar.</label><br>
                        
-                            <input style="width:100%" id="codigoExamen" type="text" placeholder="Código"><br><br>                         
-                            <input style="width:100%" id="nombreExamen" type="text" placeholder="Nombre"><br><br>                        
-                            <input style="width:100%" id="precioExamen" type="text" placeholder="Precio"><br><br>                        
-                            <input id="boton_add_subexa" type="button" value="Adicionar" class="btn btn-default">
+                            <input style="width:100%" id="codigoExamen" type="text" placeholder="Código" class="form-control"><br><br>                         
+                            <input style="width:100%" id="nombreExamen" type="text" placeholder="Nombre" class="form-control"><br><br>                        
+                            <input style="width:100%; display: none" id="precioExamen" type="text" placeholder="Precio" class="form-control"><br><br>                        
+                            <input id="btnModificarExam" type="button" value="Modificar" class="btn btn-info">
                         
                     </div>
                     <br>
@@ -192,7 +192,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
 
 
-
+    <script src="sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     <script>
         ListaExamenes();
     </script>
