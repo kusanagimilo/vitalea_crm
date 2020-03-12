@@ -814,12 +814,13 @@ function btnVerdetallesTotales() {
                             },
                             success: function (retorno) {
                                 retorno.forEach(retorno2 => {
-                                    let rows = `<tr id="rowChecks">
+                                    let rows = `<tr>
                                                     <th scope="row" id="myToolTip" aria-describedby="tooltip">${retorno2.codigo_crm}</th>
                                                     <td>${retorno2.nombre}</td>
-                                                    <td>${formatNumber(retorno2.precio)}</td>
-                                                    <td><button class="btn btn-info btn-sm" onclick='discriminacionChequeos(${retorno2.id})'>Ver detalle</button></td>
-                                                </tr>`
+                                                    <td>$${formatNumber(retorno2.precio)}</td>
+                                                    <td><button id="btnVerDiscriminacionChequeo" class="btn btn-info btn-sm" onclick='discriminacionChequeos(${retorno2.id})'>Ver detalle</button></td>
+                                                </tr>
+                                                <tr><td></td><td colspan="3"></td></tr><br>`
                                     headerChequeos.style.visibility = "visible";
                                     bodyTableModalChequeos.innerHTML += rows;
                                 });
@@ -835,6 +836,8 @@ function btnVerdetallesTotales() {
 }
 
 function discriminacionChequeos(idChequeo) {
+    let rowChecks = this.event.target.parentNode.parentNode.nextElementSibling.childNodes[1];
+    let btnVerDiscriminacionChequeo = this.event.target;
     $.ajax({
         type: "POST",
         url: "../controladores/FacturacionController.php",
@@ -845,14 +848,16 @@ function discriminacionChequeos(idChequeo) {
             respuestaId: idChequeo
         },
         success: function (retorno) {
-            const rowChecks = document.querySelector("#rowChecks");
+            rowChecks.innerHTML += `<div style="font-weight: bolder; font-size: 11px">Examenes que conforman el chequeo: </div>`
+            console.log(rowChecks);
             retorno.forEach(element => {
-                let addDescrytion = `<tr>
-                                        <td>${element.codigo}</td>
-                                        <td>${element.nombre}</td>
-                                        <td>${element.precio}</td>
-                                    </tr>`;
-                                
+                var addDescrytion = `<div style="font-size: 10px">
+                                        <span>${element.codigo} - </span>
+                                        <span>${element.nombre}</span>
+                                    </div>`;
+                                        // <span>$${formatNumber(element.precio)} </span>
+                rowChecks.innerHTML += addDescrytion;
+                btnVerDiscriminacionChequeo.style.pointerEvents = "none";
             });
         }
     });
