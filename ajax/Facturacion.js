@@ -669,7 +669,7 @@ function AlmacenarPreCotizacion() {
 
                     $('#ModalCargando').modal('toggle');
                     console.log(retu);
-                    /* if (retu == 1) {
+                    if (retu == 1) {
                          alertify.alert("Se realizo la acción correctamente", function () {
                              location.reload();
                          });
@@ -677,7 +677,7 @@ function AlmacenarPreCotizacion() {
                      } else {
                          console.log(retu);
                          alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
-                     }*/
+                     }
                 }
             });
         }
@@ -815,12 +815,15 @@ function btnVerdetallesTotales() {
                             success: function (retorno) {
                                 retorno.forEach(retorno2 => {
                                     let rows = `<tr>
-                                                    <th scope="row" id="myToolTip" aria-describedby="tooltip">${retorno2.codigo_crm}</th>
+                                                    <th scope="row">${retorno2.codigo_crm}</th>
                                                     <td>${retorno2.nombre}</td>
                                                     <td>$${formatNumber(retorno2.precio)}</td>
                                                     <td><button id="btnVerDiscriminacionChequeo" class="btn btn-info btn-sm" onclick='discriminacionChequeos(${retorno2.id})'>Ver detalle</button></td>
                                                 </tr>
-                                                <tr><td></td><td colspan="3"></td></tr><br>`
+                                                <tr id="filaRecomendaciones" style="visibility: hidden;">
+                                                    <td style="margin-bottom: 0; padding-bottom: 0; margin-top: 0; padding-top: 0" colspan="4">Recomendaciones: ${retorno2.recomendaciones}.</td>
+                                                </tr>
+                                                <tr><td colspan="4" style="border-top: none;"></td></tr>`
                                     headerChequeos.style.visibility = "visible";
                                     bodyTableModalChequeos.innerHTML += rows;
                                 });
@@ -836,8 +839,11 @@ function btnVerdetallesTotales() {
 }
 
 function discriminacionChequeos(idChequeo) {
-    let rowChecks = this.event.target.parentNode.parentNode.nextElementSibling.childNodes[1];
     let btnVerDiscriminacionChequeo = this.event.target;
+    let rowChecks = this.event.target.parentNode.parentNode.nextElementSibling.nextElementSibling.childNodes[0];
+    let filaRecomendaciones = this.event.target.parentNode.parentNode.nextElementSibling;
+        filaRecomendaciones.style.visibility = "visible";        
+    
     $.ajax({
         type: "POST",
         url: "../controladores/FacturacionController.php",
@@ -848,8 +854,7 @@ function discriminacionChequeos(idChequeo) {
             respuestaId: idChequeo
         },
         success: function (retorno) {
-            rowChecks.innerHTML += `<div style="font-weight: bolder; font-size: 11px">Examenes que conforman el chequeo: </div>`
-            console.log(rowChecks);
+            rowChecks.innerHTML += `<div style="font-weight: bolder; font-size: 11px; margin-top: -7px">Examenes que conforman el chequeo: </div>`
             retorno.forEach(element => {
                 var addDescrytion = `<div style="font-size: 10px">
                                         <span>${element.codigo} - </span>

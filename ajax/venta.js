@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    showFieldHabeasData();
+    //showFieldHabeasData();
 });
 
 /* INFORMACION DEL CLIENTE */

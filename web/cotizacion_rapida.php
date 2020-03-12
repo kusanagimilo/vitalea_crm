@@ -48,7 +48,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         }
     }
 </style>
-<script src="../ajax/firmasAlmacenar.js"></script>
+<!-- <script src="../ajax/firmasAlmacenar.js"></script> -->
 <script src="../ajax/venta.js"></script>
 <script src="../web/js/dist/jspdf.min.js"></script>
 <script src="../ajax/Facturacion.js" type="text/javascript"></script>
@@ -257,7 +257,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
         </div>
     </div>
 
-    <!-- Modal de firmas Habeas Data -->
+    <!-- Modal de firmas Habeas Data
     <div class="modal" id="myModalFirma" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -268,7 +268,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 </div>
                 <div class="modal-body col-md-12" style="height: 420px; overflow : auto; display: flex; justify-content: center;" id="cuerpo_modal">
                     <!-- Contenedor de firma -->
-                    <div class="contenedor">
+                    <!-- <div class="contenedor">
 
                         <div class="row">
                             <div class="col-md-12">
@@ -295,7 +295,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                 <img id="draw-image" src="" alt="Tu Imagen aparecera Aqui!" />
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
 
@@ -305,10 +305,10 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
-    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel" style="width: 110%; margin-top: -30px">
+    <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel" style="width: 100%; margin-top: -10px">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #214761; color: white">
@@ -325,9 +325,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             <caption>Este es el detalle completo patra esta cotización.</caption>
                             <thead id="headerChequeos" style="visibility: hidden">
                                 <tr>
-                                    <th scope="col">Codigo Chequeo</th>
+                                    <th scope="col">Codigo</th>
                                     <th scope="col">Nombre Chequeo</th>
-                                    <th scope="col">Precio Chequeo</th>
+                                    <th scope="col">Precio</th>
                                     <th scope="col">Ver Detalle</th>
                                 </tr>
                             </thead>
@@ -336,9 +336,9 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         <table class="table">
                             <thead id="headerExamenes" style="visibility: hidden">
                                 <tr>
-                                    <th scope="col">Codigo Examen</th>
+                                    <th scope="col">Codigo</th>
                                     <th scope="col">Nombre Examen</th>
-                                    <th scope="col">Precio Examen</th>
+                                    <th scope="col">Precio</th>
                                 </tr>
                             </thead>
                             <tbody id="bodyTableModalExamenes"></tbody>
@@ -408,67 +408,67 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             }
         });
 
-        function generarPdfCotizacion() {
-            //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
-            var imgData = new Image();
-            imgData.src = "../images/vitaleaPdf.jpg";
-            var imgData2 = new Image();
-            imgData2.src = "../images/vitaleaPdf2.png";
-            let cotizacionId = sessionStorage.getItem('idCotizacion');
-            $.ajax({
-                type: "POST",
-                url: "../controladores/FacturacionController.php",
-                async: false,
-                dataType: 'json',
-                data: {
-                    tipo: 17,
-                    cotizId: cotizacionId
-                },
-                success: function(retu) {
-                    var idCtz1 = retu[0].nombre_cliente;
-                    var idCtz2 = retu[0].correo;
-                    var idCtz3 = retu[0].telefono;
-                    var idCtz4 = retu[0].valor;
-                    var idCtz5 = retu[0].direccion;
-                    var idCtz7 = retu[0].fecha_creacion;
+        // function generarPdfCotizacion() {
+        //     //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
+        //     var imgData = new Image();
+        //     imgData.src = "../images/vitaleaPdf.jpg";
+        //     var imgData2 = new Image();
+        //     imgData2.src = "../images/vitaleaPdf2.png";
+        //     let cotizacionId = sessionStorage.getItem('idCotizacion');
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "../controladores/FacturacionController.php",
+        //         async: false,
+        //         dataType: 'json',
+        //         data: {
+        //             tipo: 17,
+        //             cotizId: cotizacionId
+        //         },
+        //         success: function(retu) {
+        //             var idCtz1 = retu[0].nombre_cliente;
+        //             var idCtz2 = retu[0].correo;
+        //             var idCtz3 = retu[0].telefono;
+        //             var idCtz4 = retu[0].valor;
+        //             var idCtz5 = retu[0].direccion;
+        //             var idCtz7 = retu[0].fecha_creacion;
 
-                    var doc = new jsPDF();
-                    doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
-                    doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
-
-
-                    doc.setFontSize(18);
-                    doc.setFont("helvetica");
-                    doc.setTextColor(0, 24, 0);
-                    doc.text(30, 80, "Nombre del Cotizante: " + idCtz1);
-                    doc.text(30, 90, "Correo: " + idCtz2);
-                    doc.text(30, 100, "Telefono: " + idCtz3);
-                    doc.text(30, 110, "Costo: " + idCtz4 + "$");
-                    doc.text(30, 120, "Direccion: " + idCtz5);
-                    doc.text(30, 130, "Fecha Cot: " + idCtz7);
-                    doc.setLineWidth(3);
-                    doc.setDrawColor(251, 202, 18);
-                    doc.line(0, 60.5, 212, 60.5);
-
-                    doc.setDrawColor(0);
-                    doc.setFillColor(133, 0, 144);
-                    doc.rect(0, 272, 132, 26, 'F');
-
-                    doc.setProperties({
-                        //Metadatos del documento
-                        title: 'Cotizaciones Vitalea',
-                        subject: 'Documento de Cotizaciones vitalea',
-                        author: 'Arcos Soluciones Tecnologicas',
-                        keywords: 'generated, javascript, web 2.0, ajax',
-                        creator: 'Alexander Pineda - Desarrollador'
-                    });
-                    // Funcion Generadora del PDF
-                    doc.save('detallePDFCotizacion.pdf');
+        //             var doc = new jsPDF();
+        //             doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
+        //             doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
 
 
-                }
-            });
-        }
+        //             doc.setFontSize(18);
+        //             doc.setFont("helvetica");
+        //             doc.setTextColor(0, 24, 0);
+        //             doc.text(30, 80, "Nombre del Cotizante: " + idCtz1);
+        //             doc.text(30, 90, "Correo: " + idCtz2);
+        //             doc.text(30, 100, "Telefono: " + idCtz3);
+        //             doc.text(30, 110, "Costo: " + idCtz4 + "$");
+        //             doc.text(30, 120, "Direccion: " + idCtz5);
+        //             doc.text(30, 130, "Fecha Cot: " + idCtz7);
+        //             doc.setLineWidth(3);
+        //             doc.setDrawColor(251, 202, 18);
+        //             doc.line(0, 60.5, 212, 60.5);
+
+        //             doc.setDrawColor(0);
+        //             doc.setFillColor(133, 0, 144);
+        //             doc.rect(0, 272, 132, 26, 'F');
+
+        //             doc.setProperties({
+        //                 //Metadatos del documento
+        //                 title: 'Cotizaciones Vitalea',
+        //                 subject: 'Documento de Cotizaciones vitalea',
+        //                 author: 'Arcos Soluciones Tecnologicas',
+        //                 keywords: 'generated, javascript, web 2.0, ajax',
+        //                 creator: 'Alexander Pineda - Desarrollador'
+        //             });
+        //             // Funcion Generadora del PDF
+        //             doc.save('detallePDFCotizacion.pdf');
+
+
+        //         }
+        //     });
+        // }
 
         VerPrecotizaciones();
     </script>
