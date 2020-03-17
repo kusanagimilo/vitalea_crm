@@ -670,14 +670,14 @@ function AlmacenarPreCotizacion() {
                     $('#ModalCargando').modal('toggle');
                     console.log(retu);
                     if (retu == 1) {
-                         alertify.alert("Se realizo la acción correctamente", function () {
-                             location.reload();
-                         });
- 
-                     } else {
-                         console.log(retu);
-                         alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
-                     }
+                        alertify.alert("Se realizo la acción correctamente", function () {
+                            location.reload();
+                        });
+
+                    } else {
+                        console.log(retu);
+                        alertify.alert("Ocurrio un eror al tratar de almacenar la cotización");
+                    }
                 }
             });
         }
@@ -690,7 +690,6 @@ function AlmacenarPreCotizacion() {
 function VerPrecotizaciones() {
 
     $("#lista_precot_cot_body").html("");
-
     var tabla = '<table id="lista_precot_cot" class="table table-bordered">' +
         '<thead>' +
         '<tr style="background-color: #214761;">' +
@@ -746,9 +745,14 @@ function VerPrecotizaciones() {
         responsive: true
     });
 
+    
+
 }
 
 function btnVerdetallesTotales() {
+    sessionStorage.setItem('nameClient', this.event.target.parentNode.parentNode.childNodes[1].innerText);
+    sessionStorage.setItem('nameUser', this.event.target.parentNode.parentNode.childNodes[4].innerText);
+    sessionStorage.setItem('priceCot', this.event.target.parentNode.parentNode.childNodes[6].innerText);
     const dataEnvio = this.event.target.parentNode.parentNode.childNodes[0].innerText;
     $.ajax({
         type: "POST",
@@ -779,6 +783,7 @@ function btnVerdetallesTotales() {
                 bodyTableModalExamenes.innerHTML = "";
                 headerChequeos.style.visibility = "hidden";
                 headerExamenes.style.visibility = "hidden";
+                let arregloParaPdf = [];
                 retorno.forEach(element => {
                     if (element.tipo_item === "examen") {
                         $.ajax({
@@ -791,6 +796,7 @@ function btnVerdetallesTotales() {
                                 dataEnvio: element.id_item
                             },
                             success: function (retorno) {
+                                arregloParaPdf.push(retorno);
                                 retorno.forEach(retorno2 => {
                                     let rows = `<tr>
                                                     <th scope="row">${retorno2.codigo}</th>
@@ -813,6 +819,9 @@ function btnVerdetallesTotales() {
                                 dataEnvio2: element.id_item
                             },
                             success: function (retorno) {
+                                arregloParaPdf.push(retorno);
+                                const retornoEnCadena = JSON.stringify(retorno);
+                                sessionStorage.setItem('cotizacionesTotalesChequeos', retornoEnCadena);
                                 retorno.forEach(retorno2 => {
                                     let rows = `<tr>
                                                     <th scope="row">${retorno2.codigo_crm}</th>
@@ -830,9 +839,11 @@ function btnVerdetallesTotales() {
                             }
                         });
 
-                        
+
                     }
                 });
+                let arregloParaPdfCadena = JSON.stringify(arregloParaPdf);
+                sessionStorage.setItem('todaLaCotizacion', arregloParaPdfCadena);    
             })
         }
     });
@@ -842,8 +853,8 @@ function discriminacionChequeos(idChequeo) {
     let btnVerDiscriminacionChequeo = this.event.target;
     let rowChecks = this.event.target.parentNode.parentNode.nextElementSibling.nextElementSibling.childNodes[0];
     let filaRecomendaciones = this.event.target.parentNode.parentNode.nextElementSibling;
-        filaRecomendaciones.style.visibility = "visible";        
-    
+    filaRecomendaciones.style.visibility = "visible";
+
     $.ajax({
         type: "POST",
         url: "../controladores/FacturacionController.php",
@@ -854,13 +865,14 @@ function discriminacionChequeos(idChequeo) {
             respuestaId: idChequeo
         },
         success: function (retorno) {
+
             rowChecks.innerHTML += `<div style="font-weight: bolder; font-size: 11px; margin-top: -7px">Examenes que conforman el chequeo: </div>`
             retorno.forEach(element => {
                 var addDescrytion = `<div style="font-size: 10px">
                                         <span>${element.codigo} - </span>
                                         <span>${element.nombre}</span>
                                     </div>`;
-                                        // <span>$${formatNumber(element.precio)} </span>
+                // <span>$${formatNumber(element.precio)} </span>
                 rowChecks.innerHTML += addDescrytion;
                 btnVerDiscriminacionChequeo.style.pointerEvents = "none";
             });

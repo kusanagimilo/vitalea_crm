@@ -268,7 +268,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 </div>
                 <div class="modal-body col-md-12" style="height: 420px; overflow : auto; display: flex; justify-content: center;" id="cuerpo_modal">
                     <!-- Contenedor de firma -->
-                    <!-- <div class="contenedor">
+    <!-- <div class="contenedor">
 
                         <div class="row">
                             <div class="col-md-12">
@@ -299,12 +299,12 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+    </div>
+    </div>
+    </div>
     </div> -->
 
 
@@ -408,67 +408,161 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
             }
         });
 
-        // function generarPdfCotizacion() {
-        //     //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
-        //     var imgData = new Image();
-        //     imgData.src = "../images/vitaleaPdf.jpg";
-        //     var imgData2 = new Image();
-        //     imgData2.src = "../images/vitaleaPdf2.png";
-        //     let cotizacionId = sessionStorage.getItem('idCotizacion');
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "../controladores/FacturacionController.php",
-        //         async: false,
-        //         dataType: 'json',
-        //         data: {
-        //             tipo: 17,
-        //             cotizId: cotizacionId
-        //         },
-        //         success: function(retu) {
-        //             var idCtz1 = retu[0].nombre_cliente;
-        //             var idCtz2 = retu[0].correo;
-        //             var idCtz3 = retu[0].telefono;
-        //             var idCtz4 = retu[0].valor;
-        //             var idCtz5 = retu[0].direccion;
-        //             var idCtz7 = retu[0].fecha_creacion;
+        function generarPdfCotizacion(chequeos, examenes) {
+            //Funcion para la creacion del PDF, utilizando la libreria JSPDF.
+            var imgData = new Image();
+            imgData.src = "../images/vitaleaPdf.jpg";
+            var nombreCliente = sessionStorage.getItem('nameClient');
+            var nombreAsesor = sessionStorage.getItem('nameUser');
+            var precioCot = sessionStorage.getItem('priceCot');
+            let todaLaCotizacion = JSON.parse(sessionStorage.getItem('todaLaCotizacion'));
+            let idChequeo = todaLaCotizacion[0][0].id;
 
-        //             var doc = new jsPDF();
-        //             doc.addImage(imgData, 'JPG', 0, -4, 212, 63);
-        //             doc.addImage(imgData2, 'JPG', 132, 272, 80, 26, 'right');
+            var doc = new jsPDF();
+            doc.addImage(imgData, 'JPG', 25, 1, 162, 110);
 
 
-        //             doc.setFontSize(18);
-        //             doc.setFont("helvetica");
-        //             doc.setTextColor(0, 24, 0);
-        //             doc.text(30, 80, "Nombre del Cotizante: " + idCtz1);
-        //             doc.text(30, 90, "Correo: " + idCtz2);
-        //             doc.text(30, 100, "Telefono: " + idCtz3);
-        //             doc.text(30, 110, "Costo: " + idCtz4 + "$");
-        //             doc.text(30, 120, "Direccion: " + idCtz5);
-        //             doc.text(30, 130, "Fecha Cot: " + idCtz7);
-        //             doc.setLineWidth(3);
-        //             doc.setDrawColor(251, 202, 18);
-        //             doc.line(0, 60.5, 212, 60.5);
+            doc.setFontSize(12);
+            doc.setFont("helvetica");
+            doc.setTextColor(117, 117, 117);
+            doc.text(35, 116, nombreCliente);
+            doc.text(115, 116, nombreAsesor);
 
-        //             doc.setDrawColor(0);
-        //             doc.setFillColor(133, 0, 144);
-        //             doc.rect(0, 272, 132, 26, 'F');
-
-        //             doc.setProperties({
-        //                 //Metadatos del documento
-        //                 title: 'Cotizaciones Vitalea',
-        //                 subject: 'Documento de Cotizaciones vitalea',
-        //                 author: 'Arcos Soluciones Tecnologicas',
-        //                 keywords: 'generated, javascript, web 2.0, ajax',
-        //                 creator: 'Alexander Pineda - Desarrollador'
-        //             });
-        //             // Funcion Generadora del PDF
-        //             doc.save('detallePDFCotizacion.pdf');
+            doc.setDrawColor(255, 255, 255)
+            doc.setLineWidth(1.5)
+            doc.line(25, 111, 187, 111);
 
 
-        //         }
-        //     });
-        // }
+            doc.setProperties({
+                // Metadatos del documento
+                title: 'Cotizaciones Vitalea',
+                subject: 'Documento de Cotizaciones vitalea',
+                author: 'Arcos Soluciones Tecnologicas',
+                keywords: 'generated, javascript, web 2.0, ajax',
+                creator: 'Alexander Pineda - Desarrollador'
+            });
+
+            var arregloLineas = [];
+
+            function consultarChequeos(idChequeo, margen) {
+                $.ajax({
+                    type: "POST",
+                    url: "../controladores/FacturacionController.php",
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        tipo: 18,
+                        respuestaId: idChequeo
+                    },
+                    success: function(retorno) {
+                        let listaExamenes = "";
+                        retorno.forEach(element => {
+                            listaExamenes += "- " + element.codigo + " " + element.nombre + "\n";
+                            console.log(element.length);
+                        });
+                        arregloLineas.push(retorno.length);
+                        doc.setFontSize(9);
+                        doc.text(45, margen, listaExamenes);
+                    }
+                });
+            }
+
+            function todosLosExamenesPdf() {
+                var index = 0;
+                var marginPdf = 0;
+                for (let i = 0; i < 8; i++) {
+                    if (todaLaCotizacion[i]) {
+                        if (todaLaCotizacion[index][0].nombre.substring(0, 7) == "CHEQUEO") {
+                            doc.setDrawColor(186, 186, 186)
+                            doc.setLineWidth(0.1)
+                            doc.line(40, 123 + marginPdf, 175, 123 + marginPdf);
+                            doc.setFontSize(10.5);
+                            doc.text(40, 127 + marginPdf, todaLaCotizacion[index][0].nombre);
+                            doc.text(160, 127 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
+                            let idChequeo = todaLaCotizacion[index][0].id;
+                            consultarChequeos(idChequeo, 131 + marginPdf);
+                            marginPdf = marginPdf + 36;
+                            index++;
+                        } else {
+                            doc.setDrawColor(186, 186, 186)
+                            doc.setLineWidth(0.1)
+                            doc.line(40, 123 + marginPdf, 175, 123 + marginPdf);
+                            doc.setFontSize(10.5);
+                            doc.text(40, 127 + marginPdf, todaLaCotizacion[index][0].nombre);
+                            doc.text(160, 127 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
+                            marginPdf = marginPdf + 10;
+                            index++;
+                        }
+                    }
+                }
+
+                function pagina2() {
+                    let index = 8;
+                    marginPdf = 20;
+                    doc.setTextColor(117, 117, 117);
+                    doc.setFontStyle("normal");
+                    for (let i = 8; i < todaLaCotizacion.length; i++) {
+                        if (todaLaCotizacion[i]) {
+                            if (todaLaCotizacion[index][0].nombre.substring(0, 7) == "CHEQUEO") {
+                                doc.setDrawColor(186, 186, 186)
+                                doc.setLineWidth(0.1)
+                                doc.line(40, 5 + marginPdf, 175, 5 + marginPdf);
+                                doc.setFontSize(10.5);
+                                doc.text(40, 10 + marginPdf, todaLaCotizacion[index][0].nombre);
+                                doc.text(160, 10 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
+                                let idChequeo = todaLaCotizacion[index][0].id;
+                                consultarChequeos(idChequeo, 131 + marginPdf);
+                                marginPdf = marginPdf + 36;
+                                index++;
+                            } else {
+                                doc.setDrawColor(186, 186, 186)
+                                doc.setLineWidth(0.1)
+                                doc.line(40, 5 + marginPdf, 175, 5 + marginPdf);
+                                doc.setFontSize(10.5);
+                                doc.text(40, 10 + marginPdf, todaLaCotizacion[index][0].nombre);
+                                doc.text(160, 10 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
+                                marginPdf = marginPdf + 10;
+                                index++;
+                            }
+                        }
+                    }
+                }
+
+                if (marginPdf > 80) {
+                    doc.addPage();
+                    doc.setFontStyle("bold");
+                    doc.setFontSize(14);
+                    doc.setTextColor(0, 0, 0);
+                    doc.line(35, 253, 180, 253);
+                    doc.text(40, 250, "Total");
+                    doc.setTextColor(235, 31, 129);                
+                    doc.text(160, 250, '$' + precioCot);
+                    pagina2();
+                    doc.setDrawColor(186, 186, 186);
+                    doc.setLineWidth(0.7);
+                   
+
+                } else {
+                    doc.setDrawColor(186, 186, 186)
+                    doc.setLineWidth(0.7)
+                    doc.line(35, 253, 180, 253);
+
+                    doc.setFontStyle("bold");
+                    doc.setFontSize(14);
+                    doc.setTextColor(0, 0, 0);
+                    doc.text(40, 250, "Total");
+                    doc.setTextColor(235, 31, 129);
+                    doc.text(160, 250, '$' + precioCot);
+                }
+
+
+            }
+
+            todosLosExamenesPdf();
+            // Funcion Generadora del PDF
+            doc.save('detallePDFCotizacion.pdf');
+
+        }
 
         VerPrecotizaciones();
     </script>
