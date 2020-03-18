@@ -299,13 +299,13 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
 
 
 
-    </div>
+    <!-- </div>
     <div class="modal-footer">
         <button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
     </div>
     </div>
     </div>
-    </div> -->
+    </div> --> -->
 
 
     <div class="modal" id="myValoresRef" role="dialog" aria-labelledby="myModalLabel" style="width: 100%; margin-top: -10px">
@@ -442,8 +442,6 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 creator: 'Alexander Pineda - Desarrollador'
             });
 
-            var arregloLineas = [];
-
             function consultarChequeos(idChequeo, margen) {
                 $.ajax({
                     type: "POST",
@@ -458,10 +456,8 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         let listaExamenes = "";
                         retorno.forEach(element => {
                             listaExamenes += "- " + element.codigo + " " + element.nombre + "\n";
-                            console.log(element.length);
                         });
-                        arregloLineas.push(retorno.length);
-                        doc.setFontSize(9);
+                        doc.setFontSize(8);
                         doc.text(45, margen, listaExamenes);
                     }
                 });
@@ -473,6 +469,11 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                 for (let i = 0; i < 8; i++) {
                     if (todaLaCotizacion[i]) {
                         if (todaLaCotizacion[index][0].nombre.substring(0, 7) == "CHEQUEO") {
+                            if (todaLaCotizacion[i] == todaLaCotizacion[0]) {
+                                var marginCchequeos = 77;
+                            } else {
+                                var marginCchequeos = 31;
+                            }
                             doc.setDrawColor(186, 186, 186)
                             doc.setLineWidth(0.1)
                             doc.line(40, 123 + marginPdf, 175, 123 + marginPdf);
@@ -481,17 +482,21 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             doc.text(160, 127 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
                             let idChequeo = todaLaCotizacion[index][0].id;
                             consultarChequeos(idChequeo, 131 + marginPdf);
-                            marginPdf = marginPdf + 36;
+                            marginPdf = marginPdf + marginCchequeos;
                             index++;
+
                         } else {
                             doc.setDrawColor(186, 186, 186)
                             doc.setLineWidth(0.1)
                             doc.line(40, 123 + marginPdf, 175, 123 + marginPdf);
                             doc.setFontSize(10.5);
-                            doc.text(40, 127 + marginPdf, todaLaCotizacion[index][0].nombre);
-                            doc.text(160, 127 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
-                            marginPdf = marginPdf + 10;
+                            doc.text(40, 128 + marginPdf, todaLaCotizacion[index][0].nombre);
+                            doc.text(160, 128 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
+                            marginPdf = marginPdf + 8;
                             index++;
+                            if (todaLaCotizacion[i] == todaLaCotizacion[7] && marginPdf < 85) {
+                                marginPdf = 86;
+                            }
                         }
                     }
                 }
@@ -511,7 +516,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                 doc.text(40, 10 + marginPdf, todaLaCotizacion[index][0].nombre);
                                 doc.text(160, 10 + marginPdf, "$" + formatNumber(todaLaCotizacion[index][0].precio));
                                 let idChequeo = todaLaCotizacion[index][0].id;
-                                consultarChequeos(idChequeo, 131 + marginPdf);
+                                consultarChequeos(idChequeo, 14 + marginPdf);
                                 marginPdf = marginPdf + 36;
                                 index++;
                             } else {
@@ -527,20 +532,20 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                         }
                     }
                 }
-
-                if (marginPdf > 80) {
+                console.log(marginPdf)
+                if (marginPdf > 85) {
                     doc.addPage();
                     doc.setFontStyle("bold");
                     doc.setFontSize(14);
                     doc.setTextColor(0, 0, 0);
-                    doc.line(35, 253, 180, 253);
-                    doc.text(40, 250, "Total");
-                    doc.setTextColor(235, 31, 129);                
-                    doc.text(160, 250, '$' + precioCot);
-                    pagina2();
                     doc.setDrawColor(186, 186, 186);
                     doc.setLineWidth(0.7);
-                   
+                    doc.line(35, 253, 182, 253);
+                    doc.text(40, 250, "Total");
+                    doc.setTextColor(235, 31, 129);
+                    doc.text(160, 250, '$' + precioCot);
+                    pagina2();
+
 
                 } else {
                     doc.setDrawColor(186, 186, 186)
