@@ -40,11 +40,11 @@ echo $tipo;
         $mail->SMTPAuth   = true;
         $mail->SMTPSecure = "tls";
         $mail->Host       = "smtp.gmail.com";
-        $mail->Username   = "infovivelab@gmail.com";
-        $mail->Password   = "vivelab_info2018**++";
+        $mail->Username   = "hola@vitalea.com.co";
+        $mail->Password   = "vitaleah2019*";
         $mail->Port       = 587;
 
-        $mail->From = "infovivelab@gmail.com"; // A RELLENARDesde donde enviamos (Para mostrar). Puede ser el mismo que el email creado previamente.
+        $mail->From = "hola@vitalea.com.co"; // A RELLENARDesde donde enviamos (Para mostrar). Puede ser el mismo que el email creado previamente.
         $mail->FromName = "Vive + Lab"; //A RELLENAR Nombre a mostrar del remitente. 
          // Esta es la dirección a donde enviamos 
         $mail->AddCC("colcanpruebas@arcoscontactcenter.com.co");
