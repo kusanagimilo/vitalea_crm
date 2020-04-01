@@ -15,8 +15,8 @@ function EnviarCorreoVenta($id_venta, $correo_cliente) {
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = "tls";
     $mail->Host = "smtp.gmail.com";
-    $mail->Username = "infovivelab@gmail.com";
-    $mail->Password = "vivelab_info2018**++";
+    $mail->Username = "hola@vitalea.com.co";
+    $mail->Password = "vitaleah2019*";
     $mail->Port = 587;
 //Luego tenemos que iniciar la validación por SMTP:
     /*
@@ -25,7 +25,7 @@ function EnviarCorreoVenta($id_venta, $correo_cliente) {
       $mail->Username = "colcanpruebas@arcoscontactcenter.com.co"; // A RELLENAR. Email de la cuenta de correo. ej.info@midominio.com La cuenta de correo debe ser creada previamente.
       $mail->Password = "Colombia2018*"; // A RELLENAR. Aqui pondremos la contraseña de la cuenta de correo
       $mail->Port = 465; // Puerto de conexión al servidor de envio. */
-    $mail->From = "infovivelab@gmail.com"; // A RELLENARDesde donde enviamos (Para mostrar). Puede ser el mismo que el email creado previamente.
+    $mail->From = "hola@vitalea.com.co"; // A RELLENARDesde donde enviamos (Para mostrar). Puede ser el mismo que el email creado previamente.
     $mail->FromName = "Vitalea"; //A RELLENAR Nombre a mostrar del remitente. 
     $mail->AddAddress($correo_cliente); // Esta es la dirección a donde enviamos 
     $mail->IsHTML(true); // El correo se envía como HTML 
@@ -69,10 +69,10 @@ function EnviarCorreoPrecotizacion($correo, $id_cotizacion) {
     $nombre_cliente = $rows[0]['nombre_cliente'];
     $telefono_cliente = $rows[0]['telefono'];
     $fecha = $rows[0]['fecha_creacion'];
-    $total = $rows[0]['valor'];
+    $total = number_format(intval($rows[0]['valor']));
     $id_cot = $rows[0]['id_precotizacion'];
     $nombre_asesor = $rows[0]['nombre_completo'];
-    $direccion = $rows[0]['direccion'];
+    $observacion = $rows[0]['observacion'];
 
     $sql_items = "SELECT * FROM precotizacion_items WHERE id_precotizacion = :id_precotizacion";
     $query_items = $conexion->prepare($sql_items);
@@ -116,7 +116,7 @@ where pex.id_perfil = :id_perfil";
 
 
         $nombre_item = $rows3[0]['nombre'];
-        $precio_item = $rows3[0]['precio'];
+        $precio_item = number_format(intval($rows3[0]['precio']));
         $codigo_item = $rows3[0]['codigo'];
 
         $html_items .= ' <tr>
@@ -159,8 +159,8 @@ where pex.id_perfil = :id_perfil";
     $mail->SMTPAuth = true;
     $mail->SMTPSecure = "tls";
     $mail->Host = "smtp.gmail.com";
-    $mail->Username = "infovivelab@gmail.com";
-    $mail->Password = "vivelab_info2018**++";
+    $mail->Username = "hola@vitalea.com.co";
+    $mail->Password = "vitaleah2019*";
     $mail->Port = 587;
 //Luego tenemos que iniciar la validación por SMTP:
     /*
@@ -795,14 +795,16 @@ where pex.id_perfil = :id_perfil";
                 <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" style="background-color: #ffffff; margin: 0px auto; width: 600px; min-width: 320px; max-width: 90%;" role="presentation" bgcolor="#ffffff">
                     <tr>
                         <td valign="top" align="center">
-                            <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" style="margin: 0px auto; width: 560px; min-width: 280px; max-width: 90%;" role="presentation">
+                        <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" style="margin: 0px auto; width: 560px; min-width: 280px; max-width: 90%;" role="presentation">
+                                
                                 <!-- inicia productos -->
                                 $html_items
                                 <!-- finaliza productos -->
-
+                                <tr><td style="padding-left: 22px">Observaciones: $observacion</td></tr>
                                 <tr>
                                     <td valign="top">
                                         <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-bottom: 2px solid rgb(232, 232, 232); margin: 0px auto; min-width: 100%;" role="presentation" bgcolor="#ffffff">
+                                            
                                             <tr>
                                                 <td valign="top" style="padding-left: 20px; padding-right: 20px;">
                                                     <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; margin: 0px auto; min-width: 100%;" role="presentation" bgcolor="#ffffff">

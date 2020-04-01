@@ -14,8 +14,8 @@ $mail->IsSMTP();
 $mail->SMTPAuth   = true;
 $mail->SMTPSecure = "tls";
 $mail->Host       = "smtp.gmail.com";
-$mail->Username   = "infovivelab@gmail.com";
-$mail->Password   = "vivelab_info2018**++";
+$mail->Username   = "hola@vitalea.com.co";
+$mail->Password   = "vitaleah2019*";
 $mail->Port       = 587;
 //Luego tenemos que iniciar la validación por SMTP:
 /*
@@ -24,7 +24,7 @@ $mail->Host = "arcoscontactcenter.com.co"; // A RELLENAR. Aquí pondremos el SMT
 $mail->Username = "colcanpruebas@arcoscontactcenter.com.co"; // A RELLENAR. Email de la cuenta de correo. ej.info@midominio.com La cuenta de correo debe ser creada previamente. 
 $mail->Password = "Colombia2018*"; // A RELLENAR. Aqui pondremos la contraseña de la cuenta de correo
 $mail->Port = 465; // Puerto de conexión al servidor de envio. */
-$mail->From = "infovivelab@gmail.com"; // A RELLENARDesde donde enviamos (Para mostrar). Puede ser el mismo que el email creado previamente.
+$mail->From = "hola@vitalea.com.co"; // A RELLENARDesde donde enviamos (Para mostrar). Puede ser el mismo que el email creado previamente.
 $mail->FromName = "Vitalea"; //A RELLENAR Nombre a mostrar del remitente. 
 $mail->AddAddress($email); // Esta es la dirección a donde enviamos 
 $mail->IsHTML(true); // El correo se envía como HTML 
