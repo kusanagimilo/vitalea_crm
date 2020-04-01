@@ -82,4 +82,8 @@ if ($tipo == 3) {
     $inputIdValue = $_POST["inputIdValue"];
     $retorno = $Obj_Facturacion->consultarFirma($inputIdValue);
     echo $retorno;
+}if ($tipo == 21) {
+    $inputIdValue = $_POST["nombreChequeo"];
+    $retorno = $Obj_Facturacion->consultarChequeosFacturacion($inputIdValue);
+    echo $retorno;
 }

@@ -274,14 +274,17 @@ function VerDetalleFacturacion(id_venta) {
         '<th scope="col">Codigo examen</th>' +
         '<th scope="col">Examen</th>' +
         '<th scope="col">Valor</th>' +
+        '<th scope="col" id="soloParaChequeos">Detalle</th>' +
         '</tr>' +
         '</thead><tbody>';
     $.each(retorno.items, function (i, items) {
         html += '<tr>' +
             '<td>' + items.codigo_examen + '</td>' +
-            '<td>' + items.nombre_examen + '</td>' +
+            '<td id="chequeoType">' + items.nombre_examen + '</td>' +
             '<td>' + items.valor + '</td>' +
-            '</tr>';
+            '<td><input type="button" class="btn btn-info" onclick="mostrarDetalleChqueo()" id="btnVerDetalleChequeo" value="Detalle" /></td>' +
+            '</tr>' +
+            '<tr id="filaTabla"></tr>';
     });
 
     html += '</tbody></table>';
@@ -289,6 +292,37 @@ function VerDetalleFacturacion(id_venta) {
 
     $("#cuerpo_modal").html(html);
 
+    (function mostrarCeldas() {
+        let chequeoType = document.querySelector("#chequeoType").innerText;
+        if (!chequeoType.includes('CHEQUEO')) {
+            let soloParaChequeos = document.querySelector("#soloParaChequeos");
+            let btnVerDetalleChequeo = document.querySelector("#btnVerDetalleChequeo");
+            soloParaChequeos.style.display = 'none';
+            btnVerDetalleChequeo.style.display = 'none';
+        }
+    }
+    ());
+}
+
+function mostrarDetalleChqueo() {
+    let tipoChequeo = this.event.target.parentNode.previousSibling.previousSibling.innerText;
+    $.ajax({
+        type: 'POST',
+        url: "../controladores/FacturacionController.php",
+        async: false,
+        data: {
+            tipo: 21,
+            nombreChequeo: tipoChequeo
+        },
+        success: function (retu) {
+            let filaTabla = document.querySelector("#filaTabla");
+            let retorno = JSON.parse(retu);
+            retorno.forEach(element => {
+                
+                filaTabla.innerHTML += `<span style="font-size:11px">${element.nombre}</span><br>`
+            });
+        }
+    });
 }
 
 function NoFactura(id_venta) {
@@ -749,12 +783,16 @@ function VerPrecotizaciones() {
 
 }
 
-function btnVerdetallesTotales() {
+/*=======================================================================================================================
+    btnVerdetallesTotales() Con esta funcion podremos ver la lista total de los examenes que conforman la cotizacion
+==================================================================================================================*====*/
+
+function btnVerdetallesTotales() { 
     sessionStorage.setItem('nameClient', this.event.target.parentNode.parentNode.childNodes[1].innerText);
     sessionStorage.setItem('nameUser', this.event.target.parentNode.parentNode.childNodes[4].innerText);
     sessionStorage.setItem('priceCot', this.event.target.parentNode.parentNode.childNodes[6].innerText);
     const dataEnvio = this.event.target.parentNode.parentNode.childNodes[0].innerText;
-    $.ajax({
+    $.ajax({//Hacemos la consulta en ajax para llamar los datos con el controlador tipo 14
         type: "POST",
         url: "../controladores/FacturacionController.php",
         async: false,
@@ -766,7 +804,7 @@ function btnVerdetallesTotales() {
         success: function (retu) {
             const retorno = retu;
 
-            const promesa = new Promise((resolve, reject) => {
+            const promesa = new Promise((resolve, reject) => {//realizamos una promesa para esperar que lleguen los datos obtenidos de la consulta
                 if (retorno.length != 0) {
                     resolve();
                 } else {
@@ -774,7 +812,7 @@ function btnVerdetallesTotales() {
                 }
             })
 
-            promesa.then(() => {
+            promesa.then(() => {//Si la promesa es exitosa ejecutara el siguiente bloque de código
                 const bodyTableModalChequeos = document.querySelector("#bodyTableModalChequeos");
                 const bodyTableModalExamenes = document.querySelector("#bodyTableModalExamenes");
                 const headerChequeos = document.querySelector("#headerChequeos");
@@ -785,7 +823,7 @@ function btnVerdetallesTotales() {
                 headerExamenes.style.visibility = "hidden";
                 let arregloParaPdf = [];
                 retorno.forEach(element => {
-                    if (element.tipo_item === "examen") {
+                    if (element.tipo_item === "examen") { //Mostramos datos si es examen
                         $.ajax({
                             type: "POST",
                             url: "../controladores/FacturacionController.php",
@@ -808,7 +846,7 @@ function btnVerdetallesTotales() {
                                 });
                             }
                         });
-                    } else {
+                    } else { //Mostramos datos si es chequeo
                         $.ajax({
                             type: "POST",
                             url: "../controladores/FacturacionController.php",
@@ -829,7 +867,7 @@ function btnVerdetallesTotales() {
                                                     <td>$${formatNumber(retorno2.precio)}</td>
                                                     <td><button id="btnVerDiscriminacionChequeo" class="btn btn-info btn-sm" onclick='discriminacionChequeos(${retorno2.id})'>Ver detalle</button></td>
                                                 </tr>
-                                                <tr id="filaRecomendaciones" style="visibility: hidden;">
+                                                <tr id="filaRecomendaciones" style="display: none;">
                                                     <td style="margin-bottom: 0; padding-bottom: 0; margin-top: 0; padding-top: 0" colspan="4">Recomendaciones: ${retorno2.recomendaciones}.</td>
                                                 </tr>
                                                 <tr><td colspan="4" style="border-top: none;"></td></tr>`
@@ -842,18 +880,19 @@ function btnVerdetallesTotales() {
 
                     }
                 });
-                let arregloParaPdfCadena = JSON.stringify(arregloParaPdf);
-                sessionStorage.setItem('todaLaCotizacion', arregloParaPdfCadena);    
+                let arregloParaPdfCadena = JSON.stringify(arregloParaPdf); //El JSON lo dejamos en string para poderlo guardar en un sessionstorage
+                sessionStorage.setItem('todaLaCotizacion', arregloParaPdfCadena);    // Guardamos en un sessionStorage.
             })
         }
     });
 }
+/*=========================================================================================================================================================
+    discriminacionChequeos(); Con esta funcion vamos a realizar la muestra de todos los examenes que hacen parte del chequeo actual
+=========================================================================================================================================================*/
 
 function discriminacionChequeos(idChequeo) {
     let btnVerDiscriminacionChequeo = this.event.target;
     let rowChecks = this.event.target.parentNode.parentNode.nextElementSibling.nextElementSibling.childNodes[0];
-    let filaRecomendaciones = this.event.target.parentNode.parentNode.nextElementSibling;
-    filaRecomendaciones.style.visibility = "visible";
 
     $.ajax({
         type: "POST",
@@ -866,21 +905,34 @@ function discriminacionChequeos(idChequeo) {
         },
         success: function (retorno) {
 
-            rowChecks.innerHTML += `<div style="font-weight: bolder; font-size: 11px; margin-top: -7px">Examenes que conforman el chequeo: </div>`
+            rowChecks.innerHTML += `<div style="width: 70%; font-weight: bolder; font-family: sans-serif; font-size: 12px; margin: 3px 0px 0px 15%; padding: 7px 0% 7px 3%; 
+            background-color: #17A2B8; color: #fff; border-top-right-radius: 15px; border-top-left-radius: 15px">EXAMENES QUE CONFORMAN EL CHEQUEO: </div>
+            <div style="border: 1px solid #25252550; width: 70%; margin: 0px 0px 0px 15%; font-family: sans-serif;"></div>`
             retorno.forEach(element => {
-                var addDescrytion = `<div style="font-size: 10px">
+                var addDescrytion = `<div id="contenedorInformacionExamenes" style="margin: 3px 4% 0px 4%; font-size: 12px; padding: 4px 15px; border-bottom: 0.5px solid #3b3b3b38">
                                         <span>${element.codigo} - </span>
                                         <span>${element.nombre}</span>
                                     </div>`;
-                // <span>$${formatNumber(element.precio)} </span>
-                rowChecks.innerHTML += addDescrytion;
+                rowChecks.lastChild.innerHTML += addDescrytion;
                 btnVerDiscriminacionChequeo.style.pointerEvents = "none";
             });
+            let ultimoElementoExamen = document.querySelectorAll('#contenedorInformacionExamenes');
+            for (const i of ultimoElementoExamen) {
+                i.parentNode.lastElementChild.style.border = "none";
+            }
+            rowChecks.lastChild.parentNode.innerHTML += `<div style="width: 70%; font-weight: bolder; font-family: sans-serif; font-size: 12px; margin: 0px 0px 0px 15%; padding: 7px 0% 7px 3%; 
+            background-color: #17A2B8; color: #fff;">RECOMENDACIONES: </div><div style="border: 1px solid #25252550; font-family: sans-serif; width: 70%; margin: 0px 0px 0px 15%; 
+            padding: 4px 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px">
+            ${btnVerDiscriminacionChequeo.parentElement.parentElement.nextElementSibling.innerText.substr(17)}</div>`;
         }
     });
 }
 
-function formatNumber(num) {
+
+/*===============================================================================================================================
+    formatNumber(); Nos permite generar un formato de separador de miles para todos los valores posible numericos en el archivo
+===============================================================================================================================*/
+function formatNumber(num) { 
     if (!num || num == 'NaN')
         return '-';
     if (num == 'Infinity')

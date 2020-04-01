@@ -577,4 +577,18 @@ group by ven.usuario_id");
         $json_retorno2 = json_encode($rows);
         return $json_retorno2;
     }
+
+    public function consultarChequeosFacturacion($inputIdValue) {
+        $query = $this->conexion->prepare("SELECT nombre FROM crm_preatencion_prod.examenes_no_perfiles where id in(
+            SELECT precotizacion_items.id_precotizacion_items FROM crm_preatencion_prod.examen 
+            INNER JOIN crm_preatencion_prod.precotizacion_items 
+            ON examen.id =  precotizacion_items.id_item 
+            WHERE examen.nombre = 'CHEQUEO VIDA SEXUAL RESPONSABLE');");
+        $query->execute(array(
+        ));
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json_retorno2 = json_encode($rows);
+        return $json_retorno2;
+    }
 }
+
