@@ -137,6 +137,12 @@ $guion = $gestion->guion($clasificacion_id);
         ListaPlanesVenta();
         //BonosPersona($("#cliente_id").val());
 
+        let botonSubirArchivo = document.querySelector("#enviarTransferenciaBancaria");
+        botonSubirArchivo.addEventListener("click", () =>{
+            let transferenciaBancaria = document.querySelector("#transferenciaBancaria");
+            transferenciaBancaria.value = "";
+            alert("Archivo subido con exito");
+        })
     });
 </script>
 
@@ -482,19 +488,24 @@ $guion = $gestion->guion($clasificacion_id);
                                             Seleccione el medio de pago</p>
                                         <hr>
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <input type="radio" value="1" name="medio_pago">
                                                 <img src="images/internet.png"> PSE (Pago Online)
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <input type="radio" value="3" name="medio_pago">
                                                 <img src="images/tarjeta_credito.png"> Tarjeta de Crédito
                                             </div>
 
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <input type="radio" value="2" name="medio_pago">
                                                 <img src="images/efectivo.png"> En efectivo
+                                            </div>
+                                            
+                                            <div class="col-md-3">
+                                                <input type="radio" value="4" name="medio_pago" data-toggle="modal" data-target="#modalTransferenciaBancaria">
+                                                <img width="25" src="images/transferenciaBancaria.png"> Transferencia Bancaria
                                             </div>
                                         </div>
                                         <br><br>
@@ -596,6 +607,43 @@ $guion = $gestion->guion($clasificacion_id);
                     <div class="contenedor">
                         <section>
                             <h3 style="text-align: center;">Es Necesario aceptar las politicas de tratamiento de datos "Habeas Data", para poder continuar el proceso.</h3>
+                        </section>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de verificación de Transferencia Bancaria -->
+    <div class="modal" id="modalTransferenciaBancaria" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" style="width: 58%">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img width="40" style="border-radius: 50%" src="images/transferenciaBancaria.png" alt="imagen_logo_transferencia_bancaria" /> Transferencia Bancaria</h4>
+                </div>
+                <div class="modal-body col-md-12" id="cuerpo_modal">
+                    <!-- Contenedor del Header de la ventana modal -->
+                    <div class="contenedor">
+                        <section>
+                            <h3 style="text-align: center;">En esta opcion podras guardar el comprobante de la transferencia realizado en la compra.</h3>
+                        </section>
+                    </div>
+                    <!-- Contenedor del cuerpo de la ventana modal -->
+                    <div class="contenedor" style="overflow:auto">
+                        <section>
+                            <p style="text-align: left; margin: 20px">Por favor seleccione un archivo como comprobante para subir al sistema.</p>
+                        </section>
+                        <section>
+                            <input style="margin: 20px" type="file" name="transferenciaBancaria" id="transferenciaBancaria" class="custom-file-input">
+                            <button style="margin-left: 20px" class="btn btn-success" name="enviarTransferenciaBancaria" id="enviarTransferenciaBancaria"><i class="fas fa-cloud-upload-alt"></i> Subir Archivo</button>
                         </section>
                     </div>
 
