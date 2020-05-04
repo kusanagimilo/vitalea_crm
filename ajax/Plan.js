@@ -117,6 +117,7 @@ function VerPlanes() {
             '<tr style="background-color: #214761;">' +
             '<th style="color:white">Codigo plan</th>' +
             '<th style="color:white">Nombre plan</th>' +
+            '<th style="color:white">Estado</th>' +
             '<th style="color:white">Acciones</th>' +
             '</tr>' +
             '</thead>' +
@@ -139,13 +140,21 @@ function VerPlanes() {
             $.each(retu, function (i, plan) {
                 //var botones = "BOTONES";
 
+                let estado;
+
                 var botones = '<input type="button" data-toggle="modal" onclick="LlenarOnclick(' + plan.id_plan + ')" data-target="#myModalPlanesItems"  value="Ver items" class="btn btn-sm btn-default"><br>' +
                         '<input type="button" onclick="InfoPlan(' + plan.id_plan + ')" data-toggle="modal" data-target="#myModalEdtPlan"  value="Editar info plan" class="btn btn-sm btn-info">';
 
+                if (plan.activo == 1) {
+                    estado = "Activo";
+                } else {
+                    estado = "Inactivo";
+                }
 
                 var newRow = "<tr>";
                 newRow += "<td id='plc_" + plan.id_plan + "'>" + plan.codigo_plan + "</td>";
                 newRow += "<td id='pln_" + plan.id_plan + "'>" + plan.nombre_plan + "</td>";
+                newRow += "<td id='pln_" + plan.id_plan + "'>" + estado + "</td>";
                 newRow += "<td id='plb_" + plan.id_plan + "'>" + botones + "</td>";
                 newRow += "</tr>";
 
@@ -165,7 +174,7 @@ function ListaPlanesVenta() {
     $.ajax({
         url: '../controladores/PlanController.php',
         data: {
-            tipo: 2
+            tipo: 8
         },
         type: 'post',
         dataType: 'json',
@@ -360,9 +369,10 @@ function EditarItemPlan(id_plan_item) {
 function EditarInfoPlan(id_plan) {
     var codigo_plan = $("#edt_codigo_plan").val();
     var nombre_plan = $("#edt_nombre_plan").val();
+    var estado_plan = $("#edt_estado_plan").val();
 
 
-    if (codigo_plan == "" || nombre_plan == "") {
+    if (codigo_plan == "" || nombre_plan == "" || estado_plan == "") {
         alertify.alert("Revise el formulario y complete los datos obligatorios");
     } else {
 
@@ -379,6 +389,7 @@ function EditarInfoPlan(id_plan) {
             data.append('id_plan', id_plan);
             data.append('codigo_plan', codigo_plan);
             data.append('nombre_plan', nombre_plan);
+            data.append('estado_plan', estado_plan);
 
             var url = "../controladores/PlanController.php";
             var retorno;
@@ -433,5 +444,5 @@ function InfoPlan(id_plan) {
     $("#edt_btn_plan").attr("onclick", "EditarInfoPlan(" + datos.id_plan + ")");
     $("#edt_codigo_plan").val(datos.codigo_plan);
     $("#edt_nombre_plan").val(datos.nombre_plan);
-
+    $("#edt_estado_plan").val(datos.activo);
 }

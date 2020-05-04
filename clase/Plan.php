@@ -11,6 +11,16 @@ class Plan {
     }
 
     function VerPlanes() {
+        $query = $this->conexion->prepare("SELECT id_plan,codigo_plan,nombre_plan,activo
+                                           FROM plan");
+        $query->execute();
+
+        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($rows);
+    }
+
+    function VerPlanesLista() {
         $query = $this->conexion->prepare("SELECT id_plan,codigo_plan,nombre_plan
                                            FROM plan WHERE activo = 1");
         $query->execute();
@@ -228,13 +238,15 @@ AND tipo_item = 'chequeo'";
             try {
                 $sql_update = "UPDATE plan SET codigo_plan=:codigo_plan,
                               nombre_plan=:nombre_plan,
-                              id_usr_modifico=:id_usr_modifico
+                              id_usr_modifico=:id_usr_modifico,
+                              activo=:activo
                               WHERE id_plan=:id_plan";
                 $query_update = $this->conexion->prepare($sql_update);
                 $query_update->execute(array(':codigo_plan' => $data['codigo_plan'],
                     ':nombre_plan' => $data['nombre_plan'],
                     ':id_usr_modifico' => $id_usuario,
-                    ':id_plan' => $data['id_plan']));
+                    ':id_plan' => $data['id_plan'],
+                    ':activo' => $data['estado_plan']));
 
 
 
@@ -327,7 +339,7 @@ AND tipo_item = 'chequeo'";
     }
 
     function InfoPlan($data) {
-        $query = $this->conexion->prepare("SELECT * FROM plan WHERE activo = 1 AND id_plan=:id_plan");
+        $query = $this->conexion->prepare("SELECT * FROM plan WHERE id_plan=:id_plan");
         $query->execute(array(':id_plan' => $data['id_plan']));
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($rows[0]);

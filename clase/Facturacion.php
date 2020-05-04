@@ -557,6 +557,7 @@ group by ven.usuario_id");
         $json_retorno2 = json_encode($rows);
         return $json_retorno2;
     }
+
     public function insercionFirma($firma, $documento) {
         $query = $this->conexion->prepare("UPDATE  crm_preatencion_prod.cliente SET firma = :firma WHERE documento = :documento;");
         $query->execute(array(
@@ -570,7 +571,7 @@ group by ven.usuario_id");
 
     public function consultarFirma($inputIdValue) {
         $query = $this->conexion->prepare("SELECT firma, nombre, apellido, documento  FROM crm_preatencion_prod.cliente WHERE documento = :inputIdValue;");
-        $query->execute(array(            
+        $query->execute(array(
             ':inputIdValue' => $inputIdValue
         ));
         $rows = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -590,5 +591,89 @@ group by ven.usuario_id");
         $json_retorno2 = json_encode($rows);
         return $json_retorno2;
     }
-}
 
+    public function AdicionarComprobante($data, $files_data) {
+        @session_start();
+        $id_usuario = $_SESSION['ID_USUARIO'];
+        if ($files_data['archivo']['error'] == 0) {
+            $info = new SplFileInfo($files_data['archivo']['name']);
+            $extension = $info->getExtension();
+            $nombre_documento = "comprobante_" . $data['id_venta'] . "_" . date('Ymdhis') . "." . $extension;
+            $move = move_uploaded_file($files_data['archivo']['tmp_name'], '../web/Documentos/' . $nombre_documento);
+            if ($move) {
+                try {
+                    if ($data["operacion"] == 1) {
+
+                        $query = $this->conexion->prepare("INSERT INTO documento(nombre_documento,extension,id_usuario_subio,id_usuario_modifico,fecha_modificacion)
+                                                           VALUES(:nombre_documento,:extension,:id_usuario_subio,:id_usuario_modifico,NOW())");
+                        $query->execute(array(
+                            ':nombre_documento' => $nombre_documento,
+                            ':extension' => $extension,
+                            ':id_usuario_subio' => $id_usuario,
+                            ':id_usuario_modifico' => $id_usuario
+                        ));
+
+                        $id_documento = $this->conexion->lastInsertId();
+
+                        $query_2 = $this->conexion->prepare("INSERT INTO venta_documento(id_venta,id_documento,fecha_modificacion,usuario_creo,usuario_modifico)
+                                                           VALUES(:id_venta,:id_documento,NOW(),:usuario_creo,:usuario_modifico)");
+                        $query_2->execute(array(
+                            ':id_venta' => $data['id_venta'],
+                            ':id_documento' => $id_documento,
+                            ':usuario_creo' => $id_usuario,
+                            ':usuario_modifico' => $id_usuario
+                        ));
+
+                        return 1;
+                    } else if ($data["operacion"] == 2) {
+                        $query_con = $this->conexion->prepare("SELECT * FROM venta_documento WHERE id_venta = :id_venta");
+                        $query_con->execute(array(':id_venta' => $data['id_venta']));
+                        $rows = $query_con->fetchAll(PDO::FETCH_ASSOC);
+
+                        $query_doc = $this->conexion->prepare("INSERT INTO documento(nombre_documento,extension,id_usuario_subio,id_usuario_modifico,fecha_modificacion)
+                                                           VALUES(:nombre_documento,:extension,:id_usuario_subio,:id_usuario_modifico,NOW())");
+                        $query_doc->execute(array(
+                            ':nombre_documento' => $nombre_documento,
+                            ':extension' => $extension,
+                            ':id_usuario_subio' => $id_usuario,
+                            ':id_usuario_modifico' => $id_usuario
+                        ));
+                        $id_documento = $this->conexion->lastInsertId();
+
+                        $query_update = $this->conexion->prepare("UPDATE venta_documento SET id_documento = :id_documento,
+                                                                 fecha_modificacion = NOW(),
+                                                                 usuario_modifico = :usuario_modifico
+                                                                 WHERE id_venta_documento =:id_venta_documento");
+                        $query_update->execute(array(
+                            ':id_documento' => $id_documento,
+                            ':usuario_modifico' => $id_usuario,
+                            ':id_venta_documento' => $rows[0]['id_venta_documento']
+                        ));
+                        return 1;
+                    }
+                } catch (Exception $exc) {
+                    return 2;
+                }
+            } else {
+                return 2;
+            }
+        } else {
+            return 2;
+        }
+    }
+
+    public function InformacionDocVenta($data) {
+        $query_con = $this->conexion->prepare("SELECT doc.id_documento,doc.nombre_documento,vend.id_venta
+FROM venta_documento vend
+INNER JOIN documento doc ON doc.id_documento = vend.id_documento
+WHERE vend.id_venta = :id_venta");
+        $query_con->execute(array(':id_venta' => $data['id_venta']));
+        $rows = $query_con->fetchAll(PDO::FETCH_ASSOC);
+        if (empty($rows)) {
+            return json_encode("sin_documento");
+        } else {
+            return json_encode($rows[0]);
+        }
+    }
+
+}

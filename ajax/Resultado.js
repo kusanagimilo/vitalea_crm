@@ -1,24 +1,24 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-    generarPdfPerfil();
-});
+/*document.addEventListener("DOMContentLoaded", function (event) {
+ generarPdfPerfil();
+ });*/
 
 function VerListaResultados(id_cliente) {
 
     $("#lista_resultado_cot_body").html("");
 
     var tabla = '<br><table id="lista_resultado" class="table table-bordered">' +
-        '<thead>' +
-        '<tr style="background-color: #214761;">' +
-        '<th style="color:white">Codigo unico solicitud</th>' +
-        '<th style="color:white">Estado</th>' +
-        '<th style="color:white">Fecha creacion solicitud</th>' +
-        '<th style="color:white">Fecha recepcion resultados</th>' +
-        '<th style="color:white">Ver documentos anexos</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tbody id="lista_resultado_cot_body">' +
-        '</tbody>' +
-        '</table>';
+            '<thead>' +
+            '<tr style="background-color: #214761;">' +
+            '<th style="color:white">Codigo unico solicitud</th>' +
+            '<th style="color:white">Estado</th>' +
+            '<th style="color:white">Fecha creacion solicitud</th>' +
+            '<th style="color:white">Fecha recepcion resultados</th>' +
+            '<th style="color:white">Ver documentos anexos</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody id="lista_resultado_cot_body">' +
+            '</tbody>' +
+            '</table>';
 
     $("#tabla_resul").html(tabla);
 
@@ -105,23 +105,23 @@ function ResultadosIndividual() {
             $("#lista_resultado_cot_body").html("");
 
             var tabla = '<br><table id="lista_resultado" class="table table-bordered">' +
-                '<thead>' +
-                '<tr style="background-color: #214761;">' +
-                '<th style="color:white">Codigo unico solicitud</th>' +
-                '<th style="color:white">Documento paciente</th>' +
-                '<th style="color:white">Nombre paciente</th>' +
-                '<th style="color:white">Estado</th>' +
-                '<th style="color:white">Fecha creacion solicitud</th>' +
-                '<th style="color:white">Fecha recepcion resultados</th>' +
-                '<th style="color:white">Documento</th>' +
-                '<th style="color:white">Ver detalle</th>' +
-                '<th style="color:white">Enviar resultado</th>' +
-                //'<th style="color:white">%Resultados</th>' +
-                '</tr>' +
-                '</thead>' +
-                '<tbody id="lista_resultado_cot_body">' +
-                '</tbody>' +
-                '</table>';
+                    '<thead>' +
+                    '<tr style="background-color: #214761;">' +
+                    '<th style="color:white">Codigo unico solicitud</th>' +
+                    '<th style="color:white">Documento paciente</th>' +
+                    '<th style="color:white">Nombre paciente</th>' +
+                    '<th style="color:white">Estado</th>' +
+                    '<th style="color:white">Fecha creacion solicitud</th>' +
+                    '<th style="color:white">Fecha recepcion resultados</th>' +
+                    '<th style="color:white">Documento</th>' +
+                    '<th style="color:white">Ver detalle</th>' +
+                    '<th style="color:white">Enviar resultado</th>' +
+                    //'<th style="color:white">%Resultados</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody id="lista_resultado_cot_body">' +
+                    '</tbody>' +
+                    '</table>';
 
             var html = '<div id="tabla_resul" class="table-responsive">';
             $("#tabla_resultado").html(html);
@@ -207,9 +207,9 @@ function ResultadosDetalle(venta_id, id_resultado) {
     var arreglo_por = datos.porcentaje;
 
     var porcentaje = '<h2>Porcentaje de resultados ingresados</h2>' +
-        '<div class="progress">' +
-        '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:' + arreglo_por.porcentaje + '%">' + arreglo_por.porcentaje + '%</div>' +
-        '</div>'
+            '<div class="progress">' +
+            '<div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:' + arreglo_por.porcentaje + '%">' + arreglo_por.porcentaje + '%</div>' +
+            '</div>'
     var html = porcentaje + "<div id='perfiles'><h4>Perfiles</h4>";
     html += '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
     $.each(datos.perfiles, function (i, perfi) {
@@ -217,66 +217,66 @@ function ResultadosDetalle(venta_id, id_resultado) {
         var datos_por_perfil = perfi.examenes;
 
         html += '<div class="panel panel-default">' +
-            '<div class="panel-heading" role="tab" id="heading' + perfi.codigo + '">' +
-            '<h4 class="panel-title">' +
-            '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse' + perfi.codigo + '" aria-expanded="false" aria-controls="collapse' + perfi.codigo + '">' +
-            perfi.nombre + " - " + perfi.codigo + ' ↓ ' +
-            '</a>' +
-            '</h4>' +
-            '</div>';
+                '<div class="panel-heading" role="tab" id="heading' + perfi.codigo + '">' +
+                '<h4 class="panel-title">' +
+                '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse' + perfi.codigo + '" aria-expanded="false" aria-controls="collapse' + perfi.codigo + '">' +
+                perfi.nombre + " - " + perfi.codigo + ' ↓ ' +
+                '</a>' +
+                '</h4>' +
+                '</div>';
 
         var tabla = '<div id="tabla_resul" class="table-responsive">' +
-            '<table class="table table-bordered">' +
-            '<thead><tr><th>Codigo</th><th>Nombre</th><th>Fecha ingreso</th><th>Valor</th></tr></thead><tbody>';
+                '<table class="table table-bordered">' +
+                '<thead><tr><th>Codigo</th><th>Nombre</th><th>Fecha ingreso</th><th>Valor</th></tr></thead><tbody>';
 
         $.each(datos_por_perfil, function (i, examenes) {
 
             td_analitos = "";
             if (examenes.valor != "revisar_analitos") {
                 td_analitos = "<td>" + examenes.fecha + "</td>" +
-                    "<td>" + examenes.valor + "</td>";
+                        "<td>" + examenes.valor + "</td>";
             } else {
                 td_analitos = '<td colspan="2"><center><input type="button" onclick="VerAnalitos(' + examenes.id_c + ',' + id_resultado + ')" data-toggle="modal" data-target="#myModalAnalito" value="Revisar analitos" class="btn btn-primary"></center></td>';
             }
 
 
             tabla += "<tr>" +
-                "<td>" + examenes.codigo + "</td>" +
-                "<td>" + examenes.nombre + "</td>" +
-                td_analitos +
-                "</tr>";
+                    "<td>" + examenes.codigo + "</td>" +
+                    "<td>" + examenes.nombre + "</td>" +
+                    td_analitos +
+                    "</tr>";
         });
 
         tabla += "</tbody></table></div>";
 
         html += '<div id="collapse' + perfi.codigo + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + perfi.codigo + '">' +
-            '<div class="panel-body">' + tabla + '</div>' +
-            '</div>' +
-            '</div>';
+                '<div class="panel-body">' + tabla + '</div>' +
+                '</div>' +
+                '</div>';
 
 
     });
     html += '</div></div>';
 
     html += "<div id='examenes_no_perfiles' class='table-responsive'><h4>Examenes individuales</h4>" +
-        "<table class='table table-bordered'>" +
-        '<thead><tr><th>Codigo</th><th>Nombre</th><th>Fecha ingreso</th><th>Valor</th></tr></thead><tbody>';
+            "<table class='table table-bordered'>" +
+            '<thead><tr><th>Codigo</th><th>Nombre</th><th>Fecha ingreso</th><th>Valor</th></tr></thead><tbody>';
 
     $.each(datos.no_perfiles, function (i, no_perfil) {
 
         td_analitos = "";
         if (no_perfil.valor != "revisar_analitos") {
             td_analitos = "<td>" + no_perfil.fecha + "</td>" +
-                "<td>" + no_perfil.valor + "</td>";
+                    "<td>" + no_perfil.valor + "</td>";
         } else {
             td_analitos = '<td colspan="2"><center><input type="button" onclick="VerAnalitos(' + no_perfil.id + ',' + id_resultado + ')" data-toggle="modal" data-target="#myModalAnalito" value="Revisar analitos" class="btn btn-primary"></center></td>';
         }
 
         html += "<tr>" +
-            "<td>" + no_perfil.codigo + "</td>" +
-            "<td>" + no_perfil.nombre + "</td>" +
-            td_analitos +
-            "</tr>";
+                "<td>" + no_perfil.codigo + "</td>" +
+                "<td>" + no_perfil.nombre + "</td>" +
+                td_analitos +
+                "</tr>";
 
     });
 
@@ -306,17 +306,17 @@ function VerAnalitos(id_examen, id_resultado) {
     });
 
     var tabla = '<div id="tabla_resul" class="table-responsive">' +
-        '<table class="table table-bordered">' +
-        '<thead><tr><th>Codigo</th><th>Nombre</th><th>Fecha ingreso</th><th>Valor</th></tr></thead><tbody>';
+            '<table class="table table-bordered">' +
+            '<thead><tr><th>Codigo</th><th>Nombre</th><th>Fecha ingreso</th><th>Valor</th></tr></thead><tbody>';
 
     $.each(datos, function (i, sub_examen) {
 
         tabla += "<tr>" +
-            "<td>" + sub_examen.codigo + "</td>" +
-            "<td>" + sub_examen.nombre + "</td>" +
-            "<td>" + sub_examen.fecha + "</td>" +
-            "<td>" + sub_examen.valor + "</td>" +
-            "</tr>";
+                "<td>" + sub_examen.codigo + "</td>" +
+                "<td>" + sub_examen.nombre + "</td>" +
+                "<td>" + sub_examen.fecha + "</td>" +
+                "<td>" + sub_examen.valor + "</td>" +
+                "</tr>";
 
     });
     tabla += "</tbody></table></div>";
@@ -350,23 +350,23 @@ function ResultadosIndividualLog() {
                     $("#lista_resultado_cot_body").html("");
 
                     var tabla = '<br><table id="lista_resultado" class="table table-bordered">' +
-                        '<thead>' +
-                        '<tr style="background-color: #214761;">' +
-                        '<th style="color:white">Codigo unico solicitud</th>' +
-                        '<th style="color:white">Estado</th>' +
-                        '<th style="color:white">Fecha creacion solicitud</th>' +
-                        '<th style="color:white">Fecha recepcion resultados</th>' +
-                        '<th style="color:white">Ver Logs</th>' +
-                        '</tr>' +
-                        '</thead>' +
-                        '<tbody id="lista_resultado_cot_body">' +
-                        '</tbody>' +
-                        '</table>';
+                            '<thead>' +
+                            '<tr style="background-color: #214761;">' +
+                            '<th style="color:white">Codigo unico solicitud</th>' +
+                            '<th style="color:white">Estado</th>' +
+                            '<th style="color:white">Fecha creacion solicitud</th>' +
+                            '<th style="color:white">Fecha recepcion resultados</th>' +
+                            '<th style="color:white">Ver Logs</th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody id="lista_resultado_cot_body">' +
+                            '</tbody>' +
+                            '</table>';
 
                     var html = '<b><div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">' + retu.nombre + ' ' + retu.apellido + '</div>' +
-                        '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">' + retu.documento + '</div>' +
-                        '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">' + retu.email + '</div></b><br>' +
-                        '<div id="tabla_resul" class="table-responsive">';
+                            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">' + retu.documento + '</div>' +
+                            '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">' + retu.email + '</div></b><br>' +
+                            '<div id="tabla_resul" class="table-responsive">';
                     $("#tabla_resultado").html(html);
                     $("#tabla_resul").html(tabla);
 
@@ -432,17 +432,17 @@ function VerLogsSolicitud(id_solicitud_athenea) {
 
 
                 var tabla = '<br><table id="lista_logs" class="table table-bordered">' +
-                    '<thead>' +
-                    '<tr style="background-color: #214761;">' +
-                    '<th style="color:white">Codigo examen</th>' +
-                    '<th style="color:white">Fecha creacion</th>' +
-                    '<th style="color:white">Resultado</th>' +
-                    '<th style="color:white">Usar resultado</th>' +
-                    '</tr>' +
-                    '</thead>' +
-                    '<tbody id="lista_logs_cot_body">' +
-                    '</tbody>' +
-                    '</table>';
+                        '<thead>' +
+                        '<tr style="background-color: #214761;">' +
+                        '<th style="color:white">Codigo examen</th>' +
+                        '<th style="color:white">Fecha creacion</th>' +
+                        '<th style="color:white">Resultado</th>' +
+                        '<th style="color:white">Usar resultado</th>' +
+                        '</tr>' +
+                        '</thead>' +
+                        '<tbody id="lista_logs_cot_body">' +
+                        '</tbody>' +
+                        '</table>';
                 $("#cuerpo_modal").html(tabla);
 
                 $.each(retu, function (i, logs) {
@@ -530,7 +530,7 @@ function generarPdfPerfil() {
     const botonPdf = document.querySelector("#btnHabPDF");
     botonPdf.addEventListener("click", () => {
         const inputId = document.querySelectorAll("input");
-        const inputIdValue = inputId[7].value;  
+        const inputIdValue = inputId[7].value;
         var imgData = new Image();
         imgData.src = "../images/habeasData.png";
         var imgData2 = new Image();
@@ -539,15 +539,15 @@ function generarPdfPerfil() {
         $.ajax({
             url: '../controladores/FacturacionController.php',
             data:
-            {
-                tipo: 20,
-                inputIdValue: inputIdValue
-            },
+                    {
+                        tipo: 20,
+                        inputIdValue: inputIdValue
+                    },
             type: 'post',
             success: function (data) {
                 let datos = JSON.parse(data);
                 let firmaPdf = datos[0].firma;
-                let nombreCliente = datos[0].nombre + " "+ datos[0].apellido;
+                let nombreCliente = datos[0].nombre + " " + datos[0].apellido;
                 let docu = datos[0].documento;
                 let documento = docu.toString();
                 if (firmaPdf != null) {

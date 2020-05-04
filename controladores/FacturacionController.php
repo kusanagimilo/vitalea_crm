@@ -86,4 +86,11 @@ if ($tipo == 3) {
     $inputIdValue = $_POST["nombreChequeo"];
     $retorno = $Obj_Facturacion->consultarChequeosFacturacion($inputIdValue);
     echo $retorno;
+}if ($tipo == 22) {
+    $retorno = $Obj_Facturacion->AdicionarComprobante($_POST, $_FILES);
+    echo $retorno;
+}if ($tipo == 23) {
+    $retorno = $Obj_Facturacion->InformacionDocVenta($_POST);
+    echo $retorno;
 }
+

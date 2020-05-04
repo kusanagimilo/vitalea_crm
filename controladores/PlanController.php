@@ -27,4 +27,7 @@ if ($tipo == 1) {
 }if ($tipo == 7) {
     $retorno = $Obj_Plan->EditarInfoPlan($_POST, $_FILES);
     echo $retorno;
+}if ($tipo == 8) {
+    $retorno = $Obj_Plan->VerPlanesLista($_POST, $_FILES);
+    echo $retorno;
 }

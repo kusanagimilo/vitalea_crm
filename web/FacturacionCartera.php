@@ -76,6 +76,7 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                                                     <option value="1">PSE (Pago Online)</option>
                                                     <option value="3">Tarjeta de Crédito</option>
                                                     <option value="2">En efectivo</option>
+                                                    <option value="4">Transferencia Bancaria</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
@@ -172,6 +173,52 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                     <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
                 </div>
             </div>                            
+        </div>
+    </div>
+
+
+    <!-- Modal de verificación de Transferencia Bancaria -->
+    <div class="modal" id="modalTransferenciaBancaria" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" style="width: 58%">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #214761; color: white">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <img width="40" style="border-radius: 50%" src="images/transferenciaBancaria.png" alt="imagen_logo_transferencia_bancaria" /> Transferencia Bancaria</h4>
+                </div>
+                <div class="modal-body col-md-12" id="cuerpo_modal">
+                    <!-- Contenedor del Header de la ventana modal -->
+                    <div class="contenedor">
+                        <section>
+                            <h3 style="text-align: center;">En esta opcion podras guardar el comprobante de la transferencia realizado en la compra.</h3>
+                        </section>
+                    </div>
+                    <!-- Contenedor del cuerpo de la ventana modal -->
+                    <div class="contenedor" style="overflow:auto">
+                        <section>
+                            <p style="text-align: left; margin: 20px">Por favor seleccione un archivo como comprobante para subir al sistema.</p>
+                        </section>
+                        <section>
+                            <form enctype="multipart/form-data" method="post" name="fileinfo" id="frm_forms"> 
+                                <input style="margin: 20px" type="file" name="archivo" id="archivo" class="custom-file-input">
+
+                                <div class="alert alert-info" role="alert" id="documento_tran" style="display:none;">
+                                </div>
+
+
+                                <button  id="btn_documento" type="button" class="btn btn-primary btn-lg btn-block">Adicionar documento</button>
+                                <!--<button onclick="AdicionarComprobante('44', '21')" style="margin-left: 20px" class="btn btn-success" name="enviarTransferenciaBancaria" id="enviarTransferenciaBancaria"><i class="fas fa-cloud-upload-alt"></i> Subir Archivo</button>-->
+                            </form>
+                        </section>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="font-size: 11pt;"><img src="images/cerrar_dos.png"> Cerrar</button>
+                </div>
+            </div>
         </div>
     </div>
 

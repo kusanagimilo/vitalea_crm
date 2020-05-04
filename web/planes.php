@@ -187,6 +187,14 @@ $array_permisos = explode(",", $_SESSION['PERMISOS']);
                             <input type="text" class="form-control" id="edt_nombre_plan" placeholder="Nombre plan" name="edt_nombre_plan">
                         </div>
                         <div class="form-group">
+                            <label for="inputtext">* seleccione el estado</label>
+                            <select class="form-control" id="edt_estado_plan"  name="edt_estado_plan">
+                                <option value="">-seleccione-</option>
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="inputtext">Seleccione el archivo csv de tarifas para anexar nuevas o modificar las existentes</label>
                             <input type="file" class="custom-file-input" id="archivo_edt" name="archivo_edt">
                         </div>

@@ -11,24 +11,24 @@ function VerListaFacturacion() {
         $("#lista_ventas_cot_body").html("");
 
         var tabla = '<table id="lista_ventas_cot" class="table table-bordered">' +
-            '<thead>' +
-            '<tr style="background-color: #214761;">' +
-            '<th style="color:white">Tipo de Documento</th>' +
-            '<th style="color:white">No. Documento</th>' +
-            '<th style="color:white">Nombre Completo paciente</th>' +
-            '<th style="color:white">Medio de pago</th>' +
-            '<th style="color:white">Código</th>' +
-            '<th style="color:white">Factura Athenea</th>' +
-            '<th style="color:white">Fecha creacion</th>' +
-            '<th style="color:white">Fecha pagó</th>' +
-            '<th style="color:white">Estado</th>' +
-            '<th style="color:white">Valor total servicios</th>' +
-            '<th style="color:white">Acciónes</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody id="lista_ventas_cot_body">' +
-            '</tbody>' +
-            '</table>';
+                '<thead>' +
+                '<tr style="background-color: #214761;">' +
+                '<th style="color:white">Tipo de Documento</th>' +
+                '<th style="color:white">No. Documento</th>' +
+                '<th style="color:white">Nombre Completo paciente</th>' +
+                '<th style="color:white">Medio de pago</th>' +
+                '<th style="color:white">Código</th>' +
+                '<th style="color:white">Factura Athenea</th>' +
+                '<th style="color:white">Fecha creacion</th>' +
+                '<th style="color:white">Fecha pagó</th>' +
+                '<th style="color:white">Estado</th>' +
+                '<th style="color:white">Valor total servicios</th>' +
+                '<th style="color:white">Acciónes</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody id="lista_ventas_cot_body">' +
+                '</tbody>' +
+                '</table>';
 
         $("#tabla_factur").html(tabla);
 
@@ -55,8 +55,8 @@ function VerListaFacturacion() {
                     if (ventas.estado == 1) {
                         estado = "Por pagar";
                         botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
-                            '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
-                            '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
+                                '<input type="button" id="btnConfirmarPago" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
+                                '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
                     } else if (ventas.estado == 2) {
 
                         if (ventas.turno_facturacion == "permite_turno") {
@@ -68,7 +68,11 @@ function VerListaFacturacion() {
                         estado = "Pagado";
                         if (ventas.medio_pago == "Presencial con Tarjeta de Credito") {
                             botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
-                                '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
+                                    '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
+                        } else if (ventas.medio_pago == "Transferencia Bancaria") {
+
+                            botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
+                                    '<input type="button" data-toggle="modal" data-target="#modalTransferenciaBancaria" onclick="InformacionDocVenta(' + ventas.id_venta + ')"  value="Ingresar soporte" class="btn btn-sm btn-warning">' + boton_turno;
                         } else {
                             botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' + boton_turno;
 
@@ -127,7 +131,7 @@ function CambiarEstadoVenta(estado, id) {
             type: 'POST',
             url: "../controladores/FacturacionController.php",
             beforeSend: function () {
-                $('#ModalCargando').modal({ backdrop: 'static', keyboard: false });
+                $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
             },
             data: {
                 tipo: 2,
@@ -172,7 +176,7 @@ function Cambiartd(idventa) {
                 if (ventas.estado == 1) {
                     estado = "Por pagar";
                     botones = '<input type="button" onclick="CambiarEstadoVenta(2,' + ventas.id_venta + ')" value="Confirmar pago" class="btn btn-sm btn-success" />' +
-                        '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
+                            '<input type="button" onclick="CambiarEstadoVenta(3,' + ventas.id_venta + ')" value="Cancelar pago" class="btn btn-sm btn-danger" />';
                 } else if (ventas.estado == 2) {
                     estado = "Pagado";
                     if (ventas.turno_facturacion == "permite_turno") {
@@ -184,7 +188,7 @@ function Cambiartd(idventa) {
                     estado = "Pagado";
                     if (ventas.medio_pago == "Presencial con Tarjeta de Credito") {
                         botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' +
-                            '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
+                                '<input type="button" data-toggle="modal" data-target="#myNoFactura" onclick="NoFactura(' + ventas.id_venta + ')" value="Ingresar NºFactura" class="btn btn-sm btn-warning">' + boton_turno;
                     } else {
                         botones = '<input type="button" data-toggle="modal" data-target="#myModalResultados" onclick="VerDetalleFacturacion(' + ventas.id_venta + ')" value="Ver detalle" class="btn btn-sm btn-primary">' + boton_turno;
 
@@ -249,42 +253,42 @@ function VerDetalleFacturacion(id_venta) {
 
 
     var html = '<table class="table table-striped">' +
-        '<thead>' +
-        '<tr>' +
-        '<th scope="col" colpsan="2">Informacion general de la venta</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tbody>' +
-        '<tr><td>Tipo de documento</td><td>' + info_factura.tipo_doc + '</td></tr>' +
-        '<tr><td># Documento</td><td>' + info_factura.documento + '</td></tr>' +
-        '<tr><td>Nombre paciente</td><td>' + info_factura.cliente + '</td></tr>' +
-        '<tr><td>Fecha generacion solicitud</td><td>' + info_factura.fecha_creacion + '</td></tr>' +
-        '<tr><td>Medio de pago</td><td>' + info_factura.medio_pago + '</td></tr>' +
-        '<tr><td>Fecha de pago</td><td>' + info_factura.fecha_pago + '</td></tr>' +
-        '<tr><td>Valor total servicios</td><td>' + info_factura.total_venta + '</td></tr>' +
-        '<tr><td>Observaciones</td><td>' + info_factura.observacion + '</td></tr>' +
-        '</tbody>' +
-        '</table>' +
-        '<table class="table table-striped">' +
-        '<thead>' +
-        '<tr>' +
-        '<th scope="col" colpsan="3">Examenes</th>' +
-        '</tr>' +
-        '<tr>' +
-        '<th scope="col">Codigo examen</th>' +
-        '<th scope="col">Examen</th>' +
-        '<th scope="col">Valor</th>' +
-        '<th scope="col" id="soloParaChequeos">Detalle</th>' +
-        '</tr>' +
-        '</thead><tbody>';
+            '<thead>' +
+            '<tr>' +
+            '<th scope="col" colpsan="2">Informacion general de la venta</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody>' +
+            '<tr><td>Tipo de documento</td><td>' + info_factura.tipo_doc + '</td></tr>' +
+            '<tr><td># Documento</td><td>' + info_factura.documento + '</td></tr>' +
+            '<tr><td>Nombre paciente</td><td>' + info_factura.cliente + '</td></tr>' +
+            '<tr><td>Fecha generacion solicitud</td><td>' + info_factura.fecha_creacion + '</td></tr>' +
+            '<tr><td>Medio de pago</td><td>' + info_factura.medio_pago + '</td></tr>' +
+            '<tr><td>Fecha de pago</td><td>' + info_factura.fecha_pago + '</td></tr>' +
+            '<tr><td>Valor total servicios</td><td>' + info_factura.total_venta + '</td></tr>' +
+            '<tr><td>Observaciones</td><td>' + info_factura.observacion + '</td></tr>' +
+            '</tbody>' +
+            '</table>' +
+            '<table class="table table-striped">' +
+            '<thead>' +
+            '<tr>' +
+            '<th scope="col" colpsan="3">Examenes</th>' +
+            '</tr>' +
+            '<tr>' +
+            '<th scope="col">Codigo examen</th>' +
+            '<th scope="col">Examen</th>' +
+            '<th scope="col">Valor</th>' +
+            '<th scope="col" id="soloParaChequeos">Detalle</th>' +
+            '</tr>' +
+            '</thead><tbody>';
     $.each(retorno.items, function (i, items) {
         html += '<tr>' +
-            '<td>' + items.codigo_examen + '</td>' +
-            '<td id="chequeoType">' + items.nombre_examen + '</td>' +
-            '<td>' + items.valor + '</td>' +
-            '<td><input type="button" class="btn btn-info" onclick="mostrarDetalleChqueo()" id="btnVerDetalleChequeo" value="Detalle" /></td>' +
-            '</tr>' +
-            '<tr id="filaTabla"></tr>';
+                '<td>' + items.codigo_examen + '</td>' +
+                '<td id="chequeoType">' + items.nombre_examen + '</td>' +
+                '<td>' + items.valor + '</td>' +
+                '<td><input type="button" class="btn btn-info" onclick="mostrarDetalleChqueo()" id="btnVerDetalleChequeo" value="Detalle" /></td>' +
+                '</tr>' +
+                '<tr id="filaTabla"></tr>';
     });
 
     html += '</tbody></table>';
@@ -318,7 +322,7 @@ function mostrarDetalleChqueo() {
             let filaTabla = document.querySelector("#filaTabla");
             let retorno = JSON.parse(retu);
             retorno.forEach(element => {
-                
+
                 filaTabla.innerHTML += `<span style="font-size:11px">${element.nombre}</span><br>`
             });
         }
@@ -342,25 +346,25 @@ function NoFactura(id_venta) {
     });
 
     var html = '<div class="panel panel-default">' +
-        '<div class="panel-heading">' +
-        '<h3 class="panel-title">' +
-        '<img src="images/lista.png" alt=""/>' +
-        '<b>Modificar Numero factura</b></h3>' +
-        '</div>' +
-        '<div class="panel-body">' +
-        '<div class="row">' +
-        '<div class="col-md-12" style="color:red; margin; margin-bottom: 5px;">' +
-        'Numero de actual factura actual: ' + retorno + '' +
-        '</div>' +
-        '<div class="col-md-6">' +
-        '<input id="no_factura" name="no_factura" placeholder="Ingrese el numero de la factura" name="" type="text" class="form-control">' +
-        '</div>' +
-        '<div class="col-md-6">' +
-        '<input type="button" onclick="ModificarNoFacturacion(' + id_venta + ')" value="Modificar NºFactura" class="btn btn-primary">' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '</div>';
+            '<div class="panel-heading">' +
+            '<h3 class="panel-title">' +
+            '<img src="images/lista.png" alt=""/>' +
+            '<b>Modificar Numero factura</b></h3>' +
+            '</div>' +
+            '<div class="panel-body">' +
+            '<div class="row">' +
+            '<div class="col-md-12" style="color:red; margin; margin-bottom: 5px;">' +
+            'Numero de actual factura actual: ' + retorno + '' +
+            '</div>' +
+            '<div class="col-md-6">' +
+            '<input id="no_factura" name="no_factura" placeholder="Ingrese el numero de la factura" name="" type="text" class="form-control">' +
+            '</div>' +
+            '<div class="col-md-6">' +
+            '<input type="button" onclick="ModificarNoFacturacion(' + id_venta + ')" value="Modificar NºFactura" class="btn btn-primary">' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
 
     $("#cuerpo_modal_factura").html(html);
 
@@ -457,21 +461,21 @@ function ListaArqueo() {
     $("#lista_arqueo_cot_body").html("");
 
     var tabla = '<center><input type="button" onclick="DescargarArqueo()" value="Descargar pdf arqueo" class="btn btn-danger"> <input type="button" onclick="descargarExcelArqueo()" value="Descargar Excel" class="btn btn-success"></center><table id="lista_arqueo_cot" class="table table-bordered">' +
-        '<thead>' +
-        '<tr style="background-color: #214761;">' +
-        '<th style="color:white">Fecha venta</th>' +
-        '<th style="color:white">Factura</th>' +
-        '<th style="color:white">Medio pago</th>' +
-        '<th style="color:white">Asesor</th>' +
-        '<th style="color:white">Documento asesor</th>' +
-        '<th style="color:white">Paciente</th>' +
-        '<th style="color:white">Documento paciente</th>' +
-        '<th style="color:white">Total venta</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tbody id="lista_arqueo_cot_body">' +
-        '</tbody>' +
-        '</table>';
+            '<thead>' +
+            '<tr style="background-color: #214761;">' +
+            '<th style="color:white">Fecha venta</th>' +
+            '<th style="color:white">Factura</th>' +
+            '<th style="color:white">Medio pago</th>' +
+            '<th style="color:white">Asesor</th>' +
+            '<th style="color:white">Documento asesor</th>' +
+            '<th style="color:white">Paciente</th>' +
+            '<th style="color:white">Documento paciente</th>' +
+            '<th style="color:white">Total venta</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody id="lista_arqueo_cot_body">' +
+            '</tbody>' +
+            '</table>';
 
     $("#tabla_arqueo").html(tabla);
 
@@ -609,12 +613,12 @@ function CotAddItem(tipo_item) {
             var numero = formatNumber(parseInt(datos.precio));
             var td_on = '"' + td_id + '"';
             var html = "<tr id='" + td_id + "'>" +
-                "<td>" + codigo + "<input type='hidden' value='" + datos.id + "' name='item_id[]' id='item_id[]' />" +
-                "<input type='hidden' value='" + tipo_item + "' name='tipo_item[]' id='tipo_item[]' ></td>" +
-                "<td>" + datos.nombre + "</td>" +
-                "<td>" + numero + "</td>" +
-                "<td><input type='button' onclick='ElimItem(" + td_on + "," + datos.precio + ")' class='btn btn-danger' value='Eliminar item'></td>" +
-                "</tr>";
+                    "<td>" + codigo + "<input type='hidden' value='" + datos.id + "' name='item_id[]' id='item_id[]' />" +
+                    "<input type='hidden' value='" + tipo_item + "' name='tipo_item[]' id='tipo_item[]' ></td>" +
+                    "<td>" + datos.nombre + "</td>" +
+                    "<td>" + numero + "</td>" +
+                    "<td><input type='button' onclick='ElimItem(" + td_on + "," + datos.precio + ")' class='btn btn-danger' value='Eliminar item'></td>" +
+                    "</tr>";
 
             $("#cuerpo_cotizacion").append(html);
 
@@ -683,7 +687,7 @@ function AlmacenarPreCotizacion() {
                 type: "POST",
                 url: "../controladores/FacturacionController.php",
                 beforeSend: function () {
-                    $('#ModalCargando').modal({ backdrop: 'static', keyboard: false });
+                    $('#ModalCargando').modal({backdrop: 'static', keyboard: false});
                 },
                 dataType: 'json',
                 data: {
@@ -725,21 +729,21 @@ function VerPrecotizaciones() {
 
     $("#lista_precot_cot_body").html("");
     var tabla = '<table id="lista_precot_cot" class="table table-bordered">' +
-        '<thead>' +
-        '<tr style="background-color: #214761;">' +
-        '<th style="color:white">#Cotización</th>' +
-        '<th style="color:white">Nombre cliente</th>' +
-        '<th style="color:white">Correo</th>' +
-        '<th style="color:white">Telefono</th>' +
-        '<th style="color:white">Asesor(a)</th>' +
-        '<th style="color:white">Fecha cotización</th>' +
-        '<th style="color:white">Valor</th>' +
-        '<th style="color:white">Ver detalle</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tbody id="lista_precot_cot_body">' +
-        '</tbody>' +
-        '</table>';
+            '<thead>' +
+            '<tr style="background-color: #214761;">' +
+            '<th style="color:white">#Cotización</th>' +
+            '<th style="color:white">Nombre cliente</th>' +
+            '<th style="color:white">Correo</th>' +
+            '<th style="color:white">Telefono</th>' +
+            '<th style="color:white">Asesor(a)</th>' +
+            '<th style="color:white">Fecha cotización</th>' +
+            '<th style="color:white">Valor</th>' +
+            '<th style="color:white">Ver detalle</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody id="lista_precot_cot_body">' +
+            '</tbody>' +
+            '</table>';
 
     $("#tabla_coti").html(tabla);
 
@@ -779,15 +783,15 @@ function VerPrecotizaciones() {
         responsive: true
     });
 
-    
+
 
 }
 
 /*=======================================================================================================================
-    btnVerdetallesTotales() Con esta funcion podremos ver la lista total de los examenes que conforman la cotizacion
-==================================================================================================================*====*/
+ btnVerdetallesTotales() Con esta funcion podremos ver la lista total de los examenes que conforman la cotizacion
+ ==================================================================================================================*====*/
 
-function btnVerdetallesTotales() { 
+function btnVerdetallesTotales() {
     sessionStorage.setItem('nameClient', this.event.target.parentNode.parentNode.childNodes[1].innerText);
     sessionStorage.setItem('nameUser', this.event.target.parentNode.parentNode.childNodes[4].innerText);
     sessionStorage.setItem('priceCot', this.event.target.parentNode.parentNode.childNodes[6].innerText);
@@ -887,8 +891,8 @@ function btnVerdetallesTotales() {
     });
 }
 /*=========================================================================================================================================================
-    discriminacionChequeos(); Con esta funcion vamos a realizar la muestra de todos los examenes que hacen parte del chequeo actual
-=========================================================================================================================================================*/
+ discriminacionChequeos(); Con esta funcion vamos a realizar la muestra de todos los examenes que hacen parte del chequeo actual
+ =========================================================================================================================================================*/
 
 function discriminacionChequeos(idChequeo) {
     let btnVerDiscriminacionChequeo = this.event.target;
@@ -930,9 +934,9 @@ function discriminacionChequeos(idChequeo) {
 
 
 /*===============================================================================================================================
-    formatNumber(); Nos permite generar un formato de separador de miles para todos los valores posible numericos en el archivo
-===============================================================================================================================*/
-function formatNumber(num) { 
+ formatNumber(); Nos permite generar un formato de separador de miles para todos los valores posible numericos en el archivo
+ ===============================================================================================================================*/
+function formatNumber(num) {
     if (!num || num == 'NaN')
         return '-';
     if (num == 'Infinity')
@@ -949,4 +953,92 @@ function formatNumber(num) {
     for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + '.' + num.substring(num.length - (4 * i + 3));
     return (((sign) ? '' : '-') + num);
+}
+
+function AdicionarComprobante(id_venta, operacion) {
+
+    var confirma = confirm("Esta seguro de realizar esta accion");
+
+    if (confirma) {
+
+        var archivo = document.getElementById("archivo");
+        var extensiones_permitidas = new Array(".jpg", ".pdf", ".png", ".jpeg", ".psd", ".tiff ");
+        var formElement = document.getElementById("frm_forms");
+        var data = new FormData(formElement);
+        var file;
+        var errores = 0;
+        var extension_archivo = (archivo.value.substring(archivo.value.lastIndexOf("."))).toLowerCase();
+        var permitida_archivo = false;
+        for (var i = 0; i < extensiones_permitidas.length; i++) {
+            if (extensiones_permitidas[i] == extension_archivo) {
+                permitida_archivo = true;
+                break;
+            }
+        }
+//alert("archi_" + nombres_archivos[j]);
+
+        if (permitida_archivo) {
+            file = archivo.files[0];
+            data.append('archivo', file);
+        } else {
+            errores = errores + 1;
+        }
+
+        if (errores == 0) {
+
+            data.append('tipo', 22);
+            data.append('id_venta', id_venta);
+            data.append('operacion', operacion);
+            var url = "../controladores/FacturacionController.php"
+            var retorno;
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: false,
+                data: data,
+                async: false,
+                processData: false,
+                cache: false
+            }).done(function (retu) {
+                console.log(retu);
+                retorno = retu;
+            });
+            if (retorno == 1) {
+                alert("se cargo correctamente el documento");
+                InformacionDocVenta(id_venta);
+            } else {
+                alert("ocurrio un error al tratar de almacenar el documento");
+            }
+
+        } else {
+            alert("Comprueba la extensión de los archivos a subir. \nSólo se pueden subir archivos con extensiones: " + extensiones_permitidas.join() + "\n O revise que todos los documentos esten anexos ");
+        }
+    }
+}
+
+function InformacionDocVenta(id_venta) {
+    var retorno;
+    $.ajax({
+        type: 'POST',
+        url: "../controladores/FacturacionController.php",
+        dataType: 'json',
+        async: false,
+        data: {
+            tipo: 23,
+            id_venta: id_venta
+        },
+        success: function (retu) {
+            retorno = retu;
+        }
+    });
+
+    if (retorno == "sin_documento") {
+        $("#btn_documento").attr('onclick', "AdicionarComprobante(" + id_venta + ",1)");
+        $("#documento_tran").attr('style', "display:none");
+    } else {
+        $("#documento_tran").removeAttr('style');
+        $("#btn_documento").attr('onclick', "AdicionarComprobante(" + id_venta + ",2)");
+        $("#documento_tran").html('<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>' +
+                ' <a href="documentos/' + retorno.nombre_documento + '" target="_blank">Esta venta ya tiene documento asociado, click para ver documento</a>');
+    }
 }
